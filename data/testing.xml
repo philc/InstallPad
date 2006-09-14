@@ -1,0 +1,54 @@
+<ApplicationList>
+  <InstallationOptions>
+    <SilentInstall />
+    <SimultaneousDownloads>3</SimultaneousDownloads>
+  </InstallationOptions>
+  <Application>
+    <Name>Azureus</Name>
+    <FileUrl>http://easynews.dl.sourceforge.net/sourceforge/azureus/Azureus_2.4.0.2_Win32.setup.exe1</FileUrl>
+    <Options>
+      <SilentInstall />
+      <InstallerArguments>&lt;&gt;^ -/s</InstallerArguments>
+    </Options>
+  </Application>
+  <Application>
+    <Name>FireFox</Name>
+    <FileUrl>http://download.mozilla.org/?product=firefox-1.5.0.2&amp;os=win&amp;lang=en-US</FileUrl>
+  </Application>
+  <Application>
+    <Name>FireFox FTP</Name>
+    <FileUrl>ftp://ftp.mozilla.org/pub/mozilla.org/firefox/releases/1.5/win32/en-US/Firefox%20Setup%201.5.exe</FileUrl>
+  </Application>
+  <Application>
+    <Name>Gaim</Name>
+    <FileUrl>http://superb-west.dl.sourceforge.net/sourceforge/gaim/gaim-1.2.0.exe</FileUrl>
+    <Options>
+      <DownloadLatestVersion />
+      <InstallerArguments>-s /S</InstallerArguments>
+      <PostInstallScript>c:\Notepad.exe</PostInstallScript>
+    </Options>
+  </Application>
+  <Application>
+    <Name>Inkscape</Name>
+    <FileUrl>http://umn.dl.sourceforge.net/sourceforge/inkscape/Inkscape-0.43-2.win32.exe</FileUrl>
+  </Application>
+  <Application>
+    <Name>iTunes</Name>
+    <FileUrl>http://appldnld.apple.com.edgesuite.net/content.info.apple.com/iTunes6/Win/061-2454.20060511.tzsawd/iTunesSetup.exe</FileUrl>
+  </Application>
+  <Application>
+    <Name>Synergy</Name>
+    <FileUrl>http://superb-west.dl.sourceforge.net/sourceforge/synergy2/SynergyInstaller-1.2.0.exe</FileUrl>
+    <Options>
+      <DownloadLatestVersion />
+    </Options>
+  </Application>
+  <Application>
+    <Name>404</Name>
+    <FileUrl>http://philisoft.com/404</FileUrl>
+  </Application>
+  <Application>
+    <Name>Returns and HTML page</Name>
+    <FileUrl>http://winscp.net/download/winscp381setup.exe</FileUrl>
+  </Application>
+</ApplicationList>

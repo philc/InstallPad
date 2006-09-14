@@ -1,0 +1,8 @@
+
+--This line, and those below, will be ignored--
+
+M    ApplicationDialog.Designer.cs
+M    data/opensource.xml
+M    data/applist.xml
+M    ApplicationDialog.cs
+M    InstallPad.ContextMenu.cs

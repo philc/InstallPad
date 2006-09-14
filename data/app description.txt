@@ -1,0 +1,9 @@
+Installpad is a simple open source installation facilitator. Its purpose is to ease the proces of finding, downloading, and installing the latest versions of tons of applications when setting up a Windows machine. It does this by automatically batch downloading the specified versions of applications, as defined in an XML application list, and then launching each application's installer. Expressions are supported in the XML application list, allowing the software to parse what the version is in a URL, which is used to check for and find the latest version of the software. Installations can be parameterized for silent installs (for applications installers that support it), and post-install tasks can be performed.
+
+This strategy saves time when setting up a machine for daily use or development purposes, doesn't require advanced imaging tools and discs, and doesn't require application authors to change or conform in any way.
+
+
+
+
+slug-
+Installpad helps facilitate downloading and installing the latest version of any application on Windows, all from one place. It doesn't require any advanced imaging tools or discs, and doesn't require any changes in application installers. It can find the latest versions of the applications you specify, download them, and launch their installers.

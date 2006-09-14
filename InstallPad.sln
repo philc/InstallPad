@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InstallPad", "InstallPad.csproj", "{068B9775-74A1-49D7-97F6-D3E0B7C6A1C8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InstallPadTest", "InstallPadTest\InstallPadTest.csproj", "{794C53F1-27A6-46E9-ACE6-248CBE8848C6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{068B9775-74A1-49D7-97F6-D3E0B7C6A1C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{068B9775-74A1-49D7-97F6-D3E0B7C6A1C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{068B9775-74A1-49D7-97F6-D3E0B7C6A1C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{068B9775-74A1-49D7-97F6-D3E0B7C6A1C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{794C53F1-27A6-46E9-ACE6-248CBE8848C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{794C53F1-27A6-46E9-ACE6-248CBE8848C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{794C53F1-27A6-46E9-ACE6-248CBE8848C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{794C53F1-27A6-46E9-ACE6-248CBE8848C6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
