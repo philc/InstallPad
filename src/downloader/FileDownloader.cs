@@ -1,5 +1,8 @@
-// Originally written by John Batte
-// Modifications, API changes and cleanups by Phil Crosby
+/*
+ * Originally written by John Batte
+ * Modifications, API changes and cleanups by Phil Crosby
+ * http://codeproject.com/cs/library/downloader.asp
+ */
 
 using System;
 using System.IO;
@@ -7,6 +10,9 @@ using System.Net;
 
 namespace CodeProject.Downloader
 {
+    /// <summary>
+    /// Downloads and resumes files from HTTP, FTP, and File URLS
+    /// </summary>
     public class FileDownloader
     {
         // Block size to download is by default 1K.
@@ -41,7 +47,7 @@ namespace CodeProject.Downloader
         private IWebProxy proxy = null;
 
         /// <summary>
-        /// This proxy will be used for http and ftp requests.
+        /// Proxy to be used for http and ftp requests.
         /// </summary>
         public IWebProxy Proxy
         {
@@ -195,7 +201,11 @@ namespace CodeProject.Downloader
         }
     }
 
-    public class DownloadData
+    /// <summary>
+    /// Constains the connection to the file server and other statistics about a file
+    /// that's downloading.
+    /// </summary>
+    class DownloadData
     {
         private WebResponse response;
 
@@ -354,9 +364,6 @@ namespace CodeProject.Downloader
             if (request is HttpWebRequest)
             {
                 request.Credentials = CredentialCache.DefaultCredentials;
-                //WebProxy proxy = new WebProxy();
-                //proxy.Address = new Uri("http://123yesman123.com");
-                //request.Proxy = proxy;
                 Uri result = request.Proxy.GetProxy(new Uri("http://www.google.com"));
                 int a = 5;
             }
@@ -426,7 +433,7 @@ namespace CodeProject.Downloader
     }
 
     /// <summary>
-    /// Progress of a file that's downloading.
+    /// Progress of a downloading file.
     /// </summary>
     public class DownloadEventArgs : EventArgs
     {

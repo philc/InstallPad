@@ -62,7 +62,7 @@
       <DependentUpon>AppListErrorDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="src\ControlList.cs">
-      <SubType>UserControl</SubType>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="src\ControlList.Designer.cs">
       <DependentUpon>ControlList.cs</DependentUpon>
