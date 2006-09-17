@@ -1,8 +1,0 @@
-bin\Debug\InstallPadTest.dll
-bin\Debug\InstallPadTest.pdb
-bin\Debug\InstallPad.exe
-bin\Debug\nunit.core.dll
-bin\Debug\InstallPad.pdb
-obj\Debug\ResolveAssemblyReference.cache
-obj\Debug\InstallPadTest.dll
-obj\Debug\InstallPadTest.pdb
