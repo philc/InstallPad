@@ -16,6 +16,10 @@ using System.Xml;
 
 namespace InstallPad
 {
+    /// <summary>
+    /// An application item describes an application - its name, filename, and download options.
+    /// It can also attempt to check and find the latest version of the application online.
+    /// </summary>
     public class ApplicationItem
     {
         string name;

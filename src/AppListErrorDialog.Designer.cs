@@ -83,7 +83,7 @@ namespace InstallPad
 
         #endregion
 
-        public System.Windows.Forms.RichTextBox errorsText;
+        private System.Windows.Forms.RichTextBox errorsText;
         private System.Windows.Forms.Button button1;
 
     }

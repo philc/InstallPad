@@ -23,14 +23,19 @@ using System.IO;
 
 namespace InstallPad
 {
+    /// <summary>
+    /// Main InstallPad GUI.
+    /// </summary>
     public partial class InstallPad : Form
     {
         private ControlList controlList;
 
         // Initialize and use if we encounter errors while loading the applist file.
         private AppListErrorDialog errorDialog;
+
+        // Show error in the center of the application if we can't find an applist.xml
         private AppListErrorBox appListErrorBox;
-        
+
         OpenFileDialog openDialog = new OpenFileDialog();
 
         // When the user clicks "Install All," every time something finishes downloading or
@@ -50,8 +55,8 @@ namespace InstallPad
         /// </summary>
         private void LoadConfigFile()
         {
-            TextReader reader=null;
-            Rectangle formBounds = Rectangle.Empty ;
+            TextReader reader = null;
+            Rectangle formBounds = Rectangle.Empty;
             try
             {
                 string configFolder = Path.GetDirectoryName(InstallPadApp.ConfigFilePath);
@@ -64,11 +69,11 @@ namespace InstallPad
             }
             catch (NotSupportedException)
             {
-                // Error in the configure file. Just ignore it.
+                // Error in the configure file. Ignore
             }
             catch (IOException)
             {
-                // No config file found. Ignore.
+                // No config file found. Ignore
             }
             finally
             {
@@ -93,33 +98,35 @@ namespace InstallPad
                     formBounds.Location = new Point(formBounds.X - (formBounds.Right - workingArea.Right),
                         formBounds.Location.Y);
                 if (formBounds.Bottom > workingArea.Bottom)
-                    formBounds.Location = new Point(formBounds.X, 
+                    formBounds.Location = new Point(formBounds.X,
                         formBounds.Y - (formBounds.Bottom - workingArea.Bottom));
 
                 this.Bounds = formBounds;
             }
-                
+
         }
 
         private void InstallPad_Load(object sender, EventArgs e)
         {
             this.KeyUp += new KeyEventHandler(InstallPad_KeyUp);
             this.FormClosing += new FormClosingEventHandler(InstallPad_FormClosing);
-            this.controlList=new ControlList();
+            this.controlList = new ControlList();
             controlList.Width = this.controlListPanel.Width;
-            controlList.Height= this.controlListPanel.Height;
+            controlList.Height = this.controlListPanel.Height;
             this.controlListPanel.Controls.Add(controlList);
-            
+
             controlList.Anchor = AnchorStyles.Right | AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Bottom;
 
             this.controlList.Resize += new EventHandler(controlList_Resize);
 
-            BuildContextMenuEntries();            
+            BuildContextMenuEntries();
 
             // Restore form position etc. from the installpad config file
             LoadConfigFile();
+
             // Should be externalized
             string errorMessage = "Error creating temporary folder for downloaded files: ";
+
             // Try and create the temp folder that we'll be downloading to.
             // If we aren't successful, maybe log a warning            
             if (!Directory.Exists(InstallPadApp.InstallFolder))
@@ -131,8 +138,8 @@ namespace InstallPad
                 catch (System.IO.IOException)
                 {
                     //Debug.WriteLine("Error creating install folder: " + ex);
-                    MessageBox.Show(this,errorMessage + InstallPadApp.InstallFolder,
-                        "Error creating install folder",MessageBoxButtons.OK,
+                    MessageBox.Show(this, errorMessage + InstallPadApp.InstallFolder,
+                        "Error creating install folder", MessageBoxButtons.OK,
                         MessageBoxIcon.Error);
                     // Should log this TODO
                 }
@@ -169,7 +176,7 @@ namespace InstallPad
                     {
                         MessageBox.Show(this,
                             "Can't open a new application list while an program is downloading or installing.",
-                            "Can't open new application list",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                            "Can't open new application list", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
                 }
@@ -188,7 +195,6 @@ namespace InstallPad
 
                 LoadApplicationList(openDialog.FileName);
             }
-
         }
 
         /// <summary>
@@ -197,7 +203,7 @@ namespace InstallPad
         /// <param name="sender"></param>
         /// <param name="e"></param>
         void openLink_Click(object sender, EventArgs e)
-        {            
+        {
             DialogResult result = openDialog.ShowDialog();
             if (result == DialogResult.OK)
             {
@@ -205,9 +211,10 @@ namespace InstallPad
                 LoadApplicationList(openDialog.FileName);
             }
         }
-        private void LoadApplicationList(string filename){
+        private void LoadApplicationList(string filename)
+        {
             ApplicationList appList;
-            
+
             try
             {
                 appList = ApplicationList.FromFile(filename);
@@ -216,7 +223,7 @@ namespace InstallPad
             catch (FileNotFoundException)
             {
                 ShowErrorBox("Could not find an application file. Ensure that there is an " +
-                "applist.xml file in the same folder as InstallPad.exe",null);
+                "applist.xml file in the same folder as InstallPad.exe", null);
                 return;
             }
             catch (XmlException ex)
@@ -238,7 +245,8 @@ namespace InstallPad
             {
                 errorDialog = new AppListErrorDialog();
                 foreach (string error in appList.Errors)
-                    errorDialog.errorsText.AppendText(error + System.Environment.NewLine);
+                    errorDialog.ErrorText += error + System.Environment.NewLine;
+
                 // Show the "encountered errors" label
                 this.errorLabel.Show();
                 this.errorLink.Show();
@@ -252,7 +260,7 @@ namespace InstallPad
 
             // Add the controls all at once.
             this.controlList.AddAll(toAdd);
-            
+
         }
         /// <summary>
         /// Creates a list item and listens to its events
@@ -276,7 +284,7 @@ namespace InstallPad
 
             if (details == null)
                 appListErrorBox.DetailsVisible = false;
-            else 
+            else
                 appListErrorBox.DetailsText = details;
 
             UpdateErrorBoxLocation();
@@ -291,9 +299,9 @@ namespace InstallPad
         {
             // Serialize form position to file, so we can restore it later.
             RectangleConverter convert = new RectangleConverter();
-            string formPosition = convert.ConvertToString(this.Bounds);           
+            string formPosition = convert.ConvertToString(this.Bounds);
 
-            TextWriter writer=null;
+            TextWriter writer = null;
             try
             {
                 string configFolder = Path.GetDirectoryName(InstallPadApp.ConfigFilePath);
@@ -301,12 +309,12 @@ namespace InstallPad
                     Directory.CreateDirectory(configFolder);
                 writer = new StreamWriter(InstallPadApp.ConfigFilePath);
                 writer.Write(formPosition);
-                
-            }finally{
-                if (writer!=null)
+            }
+            finally
+            {
+                if (writer != null)
                     writer.Close();
             }
-
         }
 
         /// <summary>
@@ -315,7 +323,7 @@ namespace InstallPad
         private void SetControlsEnabled(bool enabled)
         {
             this.buttonInstall.Enabled = enabled;
-            
+
             if (enabled)
                 this.controlList.ContextMenu = this.menu;
             else
@@ -324,9 +332,13 @@ namespace InstallPad
 
         void controlList_Resize(object sender, EventArgs e)
         {
-            if (this.appListErrorBox!=null)
+            if (appListErrorBox.Visible)
                 UpdateErrorBoxLocation();
         }
+        /// <summary>
+        /// Moves the error box to the center of the application. Should be used
+        /// whenever the error box is visible and the application gets resized
+        /// </summary>
         void UpdateErrorBoxLocation()
         {
             int x = (this.controlList.Width - this.appListErrorBox.Width) / 2;
@@ -338,8 +350,6 @@ namespace InstallPad
         void HandleFinishedInstalling(object sender, EventArgs e)
         {
             currentlyInstalling--;
-            //if (this.installingAll)
-                //InstallNextItem();
         }
 
         void HandleFinishedDownloading(object sender, EventArgs e)
@@ -347,7 +357,9 @@ namespace InstallPad
             if (this.installingAll)
                 DownloadNextOnList();
         }
-        // TODO this isn't being used right now..
+
+        // TODO this isn't being used right now.. we're not monitoring the installation. AppListItems
+        // start installing their exe as soon as it downloads.
         private void InstallNextItem()
         {
             if (currentlyInstalling > 0)
@@ -374,7 +386,7 @@ namespace InstallPad
                 else
                     currentlyDownloading++;
             }
-            if (currentlyInstalling==0 && currentlyDownloading==0)
+            if (currentlyInstalling == 0 && currentlyDownloading == 0)
                 // We're done downloading and installing everything.
                 this.installingAll = false;
         }
@@ -382,16 +394,12 @@ namespace InstallPad
         private void buttonInstall_Click(object sender, EventArgs e)
         {
             this.installingAll = true;
-            
-            DownloadNextOnList();
 
-            // Install any apps that've already downloaded, but are just sitting there waiting to be installed
-            //InstallNextItem();
-            
+            DownloadNextOnList();
         }
 
         private void DownloadNextOnList()
-        {            
+        {
             int currentlyDownloading = 0;
             foreach (ApplicationListItem item in this.controlList.ListItems)
             {
@@ -408,8 +416,6 @@ namespace InstallPad
                         item.Download();
                     }
                 }
-                //}else if (item.DownloadComplete && item.Checked && !item.Installing)
-                    //item.Download
                 if (currentlyDownloading >= InstallPadApp.AppList.InstallationOptions.SimultaneousDownloads)
                     return;
             }
@@ -421,5 +427,5 @@ namespace InstallPad
         }
     }
 
-  
+
 }

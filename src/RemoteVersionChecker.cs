@@ -17,13 +17,16 @@ using System.Text;
 
 namespace InstallPad
 {
+    /// <summary>
+    /// Takes a URL and tries to find the newest version of the software
+    /// that exists online.
+    /// </summary>
     class RemoteVersionChecker
     {
         private List<int> versions = new List<int>();
 
         private List<int> foundVersion = null;        
         private List<int> startingVersion = null;
-
 
         public List<int> LatestVersion(string url, List<int> startingVersion){
             if (startingVersion == null)
@@ -33,13 +36,27 @@ namespace InstallPad
             List<int> currentVersion = new List<int>(new int[startingVersion.Count]);
             return CheckVersion(url, currentVersion, 0);
         }
+        /// <summary>
+        /// Fills in a URL like "synergy-{0}.{1}" using the integers in the version array.
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="version"></param>
+        /// <returns></returns>
         public static string FillInUrl(string url, List<int> version)
         {
             for (int i = 0; i < version.Count; i++)
                 url = url.Replace("{" + i + "}", version[i].ToString());
             return url;
+
         }
 
+        /// <summary>
+        /// Returns true if currentVersion and otherVersion are the same up to the ordinal (index_
+        /// </summary>
+        /// <param name="currentVersion"></param>
+        /// <param name="otherVersion"></param>
+        /// <param name="ordinal"></param>
+        /// <returns></returns>
         private static bool SameVersionSoFar(List<int> currentVersion, List<int> otherVersion, int ordinal)
         {
             // Explain why ordinal has to be >0
@@ -53,18 +70,28 @@ namespace InstallPad
 
         }
 
+        /// <summary>
+        /// Recursively check versions along the ordinal position into currentVersion. So if
+        /// current version is a list of 3 items (e.g. 5.2.1) and ordinal is 1, CheckVersion
+        /// will build a version string by incrementing the second number, and setting
+        /// the version numbers after it (1) to 0. It will then check online for that version
+        /// until the web server returns 404. It recursively checks the next ordinal (the third number)
+        /// until it also is not found.
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="currentVersion"></param>
+        /// <param name="ordinal">Index into the currentVersion array</param>
+        /// <returns>The latest version that was successfully found online</returns>
         private List<int> CheckVersion(string url, List<int> currentVersion, int ordinal)
         {
-            //1.2.8.exe
-            //string url = "http://superb-west.dl.sourceforge.net/sourceforge/synergy2/SynergyInstaller-";
             bool found = false;
 
             if (ordinal > currentVersion.Count-1)
                 return currentVersion;
+
             // If our version looks like the one given to us from the file, start at that
             // version number, not one lower! E.g. if starting version is 3.2.2, start with 3, not 0.
             int ordinalValue = SameVersionSoFar(currentVersion, startingVersion,ordinal) ? startingVersion[ordinal] : 0;            
-            //int ordinalValue = 0;
 
             // This should be whatever the original ordinal was +3 or 4...
             int maximumCheck = 9;
@@ -138,7 +165,6 @@ namespace InstallPad
                 // If we got an HTML redirect, that means we didn't get a binary from the server.
                 if (response.ContentType == "text/html")
                     result=false;
-
             }
             catch (WebException)
             {

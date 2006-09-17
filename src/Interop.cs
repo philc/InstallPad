@@ -14,11 +14,20 @@ using System.Collections.Generic;
 using System.Text;
 using System.Runtime.InteropServices;
 using System.Drawing;
+
 namespace InstallPad
 {
+    /// <summary>
+    /// Native win32 functions
+    /// </summary>
     class Interop
     {
-        // Converts points on screen to points relative to the upper left corner of the client window, hWnd
+        /// <summary>
+        /// Converts points on screen to points relative to the upper left corner of the client window, hWnd
+        /// </summary>
+        /// <param name="hWnd"></param>
+        /// <param name="lpPoint"></param>
+        /// <returns></returns>
         [DllImport("user32.dll")]
         private static extern bool ScreenToClient(IntPtr hWnd, ref Interop.POINT lpPoint);
 
@@ -32,7 +41,7 @@ namespace InstallPad
         }
 
         [StructLayout(LayoutKind.Sequential)]
-        public struct POINT
+        private struct POINT
         {
             public int X;
             public int Y;

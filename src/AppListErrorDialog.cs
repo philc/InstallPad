@@ -19,11 +19,26 @@ using System.Windows.Forms;
 
 namespace InstallPad
 {
+    /// <summary>
+    /// A small dialog used to show many errors at once, in a list view.
+    /// Used to report multiple problems parsing applist xml files
+    /// </summary>
     public partial class AppListErrorDialog : Form
     {
         public AppListErrorDialog()
         {
             InitializeComponent();
+        }
+        public string ErrorText
+        {
+            set
+            {
+                this.errorsText.Text = value;
+            }
+            get
+            {
+                return this.errorsText.Text;
+            }
         }
     }
 }

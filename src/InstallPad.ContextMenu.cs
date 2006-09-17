@@ -16,7 +16,7 @@ using System.Windows.Forms;
 
 namespace InstallPad
 {
-    partial class InstallPad
+    public partial class InstallPad
     {
         private MenuItem addNewItem;
         private MenuItem removeItem;

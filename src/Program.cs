@@ -15,6 +15,9 @@ using System.Windows.Forms;
 
 namespace InstallPad
 {
+    /// <summary>
+    /// InstallPad main application
+    /// </summary>
     static class Program
     {
         /// <summary>
@@ -32,7 +35,8 @@ namespace InstallPad
         {
             if (args.Length <= 0)
                 return;
-            // Process command line arguments
+
+            // /f switch is a pointer to an applist.xml
             if (args[0] == "/f" && args.Length > 1)
             {
                 InstallPadApp.AppListFile = args[1];

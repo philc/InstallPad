@@ -15,6 +15,9 @@ using System.Text;
 
 namespace InstallPad
 {
+    /// <summary>
+    /// Application wide resources
+    /// </summary>
     class InstallPadApp
     {
         public static string AppListFile = "applist.xml";
@@ -34,8 +37,7 @@ namespace InstallPad
             get
             {
                 return System.IO.Path.Combine(Environment.GetEnvironmentVariable("TEMP"), @"InstallPad\");
-                //return System.IO.Path.Combine(System.IO.Path.GetTempPath(), @"\InstallPad\");
-                
+                //return System.IO.Path.Combine(System.IO.Path.GetTempPath(), @"\InstallPad\");                
             }
         }
         public static string ConfigFilePath

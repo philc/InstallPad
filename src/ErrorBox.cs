@@ -19,6 +19,9 @@ using System.Windows.Forms;
 
 namespace InstallPad
 {
+    /// <summary>
+    /// Box to show errors, used in ApplicationListItems
+    /// </summary>
     public partial class ErrorBox : UserControl
     {
         public ErrorBox()
@@ -40,6 +43,9 @@ namespace InstallPad
 
         private string detailsCaption;
 
+        /// <summary>
+        /// Caption to put on the "show details" link
+        /// </summary>
         public string DetailsCaption
         {
             get { return detailsCaption; }
@@ -50,22 +56,29 @@ namespace InstallPad
 
         private string detailsText;
 
+        /// <summary>
+        /// Details of the error message
+        /// </summary>
         public string DetailsText
         {
             get { return detailsText; }
             set { detailsText = value; }
         }
-
         private bool detailsOnSameLine = false;
 
+        /// <summary>
+        /// Determines whether the details should be displayed on the same 
+        /// line of text as the error message
+        /// </summary>
         public bool DetailsOnSameLine
         {
             get { return detailsOnSameLine; }
-            set { detailsOnSameLine = value;
-            BuildControlLayout(); 
+            set
+            {
+                detailsOnSameLine = value;
+                BuildControlLayout();
+            }
         }
-        }
-
 
         private void BuildControlLayout()
         {
@@ -84,14 +97,8 @@ namespace InstallPad
         private void moreInfoLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             AppListErrorDialog d = new AppListErrorDialog();
-            d.errorsText.Text = DetailsText;
+            d.ErrorText = DetailsText;
             d.ShowDialog();
-            /*MessageBox.Show("InstallPad downloads and installs applications defined in " +
-            "an applist.xml file, which must be in the same folder as InstallPad.exe. " +
-            "If your application list file is named differently, you can specify its name " +
-            "via the /f command line switch.",
-            "Error loading applist.xml", MessageBoxButtons.OK);*/
-
         }
     }
 }

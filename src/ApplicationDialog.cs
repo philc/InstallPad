@@ -19,9 +19,16 @@ using System.Windows.Forms;
 
 namespace InstallPad
 {
+    /// <summary>
+    /// Used to add and edit application list items
+    /// </summary>
     public partial class ApplicationDialog : Form
     {
         private ApplicationItem applicationItem = null;
+        
+        // Whether the underlying application item has been saved
+        private bool saved;
+
         /// <summary>
         /// Initialize with an application item
         /// </summary>
@@ -79,13 +86,6 @@ namespace InstallPad
                 return false;
             return true;
         }
-        private bool ContainsCharacter(string[] characters, string str)
-        {
-            foreach (string s in characters)
-                if (appNameBox.Text.Contains(s))
-                    return true;
-            return false;
-        }
 
         /// <summary>
         /// If the form is valid, this will enable the save button.
@@ -98,9 +98,7 @@ namespace InstallPad
                 saveButton.Enabled = false;
         }
 
-
-
-        #region properties
+        #region Properties
         public string Title
         {
             get
@@ -185,7 +183,7 @@ namespace InstallPad
         {
             this.saved = true;
 
-            // If this was used to edit an item, update the application item
+            // If this wasn't used to edit an ApplicationItem, create a new one
             if (this.applicationItem == null)
                 this.applicationItem = new ApplicationItem();
 
@@ -201,26 +199,10 @@ namespace InstallPad
             item.Options.SilentInstall = this.SilentInstall;
             item.Options.InstallerArguments = this.InstallerArguments;
         }
-        private bool saved;
 
         public bool Saved
         {
             get { return saved; }
         }
-        
-        /*public ApplicationItemOptions GetOptions
-        {
-            get
-            {
-                ApplicationItemOptions options = new ApplicationItemOptions();
-                options.DownloadLatestVersion = this.latestVersionCheck.Checked;
-                options.SilentInstall = this.silentInstallCheck.Checked;
-                options.InstallerArguments = this.installerArgumentsBox.Text;
-                return options;
-            }
-        }*/
-        
-
-
     }
 }

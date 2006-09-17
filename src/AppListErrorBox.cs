@@ -19,6 +19,10 @@ using System.Windows.Forms;
 
 namespace InstallPad
 {
+    /// <summary>
+    /// This is a little box that sits in the middle of the main InstallPad
+    /// window that can show errors (like missing applist) prominently
+    /// </summary>
     public partial class AppListErrorBox : UserControl
     {
         public AppListErrorBox()
@@ -26,30 +30,11 @@ namespace InstallPad
             InitializeComponent();
         }
 
-        private string errorCaption;
-
-        public string ErrorCaption
-        {
-            get { return errorCaption; }
-            set
-            {
-                errorCaption = value;
-                //BuildControlLayout();
-            }
-        }
-
-        private string detailsCaption;
-
-        public string DetailsCaption
-        {
-            get { return detailsCaption; }
-            set { detailsCaption = value;
-            //BuildControlLayout();
-        }
-        }
-
         private string detailsText;
 
+        /// <summary>
+        /// More detailed error information avaialable via a "Details..." link
+        /// </summary>
         public string DetailsText
         {
             get { return detailsText; }
@@ -59,6 +44,9 @@ namespace InstallPad
             }
         }
 
+        /// <summary>
+        /// Show a "Details..." link that pops up a dialog containing DetailsText
+        /// </summary>
         public bool DetailsVisible
         {
             set
@@ -67,35 +55,11 @@ namespace InstallPad
             }
         }
 
-        private bool detailsOnSameLine = false;
-
-        public bool DetailsOnSameLine
-        {
-            get { return detailsOnSameLine; }
-            set { detailsOnSameLine = value;
-            //BuildControlLayout(); 
-        }
-        }
-
-
-        /*private void BuildControlLayout()
-        {
-            this.errorLabel.Text = errorCaption;
-            this.detailsLink.Text = detailsCaption;
-            if (DetailsOnSameLine)
-            {
-                this.detailsLink.Left = this.errorLabel.Right;
-                this.detailsLink.Top = this.errorLabel.Top;
-            }
-
-        }*/
-
         private void detailsLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             AppListErrorDialog d = new AppListErrorDialog();
-            d.errorsText.Text = DetailsText;
+            d.ErrorText = DetailsText;
             d.ShowDialog();
-
         }
 
         
