@@ -1,3 +1,14 @@
+//
+// Author: Phil Crosby
+//
+
+// Copyright (C) 2006 Phil Crosby
+// Permission is granted to use, copy, modify, and merge copies
+// of this software for personal use. Permission is not granted
+// to use or change this software for commercial use or commercial
+// redistribution. Permission is not granted to use, modify or 
+// distribute this software internally within a corporation.
+
 namespace InstallPad
 {
     partial class ErrorBox
