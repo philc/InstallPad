@@ -1,0 +1,5 @@
+Refer to the coding guidelines at http://www.installpad.com/contribute.php before contributing patches.
+
+Please not that all code contributed to the InstallPad code base must have its copyright assigned to the InstallPad owner. This is so we can manage the license that InstallPad uses without violating the copyrights of any contributors. All accepted patches will be integrated into the public source and will always available to everyone who uses InstallPad.
+
+By submitting a patch you assign the copyright of your code to the InstallPad owner.
