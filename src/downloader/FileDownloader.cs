@@ -365,7 +365,6 @@ namespace CodeProject.Downloader
             {
                 request.Credentials = CredentialCache.DefaultCredentials;
                 Uri result = request.Proxy.GetProxy(new Uri("http://www.google.com"));
-                int a = 5;
             }
 
             if (this.proxy != null)

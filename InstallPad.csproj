@@ -55,6 +55,9 @@
       <DependentUpon>ApplicationListItem.cs</DependentUpon>
     </Compile>
     <Compile Include="src\ApplicationList.cs" />
+    <Compile Include="src\ApplicationListItem.Installation.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="src\AppListErrorDialog.cs">
       <SubType>Form</SubType>
     </Compile>

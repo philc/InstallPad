@@ -332,7 +332,7 @@ namespace InstallPad
 
         void controlList_Resize(object sender, EventArgs e)
         {
-            if (appListErrorBox.Visible)
+            if (appListErrorBox!=null && appListErrorBox.Visible)
                 UpdateErrorBoxLocation();
         }
         /// <summary>
