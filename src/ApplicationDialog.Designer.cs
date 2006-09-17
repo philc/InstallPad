@@ -1,3 +1,14 @@
+//
+// Author: Phil Crosby
+//
+
+// Copyright (C) 2006 Phil Crosby
+// Permission is granted to use, copy, modify, and merge copies
+// of this software for personal use. Permission is not granted
+// to use or change this software for commercial use or commercial
+// redistribution. Permission is not granted to use, modify or 
+// distribute this software internally within a corporation.
+
 namespace InstallPad
 {
     partial class ApplicationDialog
@@ -48,7 +59,7 @@ namespace InstallPad
             // saveButton
             // 
             this.saveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.saveButton.Location = new System.Drawing.Point(126, 229);
+            this.saveButton.Location = new System.Drawing.Point(131, 229);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(75, 23);
             this.saveButton.TabIndex = 8;
@@ -60,7 +71,7 @@ namespace InstallPad
             // 
             this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(207, 229);
+            this.cancelButton.Location = new System.Drawing.Point(212, 229);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 9;
@@ -74,7 +85,7 @@ namespace InstallPad
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.appNameBox.Location = new System.Drawing.Point(16, 31);
             this.appNameBox.Name = "appNameBox";
-            this.appNameBox.Size = new System.Drawing.Size(266, 20);
+            this.appNameBox.Size = new System.Drawing.Size(271, 20);
             this.appNameBox.TabIndex = 1;
             // 
             // appNameLabel
@@ -101,7 +112,7 @@ namespace InstallPad
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.downloadUrlBox.Location = new System.Drawing.Point(16, 77);
             this.downloadUrlBox.Name = "downloadUrlBox";
-            this.downloadUrlBox.Size = new System.Drawing.Size(266, 20);
+            this.downloadUrlBox.Size = new System.Drawing.Size(271, 20);
             this.downloadUrlBox.TabIndex = 3;
             // 
             // groupBox1
@@ -115,7 +126,7 @@ namespace InstallPad
             this.groupBox1.Controls.Add(this.latestVersionCheck);
             this.groupBox1.Location = new System.Drawing.Point(16, 113);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(266, 110);
+            this.groupBox1.Size = new System.Drawing.Size(271, 110);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Options";
@@ -135,7 +146,7 @@ namespace InstallPad
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.installerArgumentsBox.Location = new System.Drawing.Point(8, 78);
             this.installerArgumentsBox.Name = "installerArgumentsBox";
-            this.installerArgumentsBox.Size = new System.Drawing.Size(252, 20);
+            this.installerArgumentsBox.Size = new System.Drawing.Size(257, 20);
             this.installerArgumentsBox.TabIndex = 7;
             // 
             // silentInstallCheck
@@ -169,7 +180,7 @@ namespace InstallPad
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelButton;
-            this.ClientSize = new System.Drawing.Size(294, 264);
+            this.ClientSize = new System.Drawing.Size(299, 264);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.downloadUrlBox);
             this.Controls.Add(this.downloadUrlLabel);
