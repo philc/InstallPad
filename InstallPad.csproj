@@ -6,7 +6,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{068B9775-74A1-49D7-97F6-D3E0B7C6A1C8}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <AppDesignerFolder>src\Properties</AppDesignerFolder>
     <RootNamespace>InstallPad</RootNamespace>
     <AssemblyName>InstallPad</AssemblyName>
     <ApplicationIcon>icon.ico</ApplicationIcon>
@@ -40,106 +40,106 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationDialog.cs">
+    <Compile Include="src\ApplicationDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ApplicationDialog.Designer.cs">
+    <Compile Include="src\ApplicationDialog.Designer.cs">
       <DependentUpon>ApplicationDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="ApplicationItem.cs" />
-    <Compile Include="ApplicationListItem.cs">
+    <Compile Include="src\ApplicationItem.cs" />
+    <Compile Include="src\ApplicationListItem.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ApplicationListItem.Designer.cs">
+    <Compile Include="src\ApplicationListItem.Designer.cs">
       <DependentUpon>ApplicationListItem.cs</DependentUpon>
     </Compile>
-    <Compile Include="ApplicationList.cs" />
-    <Compile Include="AppListErrorDialog.cs">
+    <Compile Include="src\ApplicationList.cs" />
+    <Compile Include="src\AppListErrorDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AppListErrorDialog.Designer.cs">
+    <Compile Include="src\AppListErrorDialog.Designer.cs">
       <DependentUpon>AppListErrorDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="ControlList.cs">
+    <Compile Include="src\ControlList.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ControlList.Designer.cs">
+    <Compile Include="src\ControlList.Designer.cs">
       <DependentUpon>ControlList.cs</DependentUpon>
     </Compile>
-    <Compile Include="AppListErrorBox.cs">
+    <Compile Include="src\AppListErrorBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="AppListErrorBox.Designer.cs">
+    <Compile Include="src\AppListErrorBox.Designer.cs">
       <DependentUpon>AppListErrorBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="downloader\FileDownloader.cs" />
-    <Compile Include="ErrorBox.cs">
+    <Compile Include="src\downloader\FileDownloader.cs" />
+    <Compile Include="src\ErrorBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ErrorBox.Designer.cs">
+    <Compile Include="src\ErrorBox.Designer.cs">
       <DependentUpon>ErrorBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="InstallPad.ContextMenu.cs">
+    <Compile Include="src\InstallPad.ContextMenu.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="InstallPad.cs">
+    <Compile Include="src\InstallPad.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="InstallPad.Designer.cs">
+    <Compile Include="src\InstallPad.Designer.cs">
       <DependentUpon>InstallPad.cs</DependentUpon>
     </Compile>
-    <Compile Include="InstallPadApp.cs" />
-    <Compile Include="Interop.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="ApplicationDialog.resx">
+    <Compile Include="src\InstallPadApp.cs" />
+    <Compile Include="src\Interop.cs" />
+    <Compile Include="src\Program.cs" />
+    <Compile Include="src\Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="src\ApplicationDialog.resx">
       <DependentUpon>ApplicationDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="ApplicationListItem.resx">
+    <EmbeddedResource Include="src\ApplicationListItem.resx">
       <SubType>Designer</SubType>
       <DependentUpon>ApplicationListItem.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AppListErrorDialog.resx">
+    <EmbeddedResource Include="src\AppListErrorDialog.resx">
       <SubType>Designer</SubType>
       <DependentUpon>AppListErrorDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ControlList.resx">
+    <EmbeddedResource Include="src\ControlList.resx">
       <SubType>Designer</SubType>
       <DependentUpon>ControlList.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AppListErrorBox.resx">
+    <EmbeddedResource Include="src\AppListErrorBox.resx">
       <DependentUpon>AppListErrorBox.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="ErrorBox.resx">
+    <EmbeddedResource Include="src\ErrorBox.resx">
       <SubType>Designer</SubType>
       <DependentUpon>ErrorBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="InstallPad.resx">
+    <EmbeddedResource Include="src\InstallPad.resx">
       <DependentUpon>InstallPad.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
+    <EmbeddedResource Include="src\Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
+    <Compile Include="src\Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="Properties\Settings.settings">
+    <None Include="src\Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Compile Include="Properties\Settings.Designer.cs">
+    <Compile Include="src\Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="RemoteVersionChecker.cs" />
+    <Compile Include="src\RemoteVersionChecker.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="data\program logo.jpg" />
