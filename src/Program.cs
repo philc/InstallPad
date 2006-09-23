@@ -27,10 +27,6 @@ namespace InstallPad
         [STAThread]
         static void Main(string[] args)
         {
-            
-            //View("hey.zip");
-            Zip.Instance.ExtractZip(
-            @"C:\test\anthem.zip", @"c:\test\");
             ProcessArguments(args);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
