@@ -29,7 +29,7 @@ namespace InstallPad
         Type fastZipType = null;
         object fastZipInstance;
 
-        private static Zip instance=null;
+        private static Zip instance = null;
 
         /// <summary>
         /// Singleton
@@ -87,10 +87,7 @@ namespace InstallPad
             using (Stream stream = Assembly.GetExecutingAssembly().
                 GetManifestResourceStream(assemblyResourceString))
             {
-                // get the length
                 int length = (int)stream.Length;
-
-                // set up the buffer
                 byte[] buffer = new byte[length];
 
                 // move the contents of the stream to the buffer
@@ -98,9 +95,6 @@ namespace InstallPad
 
                 // load the resource bytes into an assembly
                 a = Assembly.Load(buffer);
-
-                // get a specific type out of the assembly to use
-                fastZip = a.GetType("ICSharpCode.SharpZipLib.Zip.FastZip");
             }
             return a;
         }
