@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -65,7 +66,7 @@
       <DependentUpon>AppListErrorDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="src\ControlList.cs">
-      <SubType>UserControl</SubType>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="src\ControlList.Designer.cs">
       <DependentUpon>ControlList.cs</DependentUpon>
@@ -144,10 +145,14 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="src\RemoteVersionChecker.cs" />
+    <Compile Include="src\Zip.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="data\program logo.jpg" />
     <None Include="data\program logo border.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="lib\ICSharpCode.SharpZipLib.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

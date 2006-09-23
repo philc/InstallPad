@@ -12,7 +12,8 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-
+using System.IO;
+using System.Reflection;
 namespace InstallPad
 {
     /// <summary>
@@ -24,15 +25,21 @@ namespace InstallPad
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main(string [] args)
+        static void Main(string[] args)
         {
+            
+            //View("hey.zip");
+            Zip.Instance.ExtractZip(
+            @"C:\test\anthem.zip", @"c:\test\");
             ProcessArguments(args);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new InstallPad());
         }
+
         private static void ProcessArguments(string[] args)
         {
+
             if (args.Length <= 0)
                 return;
 
