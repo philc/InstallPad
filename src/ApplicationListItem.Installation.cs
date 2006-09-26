@@ -69,6 +69,23 @@ namespace InstallPad
             if (this.FinishedInstalling != null)
                 FinishedInstalling(this, new EventArgs());
         }
+        private void OnFinishedUnzipping(bool status)
+        {
+            this.Invoke(new EventHandler(delegate
+            {
+                if (status)
+                {
+                    this.installed = true;
+                    this.labelStatus.Text = "Install finished";
+                    RunPostInstallationScript();
+                }
+                else
+                    this.labelStatus.Text = "Downloaded";
+
+                MoveControlToTheLeftOf(labelStatus, this.Right);
+                SetInstalLinkText("Install");
+            }));
+        }
         #endregion
 
         private void RunPostInstallationScript()
@@ -151,10 +168,15 @@ namespace InstallPad
             Exception ex = null;
             try
             {
-                String downloadUrl = this.application.FindLatestUrl();
-                downloader.Download(downloadUrl, InstallPadApp.InstallFolder);
-            }
+                //String downloadUrl = this.application.FindLatestUrl();
+                //downloader.Download(downloadUrl, InstallPadApp.InstallFolder);
 
+                // process alternate download locations, build a download list ordered by best location
+                List<string> downloadUrlOrderedList = this.application.CreateOrderedUrlList();
+
+                // download from one of the sources
+                downloader.Download(downloadUrlOrderedList, InstallPadApp.InstallFolder);
+            }
             catch (System.IO.DirectoryNotFoundException e)
             {
                 ex = e;
@@ -193,7 +215,15 @@ namespace InstallPad
             }));
 
             // TODO: Should check to make sure the app is downloaded first.
-            ThreadPool.QueueUserWorkItem(new WaitCallback(this.AsyncInstall), null);
+
+            if (downloader.DownloadingTo.ToLower().EndsWith(".zip"))
+            {
+                ThreadPool.QueueUserWorkItem(new WaitCallback(this.AsyncZipInstall), null);
+            }
+            else
+            {
+                ThreadPool.QueueUserWorkItem(new WaitCallback(this.AsyncInstall), null);
+            }
         }
 
         private static string ArgumentsForSilentInstall(ApplicationItem application)
@@ -225,6 +255,37 @@ namespace InstallPad
                 // This will work for most installers - /S for nullsoft installers, and -s for InstallShield
                 return "/S -s";
         
+        }
+
+        private void AsyncZipInstall(object data)
+        {
+            this.installed = false;
+
+            bool status = true;
+            Exception ex = null;
+            try
+            {
+                Zip.Instance.ExtractZip(downloader.DownloadingTo, InstallPadApp.AppList.InstallationOptions.InstallationRoot);
+            }
+            catch (Exception e)
+            {
+                ex = e;
+            }
+            if (ex != null)
+            {
+                this.installProcess = null;
+                this.Invoke(new EventHandler(delegate
+                {
+                    // Show an error
+                    installErrorBox.DetailsText = String.Format("Couldn't unzip {0} : {1}",
+                        downloader.DownloadingTo, ex.Message);
+                    installErrorBox.Visible = true;
+                }));
+
+                status = false;
+            }
+            // We're done running the installer..
+            OnFinishedUnzipping(status);
         }
 
         /// <summary>

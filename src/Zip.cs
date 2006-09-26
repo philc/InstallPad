@@ -19,7 +19,7 @@ namespace InstallPad
     /// <summary>
     /// Zip utilities. Access through Zip.Instance
     /// </summary>
-    class Zip
+    public class Zip
     {
         // 
         private static string ASSEMBLY_RESOURCE_STRING = "InstallPad.lib.ICSharpCode.SharpZipLib.dll";

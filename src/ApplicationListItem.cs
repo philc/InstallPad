@@ -62,8 +62,6 @@ namespace InstallPad
 
         #endregion
 
-
-
         
         public ApplicationListItem()
         {

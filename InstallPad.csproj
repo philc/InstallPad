@@ -34,6 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
@@ -66,7 +67,7 @@
       <DependentUpon>AppListErrorDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="src\ControlList.cs">
-      <SubType>Component</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="src\ControlList.Designer.cs">
       <DependentUpon>ControlList.cs</DependentUpon>
@@ -148,6 +149,7 @@
     <Compile Include="src\Zip.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="InstallPad.exe.config" />
     <None Include="data\program logo.jpg" />
     <None Include="data\program logo border.jpg" />
   </ItemGroup>

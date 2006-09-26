@@ -42,6 +42,18 @@ namespace InstallPad
             this.DownloadLatestVersion = item.Options.DownloadLatestVersion;
             this.SilentInstall = item.Options.SilentInstall;
             this.InstallerArguments = item.Options.InstallerArguments;
+         
+            // set the installation root
+            this.InstallationRoot = item.Options.InstallationRoot;
+            // if no app specific installation root, default to applist.installationroot.
+            if (this.InstallationRoot.Length == 0)
+            {
+                this.InstallationRoot = InstallPadApp.AppList.InstallationOptions.InstallationRoot;
+                // but preferences overrides applist installation options!
+                if (InstallPadApp.Preferences.InstallationRoot != string.Empty)
+                    this.InstallationRoot = InstallPadApp.Preferences.InstallationRoot;
+            }
+
             Init();
         }
         public ApplicationDialog()
@@ -165,6 +177,17 @@ namespace InstallPad
                 this.installerArgumentsBox.Text = value;
             }
         }
+        public string InstallationRoot
+        {
+            get
+            {
+                return this.installationRootBox.Text;
+            }
+            set
+            {
+                this.installationRootBox.Text = value;
+            }
+        }
         public ApplicationItem ApplicationItem
         {
             get
@@ -198,6 +221,10 @@ namespace InstallPad
             item.Options.DownloadLatestVersion = this.DownloadLatestVersion;
             item.Options.SilentInstall = this.SilentInstall;
             item.Options.InstallerArguments = this.InstallerArguments;
+
+            // Setting InstallationRoot is disabled for now until the rules are decided.
+            // Could allow setting Options, but probably wouldn't want to allow setting
+            // AppList, and\or Preferences.  Might be confusing either way.
         }
 
         public bool Saved

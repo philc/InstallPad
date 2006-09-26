@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml;
 using System.Diagnostics;
+using System.ComponentModel;
 
 namespace InstallPad
 {
@@ -176,6 +177,21 @@ namespace InstallPad
             set { proxyOptions = value; }
         }
 
+        private string installationRoot = string.Empty;
+
+        public string InstallationRoot
+        {
+            get { return installationRoot; }
+            set { installationRoot = value; }
+        }
+
+        private string alternateDownloadLocation = string.Empty;
+
+        public string AlternateDownloadLocation
+        {
+            get { return alternateDownloadLocation; }
+            set { alternateDownloadLocation = value; }
+        }
 
         #region XML methods
         public static InstallationOptions FromXml(XmlReader reader, List<String> errors)
@@ -199,6 +215,16 @@ namespace InstallPad
                         else if (reader.Name == "SimultaneousDownloads")
                         {
                             options.SimultaneousDownloads = int.Parse(reader.ReadString());
+                            reader.ReadEndElement();
+                        }
+                        else if (reader.Name == "InstallationRoot")
+                        {
+                            options.InstallationRoot = reader.ReadString();
+                            reader.ReadEndElement();
+                        }
+                        else if (reader.Name == "AlternateDownloadLocation")
+                        {
+                            options.AlternateDownloadLocation = reader.ReadString();
                             reader.ReadEndElement();
                         }
                         else
@@ -225,8 +251,13 @@ namespace InstallPad
                 writer.WriteElementString("SilentInstall", "");
             if (this.proxyOptions != null)
                 this.proxyOptions.WriteXml(writer);
-            
+            if (this.installationRoot != string.Empty)
+                writer.WriteElementString("InstallationRoot", this.InstallationRoot);
+            if (this.alternateDownloadLocation != string.Empty)
+                writer.WriteElementString("AlternateDownloadLocation", this.AlternateDownloadLocation);
+
             writer.WriteElementString("SimultaneousDownloads", this.SimultaneousDownloads.ToString());
+
             writer.WriteEndElement();
         }
         #endregion

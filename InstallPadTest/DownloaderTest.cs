@@ -1,3 +1,14 @@
+//
+// Author: Phil Crosby
+//
+
+// Copyright (C) 2006 Phil Crosby
+// Permission is granted to use, copy, modify, and merge copies
+// of this software for personal use. Permission is not granted
+// to use or change this software for commercial use or commercial
+// redistribution. Permission is not granted to use, modify or 
+// distribute this software internally within a corporation.
+
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -30,6 +41,7 @@ namespace InstallPadTest
             fileSizes.Add("test3.txt", 1747);
 
             NonEmptyFile = "test2.txt";
+
             badUrls.Add("http://nonexistanthost123456.com/file");
             badUrls.Add("http://www.google.com/i-dont-exist");
             badUrls.Add("ftp://ftp.mozilla.org/pub/i-dont-exist");
@@ -72,6 +84,7 @@ namespace InstallPadTest
             info = new FileInfo(Path.GetFileName(new Uri(firefoxFtpUrl).ToString()));
             Assert.AreEqual(info.Length, 1024);            
         }
+
         [Test]
         public void DownloadFile()
         {
@@ -93,8 +106,43 @@ namespace InstallPadTest
                 Assert.IsTrue(InstallPadTest.VerifyExistenceAndSize(s, fileSizes[s]));
             }
         }
-        
 
+        [Test]
+        public void DownloadFileWithAlternate()
+        {
+            FileDownloader downloader = new FileDownloader();
+            string dataDirectory = "../../data/";
+            foreach (String s in fileSizes.Keys)
+            {
+                string fileUrl = "file:///" + Path.GetFullPath(dataDirectory + s);
+
+                List<string> urlList = new List<string>();
+
+                urlList.Add("file://somebadpath"+s);
+                urlList.Add(fileUrl);
+                urlList.Add("file://somebadpath"+s);
+
+                downloader.Download(urlList);
+
+                // Veryify file exists and is the correct size
+                Assert.IsTrue(InstallPadTest.VerifyExistenceAndSize(s, fileSizes[s]));
+            }
+            // Download them from a windows share
+            foreach (String s in fileSizes.Keys)
+            {
+                string fileUrl = "file:///" + sambaPath + s;
+
+                List<string> urlList = new List<string>();
+
+                urlList.Add("file://somebadpath"+s);
+                urlList.Add(fileUrl);
+                urlList.Add("file://somebadpath"+s);
+
+                downloader.Download(urlList);
+
+                Assert.IsTrue(InstallPadTest.VerifyExistenceAndSize(s, fileSizes[s]));
+            }
+        }
 
         FileDownloader downloadFtpTestDownloader;
 

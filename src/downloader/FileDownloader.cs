@@ -7,6 +7,7 @@
 using System;
 using System.IO;
 using System.Net;
+using System.Collections.Generic;
 
 namespace CodeProject.Downloader
 {
@@ -150,6 +151,38 @@ namespace CodeProject.Downloader
                     data.Close();
             }
         }
+
+        public void Download(List<string> urlList)
+        {
+            this.Download(urlList, "");
+        }
+
+        public void Download(List<string> urlList, string destFolder)
+        {
+            // validate input
+            if (urlList == null)
+            {
+                throw new ArgumentException("Url list not specified.");
+            }
+
+            if (urlList.Count == 0)
+            {
+                throw new ArgumentException("Url list empty.");
+            }
+
+            // try each url in the list.
+            // if one succeeds, we are done.
+            // if any fail, move to the next.
+            try
+            {
+                Download(urlList[0], destFolder);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         /// <summary>
         /// Download a file from the url asynchronously.
         /// </summary>

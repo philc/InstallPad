@@ -53,8 +53,8 @@ namespace InstallPad
             if (options.DownloadLatestVersion && this.version == null)
             {
                 // If original version is null, we couldn't aprse anything from the download URL
-                if (this.originalVersion!=null){
-                    
+                if (this.originalVersion!=null)
+                {   
                 versionString = checker.LatestVersion(this.parsedDownloadUrl, this.originalVersion);
                 this.downloadUrl = RemoteVersionChecker.FillInUrl(this.parsedDownloadUrl, versionString);
 
@@ -66,10 +66,24 @@ namespace InstallPad
             }
             
             return this.downloadUrl;
-
-
-
         }
+
+        public List<string> CreateOrderedUrlList()
+        {
+            List<string> urlList = new List<string>();
+
+            // first would be preferred alternate download location (because its probably local cache)
+
+            // next would be the specified url
+            urlList.Add(FindLatestUrl());
+
+            // next would be appitem alternate download location
+
+            // next would be applist alternate download location
+
+            return urlList;
+        }
+
         public string DownloadUrl
         {
             get { 
@@ -342,6 +356,16 @@ namespace InstallPad
                             options.PostInstallScript = reader.ReadString();
                             reader.ReadEndElement();
                         }
+                        else if (reader.Name == "InstallationRoot")
+                        {
+                            options.InstallationRoot = reader.ReadString();
+                            reader.ReadEndElement();
+                        }
+                        else if (reader.Name == "AlternateDownloadLocation")
+                        {
+                            options.AlternateDownloadLocation = reader.ReadString();
+                            reader.ReadEndElement();
+                        }
                         else if (reader.Name == "InstallerArguments")
                         {
                             options.InstallerArguments = reader.ReadString();
@@ -378,6 +402,10 @@ namespace InstallPad
                     writer.WriteElementString("InstallerArguments", this.InstallerArguments);
                 if (PostInstallScript != null && PostInstallScript.Length > 0)
                     writer.WriteElementString("PostInstallScript", this.PostInstallScript);
+                if (InstallationRoot.Length > 0)
+                    writer.WriteElementString("InstallationRoot", this.InstallationRoot);
+                if (AlternateDownloadLocation.Length > 0)
+                    writer.WriteElementString("AlternateDownloadLocation", this.AlternateDownloadLocation);
 
                 writer.WriteEndElement();
             }
@@ -413,6 +441,20 @@ namespace InstallPad
             set { postInstallScript = value; }
         }
 
+        private string installationRoot = string.Empty;
 
+        public string InstallationRoot
+        {
+            get { return installationRoot; }
+            set { installationRoot = value; }
+        }
+
+        private string alternateDownloadLocation = string.Empty;
+
+        public string AlternateDownloadLocation
+        {
+            get { return alternateDownloadLocation; }
+            set { alternateDownloadLocation = value; }
+        }
     }
 }
