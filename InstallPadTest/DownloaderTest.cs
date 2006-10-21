@@ -25,8 +25,11 @@ namespace InstallPadTest
         Dictionary<string, long> fileSizes = new Dictionary<string, long>();
         List<string> badUrls = new List<string>();
 
+        // Where the test files be
+        string dataDirectory = "../../data/";
+
         // Used for loading test files from a windows share
-        private static readonly string sambaPath = "//kagero/incoming/test/";
+        private static readonly string sambaPath = @"\\kagero\incoming\test\";
 
         private static readonly string firefoxFtpUrl = 
             "ftp://ftp.mozilla.org/pub/mozilla.org/firefox/releases/1.5/win32/en-US/Firefox%20Setup%201.5.exe";
@@ -89,7 +92,6 @@ namespace InstallPadTest
         public void DownloadFile()
         {
             FileDownloader downloader = new FileDownloader();
-            string dataDirectory = "../../data/";
             foreach (String s in fileSizes.Keys)
             {
                 string fileUrl = "file:///" + Path.GetFullPath(dataDirectory + s);
@@ -110,11 +112,13 @@ namespace InstallPadTest
         [Test]
         public void DownloadFileWithAlternate()
         {
+            // These download URLs need to be changed
             FileDownloader downloader = new FileDownloader();
-            string dataDirectory = "../../data/";
             foreach (String s in fileSizes.Keys)
             {
                 string fileUrl = "file:///" + Path.GetFullPath(dataDirectory + s);
+                string output = "file:///" + Path.GetFullPath(dataDirectory + "alternate");
+                Directory.CreateDirectory(output.Replace("file:///",""));
 
                 List<string> urlList = new List<string>();
 
@@ -122,10 +126,10 @@ namespace InstallPadTest
                 urlList.Add(fileUrl);
                 urlList.Add("file://somebadpath"+s);
 
-                downloader.Download(urlList);
+                downloader.Download(urlList,output);
 
                 // Veryify file exists and is the correct size
-                Assert.IsTrue(InstallPadTest.VerifyExistenceAndSize(s, fileSizes[s]));
+                Assert.IsTrue(InstallPadTest.VerifyExistenceAndSize(Path.Combine(output,s), fileSizes[s]));
             }
             // Download them from a windows share
             foreach (String s in fileSizes.Keys)

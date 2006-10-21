@@ -1,11 +1,8 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <StartProgram>
-    </StartProgram>
-    <StartWorkingDirectory>
-    </StartWorkingDirectory>
-    <StartArguments>
-    </StartArguments>
-    <StartAction>Project</StartAction>
+    <StartProgram>C:\Program Files\TestDriven.NET 2.0\ProcessInvocation.exe</StartProgram>
+    <StartWorkingDirectory>C:\Program Files\TestDriven.NET 2.0</StartWorkingDirectory>
+    <StartArguments>/assemblyName:"TestDriven.TestRunner.Server, Version=2.0.1711.0, Culture=neutral, PublicKeyToken=50ecb853f8c6b8d2" /xmlName:"M:TestDriven.TestRunner.DebugTestRunner.run(System.String,System.String,System.String,System.String,System.String)" /parameter:"tcp://127.0.0.1:1058/8650b30f-540a-433d-9dee-3637d34c69df" /parameter:"tcp://127.0.0.1:1058/af1b872c-d029-46a6-a120-ff20a26448b1" /parameter:"C:\Documents and Settings\reformist\Desktop\projects\installpad\InstallPadTest\bin\Debug\InstallPadTest.dll" /parameter:"M:InstallPadTest.DownloaderTest.DownloadFileWithAlternate" /parameter</StartArguments>
+    <StartAction>Program</StartAction>
   </PropertyGroup>
 </Project>

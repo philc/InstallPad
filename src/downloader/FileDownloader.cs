@@ -88,7 +88,16 @@ namespace CodeProject.Downloader
                 data = DownloadData.Create(url, destFolder, this.proxy);
                 // Find out the name of the file that the web server gave us.
                 string destFileName = Path.GetFileName(data.Response.ResponseUri.ToString());
-                this.downloadingTo = Path.GetFullPath(Path.Combine(destFolder, destFileName));
+
+                
+                // The place we're downloading to (not from) must not be a URI,
+                // because Path and File don't handle them...
+                destFolder = destFolder.Replace("file:///", "").Replace("file://", "");
+                this.downloadingTo = Path.Combine(destFolder, destFileName);
+                
+                // TODO cleanup
+                //if (! destFolder.StartsWith("file://"))
+                    //this.downloadingTo=Path.GetFullPath(this.downloadingTo);
 
                 // Create the file on disk here, so even if we don't receive any data of the file
                 // it's still on disk. This allows us to download 0-byte files.
@@ -152,11 +161,18 @@ namespace CodeProject.Downloader
             }
         }
 
+        /// <summary>
+        /// Download a file from a list or URLs. If downloading from one of the URLs fails,
+        /// another URL is tried.
+        /// </summary>
         public void Download(List<string> urlList)
         {
             this.Download(urlList, "");
         }
-
+        /// <summary>
+        /// Download a file from a list or URLs. If downloading from one of the URLs fails,
+        /// another URL is tried.
+        /// </summary>
         public void Download(List<string> urlList, string destFolder)
         {
             // validate input
@@ -173,14 +189,24 @@ namespace CodeProject.Downloader
             // try each url in the list.
             // if one succeeds, we are done.
             // if any fail, move to the next.
-            try
+            Exception ex=null;
+            foreach (string s in urlList)
             {
-                Download(urlList[0], destFolder);
+                ex=null;
+                try
+                {
+                    Download(s, destFolder);
+                }
+                catch (Exception e)
+                {
+                    ex = e;
+                }
+                // If we got through that without an exception, we found a good url
+                if (ex == null)
+                    break;
             }
-            catch(Exception ex)
-            {
+            if (ex != null)
                 throw ex;
-            }
         }
 
         /// <summary>

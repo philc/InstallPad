@@ -21,7 +21,7 @@ namespace InstallPad
     /// </summary>
     public class Zip
     {
-        // 
+        
         private static string ASSEMBLY_RESOURCE_STRING = "InstallPad.lib.ICSharpCode.SharpZipLib.dll";
 
         // Reflected types
@@ -55,6 +55,10 @@ namespace InstallPad
 
         public void ExtractZip(string zipFile, string extractTo)
         {
+            // There is a bug in the underlying zip implementation. It can't unzip a zip that has a 
+            // 0 length file (like an empty text file) in it
+            // http://community.sharpdevelop.net/forums/thread/11539.aspx
+
             // Signature of what we're calling
             /*
              * public void ExtractZip(
@@ -62,6 +66,10 @@ namespace InstallPad
              * string targetDirectory,
              * string fileFilter)
              */
+
+            // URI formats are not supported, e.g. you can't pass in file:///
+            // if we get a file:/// url, just strip it out.
+            zipFile = zipFile.Replace("file:///", "").Replace("file://","");
 
             try
             {
@@ -71,7 +79,9 @@ namespace InstallPad
             }
             catch (Exception e)
             {
-                // do a swtich statement on the inner exception, to handle e.g. file not found
+                throw e;
+                // TODO do a swtich statement on the inner exception, to handle e.g. file not found
+                // and throw that exception
             }
         }
 
@@ -83,7 +93,6 @@ namespace InstallPad
         private static Assembly LoadAssemblyFromResource(string assemblyResourceString)
         {
             Assembly a;
-            Type fastZip;
             using (Stream stream = Assembly.GetExecutingAssembly().
                 GetManifestResourceStream(assemblyResourceString))
             {
