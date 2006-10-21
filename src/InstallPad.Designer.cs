@@ -52,11 +52,11 @@ namespace InstallPad
             // buttonInstall
             // 
             this.buttonInstall.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonInstall.Location = new System.Drawing.Point(401, 405);
+            this.buttonInstall.Location = new System.Drawing.Point(331, 405);
             this.buttonInstall.Name = "buttonInstall";
-            this.buttonInstall.Size = new System.Drawing.Size(75, 23);
+            this.buttonInstall.Size = new System.Drawing.Size(89, 23);
             this.buttonInstall.TabIndex = 0;
-            this.buttonInstall.Text = "&Install All";
+            this.buttonInstall.Text = "&Install Checked";
             this.buttonInstall.UseVisualStyleBackColor = true;
             this.buttonInstall.Click += new System.EventHandler(this.buttonInstall_Click);
             // 
@@ -69,7 +69,7 @@ namespace InstallPad
             this.controlListPanel.Location = new System.Drawing.Point(0, 75);
             this.controlListPanel.Margin = new System.Windows.Forms.Padding(0);
             this.controlListPanel.Name = "controlListPanel";
-            this.controlListPanel.Size = new System.Drawing.Size(483, 317);
+            this.controlListPanel.Size = new System.Drawing.Size(428, 317);
             this.controlListPanel.TabIndex = 1;
             // 
             // logoBox
@@ -81,7 +81,7 @@ namespace InstallPad
             this.logoBox.Image = global::InstallPad.Properties.Resources.logo;
             this.logoBox.Location = new System.Drawing.Point(-1, 0);
             this.logoBox.Name = "logoBox";
-            this.logoBox.Size = new System.Drawing.Size(484, 75);
+            this.logoBox.Size = new System.Drawing.Size(429, 75);
             this.logoBox.TabIndex = 3;
             this.logoBox.TabStop = false;
             // 
@@ -89,6 +89,7 @@ namespace InstallPad
             // 
             this.errorLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.errorLabel.AutoSize = true;
+            this.errorLabel.BackColor = System.Drawing.Color.Transparent;
             this.errorLabel.Location = new System.Drawing.Point(12, 418);
             this.errorLabel.Name = "errorLabel";
             this.errorLabel.Size = new System.Drawing.Size(262, 13);
@@ -100,7 +101,8 @@ namespace InstallPad
             // 
             this.errorLink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.errorLink.AutoSize = true;
-            this.errorLink.Location = new System.Drawing.Point(280, 418);
+            this.errorLink.BackColor = System.Drawing.Color.Transparent;
+            this.errorLink.Location = new System.Drawing.Point(272, 418);
             this.errorLink.Name = "errorLink";
             this.errorLink.Size = new System.Drawing.Size(59, 13);
             this.errorLink.TabIndex = 9;
@@ -125,7 +127,7 @@ namespace InstallPad
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(482, 440);
+            this.ClientSize = new System.Drawing.Size(427, 440);
             this.Controls.Add(this.openAppList);
             this.Controls.Add(this.errorLabel);
             this.Controls.Add(this.errorLink);
@@ -134,7 +136,7 @@ namespace InstallPad
             this.Controls.Add(this.controlListPanel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
-            this.MinimumSize = new System.Drawing.Size(364, 275);
+            this.MinimumSize = new System.Drawing.Size(435, 275);
             this.Name = "InstallPad";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

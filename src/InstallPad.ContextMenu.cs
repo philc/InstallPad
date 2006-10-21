@@ -59,6 +59,7 @@ namespace InstallPad
         {
             // Figure out which control is selected and visually highlight it
             Control c = controlList.ControlAtAbsolutePosition(Cursor.Position);
+            controlList.Unhighlight(controlList.HighlightedEntry);
             if (c != null && c is ApplicationListItem)
             {
                 // Enable edit and remove buttons

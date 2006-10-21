@@ -60,6 +60,7 @@ namespace InstallPad
         }
         #endregion
 
+        public event MouseEventHandler  ListItemClicked;
         public ControlList()
         {
             InitializeComponent();
@@ -111,8 +112,14 @@ namespace InstallPad
             UpdateTableHeight();
         }
 
+        private void OnListItemClicked(object sender, MouseEventArgs e)
+        {
+            if (ListItemClicked != null)
+                ListItemClicked(sender, e);
+        }
+
         /// <summary>
-        /// Find a control at the given screen position. In absolute coordinates.
+        /// Find a control at the given screen position, in absolute coordinates.
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
@@ -291,7 +298,8 @@ namespace InstallPad
                 ShiftRowsDown(position);
             }
 
-            this.tableLayout.Controls.Add(control, 0, position);            
+            this.tableLayout.Controls.Add(control, 0, position);
+            control.MouseClick += new MouseEventHandler(OnListItemClicked);
         }        
 
         void control_VisibleChanged(object sender, EventArgs e)

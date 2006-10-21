@@ -113,6 +113,7 @@ namespace InstallPad
             this.KeyUp += new KeyEventHandler(InstallPad_KeyUp);
             this.FormClosing += new FormClosingEventHandler(InstallPad_FormClosing);
             this.controlList = new ControlList();
+            this.controlList.ListItemClicked += new MouseEventHandler(controlList_ListItemClicked);
             controlList.Width = this.controlListPanel.Width;
             controlList.Height = this.controlListPanel.Height;
             this.controlListPanel.Controls.Add(controlList);
@@ -164,30 +165,60 @@ namespace InstallPad
             LoadApplicationList(InstallPadApp.AppListFile);
         }
 
+        /// <summary>
+        /// When they click on a list item, check it.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void controlList_ListItemClicked(object sender, MouseEventArgs e)
+        {
+            
+            // Only interpret left clicks. Right clicks are for opening context menus
+            if (e.Button != MouseButtons.Left)
+                return;
+            ApplicationListItem item = (ApplicationListItem)sender;
+            Console.WriteLine("clicked");
+            Console.WriteLine(item.Checked);
+            item.Checked = !item.Checked;            
+            
+            // Highlight the item we clicked on
+            controlList.Unhighlight(controlList.HighlightedEntry);
+            controlList.Highlight((Control)sender);
+        }
+
+        /// <summary>
+        /// If the "O" key is hit, open the dialog to choose an applist.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void InstallPad_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyValue == 'O' && e.Control)
             {
                 // Do something
-                e.Handled = true;
-
-                // Don't open a new list if something is downloading or installing
-                foreach (ApplicationListItem item in this.controlList.ListItems)
-                {
-                    if (item.Downloading || item.Installing)
-                    {
-                        MessageBox.Show(this,
-                            "Can't open a new application list while an program is downloading or installing.",
-                            "Can't open new application list", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                }
+                e.Handled = true;                
                 ShowAppListOpenDialog();
             }
         }
 
+        /// <summary>
+        /// Show an open dialog that lets the user load a new application list.
+        /// Loads the application list after a valid selection.
+        /// </summary>
         private void ShowAppListOpenDialog()
         {
+            // Don't open a new list if something is downloading or installing
+            foreach (ApplicationListItem item in this.controlList.ListItems)
+            {
+                if (item.Downloading || item.Installing)
+                {
+                    MessageBox.Show(this,
+                        "Can't open a new application list while an program is downloading or installing.",
+                        "Can't open new application list", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+
             DialogResult result = openDialog.ShowDialog();
             if (result == DialogResult.OK)
             {

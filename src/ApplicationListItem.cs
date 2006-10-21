@@ -58,6 +58,7 @@ namespace InstallPad
         public bool Checked
         {
             get { return this.checkboxEnabled.Checked; }
+            set { this.checkboxEnabled.Checked = value; }
         }
 
         #endregion
