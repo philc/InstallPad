@@ -39,7 +39,7 @@ namespace InstallPad
             }
         }
         /// <summary>
-        /// IF the user has requested that we find the latest version of the software,
+        /// If the user has requested that we find the latest version of the software,
         /// this will return the regular expression of the software's URL filled
         /// in with the latest software, if possible.
         /// </summary>
@@ -147,6 +147,7 @@ namespace InstallPad
                 }
                 if (i < 0)
                     break;
+
                 // After finding the int, if our next character isn't a delimeter we should
                 // exit if we have two version numbers; otherwise, keep searching through the string.
                 if (!IsDelimeterCharacter(downloadUrl[i]))
@@ -371,6 +372,18 @@ namespace InstallPad
                             options.InstallerArguments = reader.ReadString();
                             reader.ReadEndElement();
                         }
+                        else if (reader.Name == "Checked")
+                        {
+                            bool value=true;
+                            try
+                            {
+                                value = bool.Parse(reader.ReadString());
+                            }
+                            catch (Exception e)
+                            {
+                            }
+                            options.Checked = value;
+                        }
                         else
                             errors.Add(String.Format("Unrecognized application option: \"{0}\"", reader.Name));
 
@@ -406,11 +419,24 @@ namespace InstallPad
                     writer.WriteElementString("InstallationRoot", this.InstallationRoot);
                 if (AlternateDownloadLocation.Length > 0)
                     writer.WriteElementString("AlternateDownloadLocation", this.AlternateDownloadLocation);
+                if (Checked==false)
+                    writer.WriteElementString("Checked", "false");
 
                 writer.WriteEndElement();
             }
         }
         #endregion
+
+        /// <summary>
+        /// You can specify in the applist whether this application should be checked by default
+        /// </summary>
+        private bool checkEnabled = true;
+
+        public bool Checked
+        {
+            get { return checkEnabled; }
+            set { checkEnabled = value; }
+        }
 
         private bool downloadLatestVersion=false;
 

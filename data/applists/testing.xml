@@ -9,6 +9,7 @@
     <Options>
       <SilentInstall />
       <InstallerArguments>&lt;&gt;^ -/s</InstallerArguments>
+	<Checked>false</Checked>
     </Options>
   </Application>
   <Application>

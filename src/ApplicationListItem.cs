@@ -100,6 +100,8 @@ namespace InstallPad
 
             downloader.ProgressChanged += new DownloadProgressHandler(downloader_ProgressChanged);
             downloader.DownloadComplete += new EventHandler(downloader_DownloadComplete);
+
+            this.Checked = this.ApplicationItem.Options.Checked;
         }
 
         /// <summary>
