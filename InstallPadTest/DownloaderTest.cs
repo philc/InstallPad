@@ -117,8 +117,8 @@ namespace InstallPadTest
             foreach (String s in fileSizes.Keys)
             {
                 string fileUrl = "file:///" + Path.GetFullPath(dataDirectory + s);
-                string output = "file:///" + Path.GetFullPath(dataDirectory + "alternate");
-                Directory.CreateDirectory(output.Replace("file:///",""));
+                string output = Path.GetFullPath(dataDirectory + "alternate");
+                Directory.CreateDirectory(output);
 
                 List<string> urlList = new List<string>();
 
@@ -129,7 +129,7 @@ namespace InstallPadTest
                 downloader.Download(urlList,output);
 
                 // Veryify file exists and is the correct size
-                Assert.IsTrue(InstallPadTest.VerifyExistenceAndSize(Path.Combine(output,s), fileSizes[s]));
+                Assert.IsTrue(InstallPadTest.VerifyExistenceAndSize(Path.Combine(output, s), fileSizes[s]));
             }
             // Download them from a windows share
             foreach (String s in fileSizes.Keys)
