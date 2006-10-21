@@ -1,0 +1,7 @@
+
+
+0.4
+- Added a link for opening an application list
+- Changed "Install All" to "Install Checked"
+- Can't open a new applist if something is downloading or installing
+- Left click to toggle checked
