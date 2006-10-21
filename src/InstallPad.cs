@@ -48,6 +48,7 @@ namespace InstallPad
         public InstallPad()
         {
             InitializeComponent();
+
         }
 
         /// <summary>
@@ -108,6 +109,7 @@ namespace InstallPad
 
         private void InstallPad_Load(object sender, EventArgs e)
         {
+            this.errorLink.Click+=new EventHandler(errorLink_Click);
             this.KeyUp += new KeyEventHandler(InstallPad_KeyUp);
             this.FormClosing += new FormClosingEventHandler(InstallPad_FormClosing);
             this.controlList = new ControlList();
@@ -204,12 +206,7 @@ namespace InstallPad
         /// <param name="e"></param>
         void openLink_Click(object sender, EventArgs e)
         {
-            DialogResult result = openDialog.ShowDialog();
-            if (result == DialogResult.OK)
-            {
-                appListErrorBox.Hide();
-                LoadApplicationList(openDialog.FileName);
-            }
+            ShowAppListOpenDialog();
         }
         private void LoadApplicationList(string filename)
         {
@@ -421,9 +418,14 @@ namespace InstallPad
             }
         }
 
-        private void errorLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void errorLink_Click(object sender, EventArgs e)
         {
             this.errorDialog.ShowDialog();
+        }
+
+        private void openAppList_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            ShowAppListOpenDialog();
         }
     }
 
