@@ -88,8 +88,6 @@ namespace InstallPad
         {
             this.ApplicationItem = application;
             this.LinkClickedDownloadHandler = new EventHandler(this.FinishedDownloadingAfterLinkClicked);
-            this.MouseHover+=new EventHandler(ApplicationListItem_MouseHover);
-            this.MouseLeave+=new EventHandler(ApplicationListItem_MouseLeave);
 
             this.Controls.Add(downloadErrorBox);
             AddErrorBoxes();
@@ -200,18 +198,6 @@ namespace InstallPad
 
         private void checkboxEnabled_CheckedChanged(object sender, EventArgs e)
         {
-        }
-
-        private void ApplicationListItem_MouseHover(object sender, EventArgs e)
-        {
-            //this.toolTipComment.
-            
-            Console.WriteLine("mouse hover");
-        }
-
-        private void ApplicationListItem_MouseLeave(object sender, EventArgs e)
-        {
-            //this.appCommentToolTip.Hide();
         }
 
     }
