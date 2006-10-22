@@ -79,7 +79,7 @@ namespace InstallPad
             }
             catch (Exception e)
             {
-                throw e;
+                throw (e.InnerException == null) ? e : e.InnerException;
                 // TODO do a swtich statement on the inner exception, to handle e.g. file not found
                 // and throw that exception
             }

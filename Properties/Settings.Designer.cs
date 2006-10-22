@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace InstallPad.Properties {
+namespace InstallPad.Properties{
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

@@ -43,6 +43,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\about\AboutDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\about\AboutDialog.Designer.cs">
+      <DependentUpon>AboutDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="src\about\CreditsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\about\CreditsDialog.Designer.cs">
+      <DependentUpon>CreditsDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="src\about\LicenseDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\about\LicenseDialog.Designer.cs">
+      <DependentUpon>LicenseDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="src\ApplicationDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -155,6 +173,21 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="lib\ICSharpCode.SharpZipLib.dll" />
+    <EmbeddedResource Include="src\about\AboutDialog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>AboutDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\about\CreditsDialog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>CreditsDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\about\LicenseDialog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>LicenseDialog.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="license.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -19,8 +19,9 @@ using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
 using CodeProject.Downloader;
+using CodeProject.AboutDialog;
 using System.IO;
-
+using InstallPad.Properties;
 namespace InstallPad
 {
     /// <summary>
@@ -276,8 +277,7 @@ namespace InstallPad
                     errorDialog.ErrorText += error + System.Environment.NewLine;
 
                 // Show the "encountered errors" label
-                this.errorLabel.Show();
-                this.errorLink.Show();
+                this.errorPanel.Show();                
             }
             ArrayList toAdd = new ArrayList();
             foreach (ApplicationItem item in appList.ApplicationItems)
@@ -457,6 +457,22 @@ namespace InstallPad
         private void openAppList_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             ShowAppListOpenDialog();
+        }
+
+        private void preferencesLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+
+        }
+
+        private void aboutLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            AboutDialog about = new AboutDialog();
+            about.ProjectName = "InstallPad";
+            about.ProjectUrl = "http://www.installpad.com";
+            about.WrittenBy = new string[] { "Phil Crosby", "Honus Wagner" };
+            about.Copyright = "2006 Phil Crosby";
+            about.License = global::InstallPad.Properties.Resources.license;
+            about.ShowDialog();
         }
     }
 

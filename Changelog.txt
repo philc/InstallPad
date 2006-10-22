@@ -1,6 +1,7 @@
 
 
 0.4
+- preferences and about dialog
 - Added "checked" option in applist.xml - the application item will be unchecked to start with if this option is false
 - Added a link for opening an application list
 - Changed "Install All" to "Install Checked"

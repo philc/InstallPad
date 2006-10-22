@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using CodeProject.Downloader;
-using InstallPad.Properties;
+using InstallPad;
 
 namespace InstallPad
 {

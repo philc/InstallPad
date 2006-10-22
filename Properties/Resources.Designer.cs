@@ -78,6 +78,21 @@ namespace InstallPad.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to This license governs use of the accompanying software. If you use the software, you accept this license. If you do not accept the license, do not use the software.
+        ///
+        ///1. Definitions
+        ///The terms &quot;reproduce,&quot; &quot;reproduction&quot; and &quot;distribution&quot; have the same meaning here as under U.S. copyright law.
+        ///&quot;You&quot; means the licensee of the software.
+        ///&quot;Your company&quot; means the company you worked for when you downloaded the software.
+        ///&quot;Personal use&quot; means use not within your company, and specifically excludes the right to  [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string license {
+            get {
+                return ResourceManager.GetString("license", resourceCulture);
+            }
+        }
+        
         internal static System.Drawing.Bitmap logo {
             get {
                 object obj = ResourceManager.GetObject("logo", resourceCulture);
