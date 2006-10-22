@@ -28,28 +28,31 @@ namespace CodeProject.AboutDialog
         /// </summary>
         private void InitializeComponent()
         {
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureBox = new System.Windows.Forms.PictureBox();
             this.creditsButton = new System.Windows.Forms.Button();
             this.licenseButton = new System.Windows.Forms.Button();
             this.closeButton = new System.Windows.Forms.Button();
             this.projectLink = new System.Windows.Forms.LinkLabel();
             this.copyrightLabel = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.nameAndVersion = new System.Windows.Forms.Label();
+            this.descriptionLabel = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
             // 
-            // pictureBox1
+            // pictureBox
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(12, 12);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(287, 94);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
+            this.pictureBox.Location = new System.Drawing.Point(12, 12);
+            this.pictureBox.Margin = new System.Windows.Forms.Padding(0);
+            this.pictureBox.Name = "pictureBox";
+            this.pictureBox.Size = new System.Drawing.Size(294, 60);
+            this.pictureBox.TabIndex = 0;
+            this.pictureBox.TabStop = false;
             // 
             // creditsButton
             // 
             this.creditsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.creditsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.creditsButton.Location = new System.Drawing.Point(12, 202);
+            this.creditsButton.Location = new System.Drawing.Point(12, 196);
             this.creditsButton.Name = "creditsButton";
             this.creditsButton.Size = new System.Drawing.Size(64, 25);
             this.creditsButton.TabIndex = 2;
@@ -61,7 +64,7 @@ namespace CodeProject.AboutDialog
             // 
             this.licenseButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.licenseButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.licenseButton.Location = new System.Drawing.Point(82, 202);
+            this.licenseButton.Location = new System.Drawing.Point(82, 196);
             this.licenseButton.Name = "licenseButton";
             this.licenseButton.Size = new System.Drawing.Size(64, 25);
             this.licenseButton.TabIndex = 3;
@@ -74,7 +77,7 @@ namespace CodeProject.AboutDialog
             this.closeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.closeButton.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.closeButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.closeButton.Location = new System.Drawing.Point(242, 202);
+            this.closeButton.Location = new System.Drawing.Point(250, 196);
             this.closeButton.Name = "closeButton";
             this.closeButton.Size = new System.Drawing.Size(57, 25);
             this.closeButton.TabIndex = 4;
@@ -87,33 +90,55 @@ namespace CodeProject.AboutDialog
             this.projectLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.projectLink.Location = new System.Drawing.Point(88, 161);
             this.projectLink.Name = "projectLink";
-            this.projectLink.Size = new System.Drawing.Size(139, 16);
+            this.projectLink.Size = new System.Drawing.Size(157, 16);
             this.projectLink.TabIndex = 5;
             this.projectLink.TabStop = true;
-            this.projectLink.Text = "InstallPad Homepage";
+            this.projectLink.Text = "http://www.yourpage.com";
             this.projectLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.installpadLink_LinkClicked);
             // 
             // copyrightLabel
             // 
             this.copyrightLabel.AutoSize = true;
             this.copyrightLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.copyrightLabel.Location = new System.Drawing.Point(132, 136);
+            this.copyrightLabel.Location = new System.Drawing.Point(126, 135);
             this.copyrightLabel.Name = "copyrightLabel";
             this.copyrightLabel.Size = new System.Drawing.Size(51, 13);
             this.copyrightLabel.TabIndex = 6;
             this.copyrightLabel.Text = "Copyright";
             // 
+            // nameAndVersion
+            // 
+            this.nameAndVersion.AutoSize = true;
+            this.nameAndVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nameAndVersion.Location = new System.Drawing.Point(76, 75);
+            this.nameAndVersion.Name = "nameAndVersion";
+            this.nameAndVersion.Size = new System.Drawing.Size(185, 31);
+            this.nameAndVersion.TabIndex = 7;
+            this.nameAndVersion.Text = "Program 1.2.0";
+            // 
+            // descriptionLabel
+            // 
+            this.descriptionLabel.AutoSize = true;
+            this.descriptionLabel.Location = new System.Drawing.Point(97, 106);
+            this.descriptionLabel.Name = "descriptionLabel";
+            this.descriptionLabel.Size = new System.Drawing.Size(139, 13);
+            this.descriptionLabel.TabIndex = 8;
+            this.descriptionLabel.Text = "Description for your program";
+            // 
             // AboutDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(318, 232);
+            this.ClientSize = new System.Drawing.Size(319, 226);
+            this.Controls.Add(this.descriptionLabel);
+            this.Controls.Add(this.nameAndVersion);
             this.Controls.Add(this.copyrightLabel);
             this.Controls.Add(this.projectLink);
             this.Controls.Add(this.closeButton);
             this.Controls.Add(this.licenseButton);
             this.Controls.Add(this.creditsButton);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.pictureBox);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AboutDialog";
@@ -122,7 +147,7 @@ namespace CodeProject.AboutDialog
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "About";
             this.Load += new System.EventHandler(this.AboutDialog_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -130,11 +155,13 @@ namespace CodeProject.AboutDialog
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pictureBox;
         private System.Windows.Forms.Button creditsButton;
         private System.Windows.Forms.Button licenseButton;
         private System.Windows.Forms.Button closeButton;
         private System.Windows.Forms.LinkLabel projectLink;
         private System.Windows.Forms.Label copyrightLabel;
+        private System.Windows.Forms.Label nameAndVersion;
+        private System.Windows.Forms.Label descriptionLabel;
     }
 }

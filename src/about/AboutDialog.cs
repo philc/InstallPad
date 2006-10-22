@@ -15,13 +15,38 @@ namespace CodeProject.AboutDialog
         private string projectUrl = null;
         private string copyright = null;
         private string projectName = null;//for the title of the dialog
+        private string description = null;
+        private string version = null;
+
+        public string Version
+        {
+            get { return version; }
+            set { version = value; }
+        }
+
+        public Bitmap Image
+        {
+            set {
+                this.pictureBox.Image = value;
+                this.pictureBox.Height = value.Height;
+                this.pictureBox.Width = value.Width;
+            }
+        }
+
+
+        public string Description
+        {
+            set
+            {
+                description = value;
+            }
+        }
 
         public string ProjectName
         {
             get { return projectName; }
             set { projectName = value; }
         }
-        private string version;
 
         public string License
         {
@@ -67,17 +92,86 @@ namespace CodeProject.AboutDialog
             
             this.Text = String.Format("{0} {1}", this.Text, projectName);
             // Disable controls if pieces of information are missing
-            if (projectUrl == null || projectUrl.Length == 0)
+            if (NonEmpty(projectUrl))
+                projectLink.Text = projectUrl;                
+            else
                 projectLink.Visible = false;
-            if (copyright != null && copyright.Length > 0)
+
+            if (NonEmpty(projectName))
+                this.nameAndVersion.Text = String.Format("{0} {1}", projectName, version);
+            else
+                nameAndVersion.Visible = false;
+
+            if (NonEmpty(copyright))
                 copyrightLabel.Text = "© " + copyright;
             else
                 copyrightLabel.Visible = false;
-            if (licenseDialog.License != null && licenseDialog.License.Length>0)
+
+            if (NonEmpty(licenseDialog.License))
             {
                 licenseDialog.Text = String.Format("{0} {1}",projectName,licenseDialog.Text);                
             }else
                 this.licenseButton.Visible = false;
+
+            if (NonEmpty(description))
+                this.descriptionLabel.Text = description;
+            else
+                descriptionLabel.Visible = false;
+
+            SizeDialog();
+        }
+        private static bool NonEmpty(String o)
+        {
+            return o != null && o.Length > 0;
+        }
+        // Sizes the dialog nicely according to options set
+        private void SizeDialog()
+        {
+            int dialogHeight = pictureBox.Top;
+            int padding = 6;
+            if (pictureBox.Visible)
+            {
+                dialogHeight = pictureBox.Bottom + padding;
+                this.Width = pictureBox.Width + 4*padding;                
+                //this.Width = pictureBox.Width;
+                CenterHorizontally(pictureBox);
+                // Very strange, the picture box is always to the right by 2-3 pixels...
+                pictureBox.Left -= 3;
+                
+            }
+
+            if (nameAndVersion.Visible)
+            {
+                nameAndVersion.Top = dialogHeight;
+                dialogHeight = nameAndVersion.Bottom + padding;
+                CenterHorizontally(nameAndVersion);
+            }
+
+            if (descriptionLabel.Visible)
+            {
+                this.descriptionLabel.Top = dialogHeight;
+                dialogHeight = this.descriptionLabel.Bottom + padding;
+                CenterHorizontally(descriptionLabel);
+            }
+            if (this.copyrightLabel.Visible){
+                this.copyrightLabel.Top = dialogHeight;
+                dialogHeight = this.copyrightLabel.Bottom + padding;
+                CenterHorizontally(copyrightLabel);
+            }
+
+            if (this.projectLink.Visible)
+            {
+                this.projectLink.Top = dialogHeight;
+                dialogHeight = this.projectLink.Bottom + padding;
+                CenterHorizontally(projectLink);
+            }
+            this.Height = dialogHeight + 70;   // pixels to pad for the buttons and whitespace
+
+        }
+        
+        private void CenterHorizontally(Control c)
+        {
+            c.Location = new Point((c.Parent.Width - c.Width) / 2, c.Location.Y);
         }
 
         private void installpadLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

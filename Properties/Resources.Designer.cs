@@ -115,5 +115,12 @@ namespace InstallPad.Properties {
                 return ResourceManager.GetString("ViewDetails", resourceCulture);
             }
         }
+        
+        internal static System.Drawing.Bitmap web_logo {
+            get {
+                object obj = ResourceManager.GetObject("web_logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }
