@@ -39,12 +39,14 @@ namespace InstallPad
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.labelName = new System.Windows.Forms.Label();
             this.installLink = new System.Windows.Forms.LinkLabel();
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.labelStatus = new System.Windows.Forms.Label();
             this.checkboxEnabled = new System.Windows.Forms.CheckBox();
             this.labelProgress = new System.Windows.Forms.Label();
+            this.toolTipComment = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // labelName
@@ -145,5 +147,6 @@ namespace InstallPad
         private System.Windows.Forms.Label labelStatus;
         private System.Windows.Forms.CheckBox checkboxEnabled;
         private System.Windows.Forms.Label labelProgress;
+        private System.Windows.Forms.ToolTip toolTipComment;
     }
 }

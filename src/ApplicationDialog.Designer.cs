@@ -54,6 +54,8 @@ namespace InstallPad
             this.silentInstallCheck = new System.Windows.Forms.CheckBox();
             this.latestVersionCheck = new System.Windows.Forms.CheckBox();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.appCommentLabel = new System.Windows.Forms.Label();
+            this.appCommentBox = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
@@ -61,7 +63,7 @@ namespace InstallPad
             // saveButton
             // 
             this.saveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.saveButton.Location = new System.Drawing.Point(131, 265);
+            this.saveButton.Location = new System.Drawing.Point(131, 311);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(75, 23);
             this.saveButton.TabIndex = 8;
@@ -73,7 +75,7 @@ namespace InstallPad
             // 
             this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(212, 265);
+            this.cancelButton.Location = new System.Drawing.Point(212, 311);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 9;
@@ -128,9 +130,9 @@ namespace InstallPad
             this.groupBox1.Controls.Add(this.installerArgumentsBox);
             this.groupBox1.Controls.Add(this.silentInstallCheck);
             this.groupBox1.Controls.Add(this.latestVersionCheck);
-            this.groupBox1.Location = new System.Drawing.Point(16, 113);
+            this.groupBox1.Location = new System.Drawing.Point(16, 160);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(271, 146);
+            this.groupBox1.Size = new System.Drawing.Size(271, 145);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Options";
@@ -198,12 +200,30 @@ namespace InstallPad
             // 
             this.errorProvider.ContainerControl = this;
             // 
+            // appCommentLabel
+            // 
+            this.appCommentLabel.AutoSize = true;
+            this.appCommentLabel.Location = new System.Drawing.Point(13, 108);
+            this.appCommentLabel.Name = "appCommentLabel";
+            this.appCommentLabel.Size = new System.Drawing.Size(54, 13);
+            this.appCommentLabel.TabIndex = 10;
+            this.appCommentLabel.Text = "Comment:";
+            // 
+            // appCommentBox
+            // 
+            this.appCommentBox.Location = new System.Drawing.Point(16, 124);
+            this.appCommentBox.Name = "appCommentBox";
+            this.appCommentBox.Size = new System.Drawing.Size(271, 20);
+            this.appCommentBox.TabIndex = 11;
+            // 
             // ApplicationDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelButton;
-            this.ClientSize = new System.Drawing.Size(299, 300);
+            this.ClientSize = new System.Drawing.Size(299, 346);
+            this.Controls.Add(this.appCommentBox);
+            this.Controls.Add(this.appCommentLabel);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.downloadUrlBox);
             this.Controls.Add(this.downloadUrlLabel);
@@ -240,5 +260,7 @@ namespace InstallPad
         private System.Windows.Forms.ErrorProvider errorProvider;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox installationRootBox;
+        private System.Windows.Forms.TextBox appCommentBox;
+        private System.Windows.Forms.Label appCommentLabel;
     }
 }

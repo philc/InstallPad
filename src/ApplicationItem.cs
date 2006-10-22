@@ -38,6 +38,14 @@ namespace InstallPad
                 return System.IO.Path.GetFileName(DownloadUrl);
             }
         }
+         string comment;
+
+        public string Comment
+        {
+            get { return comment; }
+            set { comment = value; }
+        }
+
         /// <summary>
         /// If the user has requested that we find the latest version of the software,
         /// this will return the regular expression of the software's URL filled
@@ -297,10 +305,16 @@ namespace InstallPad
                             item.DownloadUrl = reader.ReadString();
                             reader.ReadEndElement();
                         }
+                        else if (reader.Name == "Comment")
+                        {
+                            item.Comment = reader.ReadString();
+                            reader.ReadEndElement();
+                        }
                         else if (reader.Name == "Options")
                         {
                             item.Options = ApplicationItemOptions.FromXml(reader, errors);
                         }
+
                         else
                         {
                             errors.Add(
@@ -321,6 +335,10 @@ namespace InstallPad
             writer.WriteStartElement("Application");
             writer.WriteElementString("Name", this.Name);
             writer.WriteElementString("FileUrl", this.DownloadUrl);
+            
+            if (this.Comment != null && this.Comment.Length > 0)
+                writer.WriteElementString("Comment", this.Comment);
+
             this.Options.WriteXml(writer);
 
             writer.WriteEndElement();
@@ -384,6 +402,8 @@ namespace InstallPad
                             }
                             options.Checked = value;
                         }
+
+
                         else
                             errors.Add(String.Format("Unrecognized application option: \"{0}\"", reader.Name));
 

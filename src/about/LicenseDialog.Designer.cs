@@ -50,6 +50,7 @@ namespace CodeProject.AboutDialog
             // 
             // closeButton
             // 
+            this.closeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.closeButton.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.closeButton.Location = new System.Drawing.Point(555, 412);
             this.closeButton.Name = "closeButton";

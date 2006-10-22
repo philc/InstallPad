@@ -42,7 +42,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ZipTest.cs" />
     <Compile Include="DownloaderTest.cs" />
     <Compile Include="InstallPadTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

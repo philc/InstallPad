@@ -63,7 +63,7 @@ namespace InstallPad
 
         #endregion
 
-        
+
         public ApplicationListItem()
         {
             InitializeComponent();
@@ -76,6 +76,7 @@ namespace InstallPad
             {
                 application = value;
                 this.labelName.Text = this.application.Name;
+                this.toolTipComment.SetToolTip(this, this.application.Comment);
             }
         }
         /// <summary>
@@ -87,7 +88,8 @@ namespace InstallPad
         {
             this.ApplicationItem = application;
             this.LinkClickedDownloadHandler = new EventHandler(this.FinishedDownloadingAfterLinkClicked);
-
+            this.MouseHover+=new EventHandler(ApplicationListItem_MouseHover);
+            this.MouseLeave+=new EventHandler(ApplicationListItem_MouseLeave);
 
             this.Controls.Add(downloadErrorBox);
             AddErrorBoxes();
@@ -128,11 +130,6 @@ namespace InstallPad
             installErrorBox.Location = new Point(this.Left, this.Bottom - installErrorBox.Height - 2);
             installErrorBox.Hide();
         }
-
-
-
-       
-
         private void installLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
 
@@ -169,11 +166,6 @@ namespace InstallPad
             }
         }
 
-
-        
-
-       
-
         private void SetInstalLinkText(string s)
         {
             this.Invoke(new EventHandler(delegate
@@ -182,10 +174,6 @@ namespace InstallPad
                 MoveControlToTheLeftOf(installLink, this.Right);
             }));
         }
-
-
-       
-
 
         /// <summary>
         /// Sets the text of a label that's right aligned to the control; the control
@@ -212,6 +200,18 @@ namespace InstallPad
 
         private void checkboxEnabled_CheckedChanged(object sender, EventArgs e)
         {
+        }
+
+        private void ApplicationListItem_MouseHover(object sender, EventArgs e)
+        {
+            //this.toolTipComment.
+            
+            Console.WriteLine("mouse hover");
+        }
+
+        private void ApplicationListItem_MouseLeave(object sender, EventArgs e)
+        {
+            //this.appCommentToolTip.Hide();
         }
 
     }

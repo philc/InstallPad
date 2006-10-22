@@ -42,6 +42,7 @@ namespace InstallPad
             this.DownloadLatestVersion = item.Options.DownloadLatestVersion;
             this.SilentInstall = item.Options.SilentInstall;
             this.InstallerArguments = item.Options.InstallerArguments;
+            this.Comment = item.Comment;
          
             // set the installation root
             this.InstallationRoot = item.Options.InstallationRoot;
@@ -144,6 +145,17 @@ namespace InstallPad
                 this.downloadUrlBox.Text = value;
             }
         }
+        public string Comment
+        {
+            get
+            {
+                return this.appCommentBox.Text;
+            }
+            set
+            {
+                this.appCommentBox.Text = value;
+            }
+        }
         public bool DownloadLatestVersion
         {
             get
@@ -218,6 +230,7 @@ namespace InstallPad
         {
             item.Name = this.ApplicationName;
             item.DownloadUrl = this.DownloadUrl;
+            item.Comment = this.Comment;
             item.Options.DownloadLatestVersion = this.DownloadLatestVersion;
             item.Options.SilentInstall = this.SilentInstall;
             item.Options.InstallerArguments = this.InstallerArguments;

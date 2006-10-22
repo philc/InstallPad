@@ -59,8 +59,19 @@ namespace InstallPad
             // Annoying. Read in the whole file, replace ampersands and other invalid characters
             // in urls, or our xml reader will crash.
             System.IO.TextReader reader=null;
+
+            string fileContents;
+
             reader = new System.IO.StreamReader(path);
-            String fileContents = EscapeStandaloneAmpersands(reader.ReadToEnd());
+            try
+            {
+                fileContents = EscapeStandaloneAmpersands(reader.ReadToEnd());
+            }
+            finally
+            {
+                reader.Close();
+            }
+
             return FromXml(XmlReader.Create(new System.IO.StringReader(fileContents)));
         }
         private static string EscapeStandaloneAmpersands(String s)
