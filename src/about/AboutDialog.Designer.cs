@@ -52,7 +52,7 @@ namespace CodeProject.AboutDialog
             // 
             this.creditsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.creditsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.creditsButton.Location = new System.Drawing.Point(12, 196);
+            this.creditsButton.Location = new System.Drawing.Point(12, 202);
             this.creditsButton.Name = "creditsButton";
             this.creditsButton.Size = new System.Drawing.Size(64, 25);
             this.creditsButton.TabIndex = 2;
@@ -64,7 +64,7 @@ namespace CodeProject.AboutDialog
             // 
             this.licenseButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.licenseButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.licenseButton.Location = new System.Drawing.Point(82, 196);
+            this.licenseButton.Location = new System.Drawing.Point(82, 202);
             this.licenseButton.Name = "licenseButton";
             this.licenseButton.Size = new System.Drawing.Size(64, 25);
             this.licenseButton.TabIndex = 3;
@@ -77,7 +77,7 @@ namespace CodeProject.AboutDialog
             this.closeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.closeButton.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.closeButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.closeButton.Location = new System.Drawing.Point(250, 196);
+            this.closeButton.Location = new System.Drawing.Point(256, 202);
             this.closeButton.Name = "closeButton";
             this.closeButton.Size = new System.Drawing.Size(57, 25);
             this.closeButton.TabIndex = 4;
@@ -129,7 +129,7 @@ namespace CodeProject.AboutDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(319, 226);
+            this.ClientSize = new System.Drawing.Size(325, 232);
             this.Controls.Add(this.descriptionLabel);
             this.Controls.Add(this.nameAndVersion);
             this.Controls.Add(this.copyrightLabel);
@@ -141,6 +141,7 @@ namespace CodeProject.AboutDialog
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(227, 195);
             this.Name = "AboutDialog";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;

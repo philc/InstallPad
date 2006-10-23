@@ -1,5 +1,5 @@
 using System;
-using System.Collections.Generic;
+using System.Collections;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -10,8 +10,11 @@ namespace CodeProject.AboutDialog
 {
     public partial class AboutDialog : Form
     {
+        static int padding = 6;
+
         CreditsDialog credits = null;
         LicenseDialog licenseDialog = null;
+        
         private string projectUrl = null;
         private string copyright = null;
         private string projectName = null;//for the title of the dialog
@@ -128,48 +131,42 @@ namespace CodeProject.AboutDialog
         private void SizeDialog()
         {
             int dialogHeight = pictureBox.Top;
-            int padding = 6;
+            // Find the widest visible control That should be the dialog's width
+            foreach (Control c in this.Controls)
+            {
+                if (c.Visible && (c.Width + 4 * padding) > this.Width)
+                    this.Width = c.Width + 4 * padding;
+            }
+
             if (pictureBox.Visible)
             {
                 dialogHeight = pictureBox.Bottom + padding;
-                this.Width = pictureBox.Width + 4*padding;                
-                //this.Width = pictureBox.Width;
                 CenterHorizontally(pictureBox);
                 // Very strange, the picture box is always to the right by 2-3 pixels...
-                pictureBox.Left -= 3;
-                
+                pictureBox.Left -= 3;                
             }
 
-            if (nameAndVersion.Visible)
-            {
-                nameAndVersion.Top = dialogHeight;
-                dialogHeight = nameAndVersion.Bottom + padding;
-                CenterHorizontally(nameAndVersion);
-            }
-
-            if (descriptionLabel.Visible)
-            {
-                this.descriptionLabel.Top = dialogHeight;
-                dialogHeight = this.descriptionLabel.Bottom + padding;
-                CenterHorizontally(descriptionLabel);
-            }
-            if (this.copyrightLabel.Visible){
-                this.copyrightLabel.Top = dialogHeight;
-                dialogHeight = this.copyrightLabel.Bottom + padding;
-                CenterHorizontally(copyrightLabel);
-            }
-
-            if (this.projectLink.Visible)
-            {
-                this.projectLink.Top = dialogHeight;
-                dialogHeight = this.projectLink.Bottom + padding;
-                CenterHorizontally(projectLink);
-            }
+            Control[] controls = new Control[] { nameAndVersion, descriptionLabel, copyrightLabel, projectLink };
+            dialogHeight = LayoutControls(controls, dialogHeight);
+            
             this.Height = dialogHeight + 70;   // pixels to pad for the buttons and whitespace
 
         }
-        
-        private void CenterHorizontally(Control c)
+
+        private static int LayoutControls(Control[] controls, int dialogHeight)
+        {            
+            foreach (Control c in controls)
+            {
+                if (!c.Visible)
+                    continue;
+                c.Top=dialogHeight;
+                dialogHeight=c.Bottom + padding;
+                CenterHorizontally(c);
+            }
+            return dialogHeight;
+        }
+
+        private static void CenterHorizontally(Control c)
         {
             c.Location = new Point((c.Parent.Width - c.Width) / 2, c.Location.Y);
         }

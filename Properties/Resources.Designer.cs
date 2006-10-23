@@ -60,6 +60,13 @@ namespace InstallPad.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap about_logo {
+            get {
+                object obj = ResourceManager.GetObject("about_logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to There were errors while downloading..
         /// </summary>
@@ -113,13 +120,6 @@ namespace InstallPad.Properties {
         internal static string ViewDetails {
             get {
                 return ResourceManager.GetString("ViewDetails", resourceCulture);
-            }
-        }
-        
-        internal static System.Drawing.Bitmap web_logo {
-            get {
-                object obj = ResourceManager.GetObject("web_logo", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

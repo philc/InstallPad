@@ -43,16 +43,16 @@ namespace InstallPad
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InstallPad));
             this.buttonInstall = new System.Windows.Forms.Button();
             this.controlListPanel = new System.Windows.Forms.Panel();
+            this.errorPanel = new System.Windows.Forms.Panel();
+            this.errorLabel = new System.Windows.Forms.Label();
+            this.errorLink = new System.Windows.Forms.LinkLabel();
             this.logoBox = new System.Windows.Forms.PictureBox();
             this.openAppList = new System.Windows.Forms.LinkLabel();
             this.preferencesLink = new System.Windows.Forms.LinkLabel();
             this.aboutLink = new System.Windows.Forms.LinkLabel();
-            this.errorPanel = new System.Windows.Forms.Panel();
-            this.errorLabel = new System.Windows.Forms.Label();
-            this.errorLink = new System.Windows.Forms.LinkLabel();
             this.controlListPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.logoBox)).BeginInit();
             this.errorPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.logoBox)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonInstall
@@ -78,6 +78,41 @@ namespace InstallPad
             this.controlListPanel.Name = "controlListPanel";
             this.controlListPanel.Size = new System.Drawing.Size(428, 335);
             this.controlListPanel.TabIndex = 1;
+            // 
+            // errorPanel
+            // 
+            this.errorPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.errorPanel.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.errorPanel.Controls.Add(this.errorLabel);
+            this.errorPanel.Controls.Add(this.errorLink);
+            this.errorPanel.Location = new System.Drawing.Point(0, 310);
+            this.errorPanel.Name = "errorPanel";
+            this.errorPanel.Size = new System.Drawing.Size(410, 30);
+            this.errorPanel.TabIndex = 0;
+            this.errorPanel.Visible = false;
+            // 
+            // errorLabel
+            // 
+            this.errorLabel.AutoSize = true;
+            this.errorLabel.BackColor = System.Drawing.Color.Transparent;
+            this.errorLabel.Location = new System.Drawing.Point(4, 6);
+            this.errorLabel.Name = "errorLabel";
+            this.errorLabel.Size = new System.Drawing.Size(262, 13);
+            this.errorLabel.TabIndex = 12;
+            this.errorLabel.Text = "There were some problems loading the application file.";
+            // 
+            // errorLink
+            // 
+            this.errorLink.AutoSize = true;
+            this.errorLink.BackColor = System.Drawing.Color.Transparent;
+            this.errorLink.LinkColor = System.Drawing.Color.MediumBlue;
+            this.errorLink.Location = new System.Drawing.Point(264, 6);
+            this.errorLink.Name = "errorLink";
+            this.errorLink.Size = new System.Drawing.Size(59, 13);
+            this.errorLink.TabIndex = 11;
+            this.errorLink.TabStop = true;
+            this.errorLink.Text = "View errors";
             // 
             // logoBox
             // 
@@ -134,41 +169,6 @@ namespace InstallPad
             this.aboutLink.Text = "About";
             this.aboutLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.aboutLink_LinkClicked);
             // 
-            // errorPanel
-            // 
-            this.errorPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.errorPanel.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.errorPanel.Controls.Add(this.errorLabel);
-            this.errorPanel.Controls.Add(this.errorLink);
-            this.errorPanel.Location = new System.Drawing.Point(0, 310);
-            this.errorPanel.Name = "errorPanel";
-            this.errorPanel.Size = new System.Drawing.Size(429, 30);
-            this.errorPanel.TabIndex = 0;
-            this.errorPanel.Visible = false;
-            // 
-            // errorLabel
-            // 
-            this.errorLabel.AutoSize = true;
-            this.errorLabel.BackColor = System.Drawing.Color.Transparent;
-            this.errorLabel.Location = new System.Drawing.Point(4, 6);
-            this.errorLabel.Name = "errorLabel";
-            this.errorLabel.Size = new System.Drawing.Size(262, 13);
-            this.errorLabel.TabIndex = 12;
-            this.errorLabel.Text = "There were some problems loading the application file.";
-            // 
-            // errorLink
-            // 
-            this.errorLink.AutoSize = true;
-            this.errorLink.BackColor = System.Drawing.Color.Transparent;
-            this.errorLink.LinkColor = System.Drawing.Color.MediumBlue;
-            this.errorLink.Location = new System.Drawing.Point(264, 6);
-            this.errorLink.Name = "errorLink";
-            this.errorLink.Size = new System.Drawing.Size(59, 13);
-            this.errorLink.TabIndex = 11;
-            this.errorLink.TabStop = true;
-            this.errorLink.Text = "View errors";
-            // 
             // InstallPad
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -190,9 +190,9 @@ namespace InstallPad
             this.Text = "InstallPad";
             this.Load += new System.EventHandler(this.InstallPad_Load);
             this.controlListPanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.logoBox)).EndInit();
             this.errorPanel.ResumeLayout(false);
             this.errorPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.logoBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
