@@ -88,7 +88,7 @@ namespace InstallPad
             this.errorPanel.Controls.Add(this.errorLink);
             this.errorPanel.Location = new System.Drawing.Point(0, 310);
             this.errorPanel.Name = "errorPanel";
-            this.errorPanel.Size = new System.Drawing.Size(410, 30);
+            this.errorPanel.Size = new System.Drawing.Size(428, 25);
             this.errorPanel.TabIndex = 0;
             this.errorPanel.Visible = false;
             // 

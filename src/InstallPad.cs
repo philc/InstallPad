@@ -269,7 +269,7 @@ namespace InstallPad
         private void LoadApplicationList(string filename)
         {
             ApplicationList appList;
-
+            SetErrorPanelVisibility(false);
             try
             {
                 appList = ApplicationList.FromFile(filename);
@@ -303,7 +303,8 @@ namespace InstallPad
                     errorDialog.ErrorText += error + System.Environment.NewLine;
 
                 // Show the "encountered errors" label
-                this.errorPanel.Show();
+                //this.errorPanel.Show();
+                SetErrorPanelVisibility(true);
             }
             List<ApplicationListItem> toAdd = new List<ApplicationListItem>();
             foreach (ApplicationItem item in appList.ApplicationItems)
@@ -314,7 +315,22 @@ namespace InstallPad
 
             // Add the controls all at once.
             this.controlList.AddAll(toAdd);
-
+        }
+        private void SetErrorPanelVisibility(bool visible)
+        {
+            // When we show this thing, we need to push the control list
+            // up out of the way to make room for it.
+            if (visible)
+            {
+                this.errorPanel.Show();
+                this.controlList.Height = controlList.Height - (this.controlList.Bottom - errorPanel.Top);
+            }
+            else
+            {
+                //this.controlList.Bottom = errorPanel.Bottom;
+                this.controlList.Height = controlList.Height - (this.controlList.Bottom - errorPanel.Bottom);
+                this.errorPanel.Hide();
+            }
         }
         /// <summary>
         /// Creates a list item and listens to its events

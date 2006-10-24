@@ -4,8 +4,15 @@
     <SimultaneousDownloads>3</SimultaneousDownloads>
   </InstallationOptions>
   <Application>
-	<Name>Zip file</Name>
-	<FileUrl>http://www.installpad.com/test/test4.zip</FileUrl>
+    <Name>clamwin</Name>
+    <FileUrl>http://kent.dl.sourceforge.net/sourceforge/clamwin/clamwin-0.88.5-setup.exe</FileUrl>
+    <Options>
+      <SilentInstall />
+    </Options>
+  </Application>
+  <Application>
+    <Name>Zip file</Name>
+    <FileUrl>http://www.installpad.com/test/test4.zip</FileUrl>
   </Application>
   <Application>
     <Name>Azureus</Name>
@@ -13,7 +20,7 @@
     <Options>
       <SilentInstall />
       <InstallerArguments>&lt;&gt;^ -/s</InstallerArguments>
-	<Checked>false</Checked>
+      <Checked>false</Checked>
     </Options>
   </Application>
   <Application>
