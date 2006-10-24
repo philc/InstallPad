@@ -428,7 +428,7 @@ namespace InstallPad
             // Only write if there is an option set. This could be more elegant.
             if ((InstallerArguments != null && InstallerArguments.Length > 0) ||
                 (PostInstallScript != null && PostInstallScript.Length > 0) ||
-                this.SilentInstall || this.DownloadLatestVersion)
+                this.SilentInstall || this.DownloadLatestVersion || !this.Checked)
             {
 
                 writer.WriteStartElement("Options");

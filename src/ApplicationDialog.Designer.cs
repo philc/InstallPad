@@ -47,6 +47,7 @@ namespace InstallPad
             this.downloadUrlLabel = new System.Windows.Forms.Label();
             this.downloadUrlBox = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkedByDefault = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
             this.installerArgumentsBox = new System.Windows.Forms.TextBox();
             this.silentInstallCheck = new System.Windows.Forms.CheckBox();
@@ -54,7 +55,6 @@ namespace InstallPad
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.appCommentLabel = new System.Windows.Forms.Label();
             this.appCommentBox = new System.Windows.Forms.TextBox();
-            this.checkedByDefault = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
@@ -65,7 +65,7 @@ namespace InstallPad
             this.saveButton.Location = new System.Drawing.Point(151, 306);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(75, 23);
-            this.saveButton.TabIndex = 8;
+            this.saveButton.TabIndex = 11;
             this.saveButton.Text = "&Save";
             this.saveButton.UseVisualStyleBackColor = true;
             this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
@@ -77,7 +77,7 @@ namespace InstallPad
             this.cancelButton.Location = new System.Drawing.Point(232, 306);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
-            this.cancelButton.TabIndex = 9;
+            this.cancelButton.TabIndex = 12;
             this.cancelButton.Text = "&Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
@@ -134,13 +134,25 @@ namespace InstallPad
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Options";
             // 
+            // checkedByDefault
+            // 
+            this.checkedByDefault.AutoSize = true;
+            this.checkedByDefault.Checked = true;
+            this.checkedByDefault.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkedByDefault.Location = new System.Drawing.Point(8, 65);
+            this.checkedByDefault.Name = "checkedByDefault";
+            this.checkedByDefault.Size = new System.Drawing.Size(118, 17);
+            this.checkedByDefault.TabIndex = 8;
+            this.checkedByDefault.Text = "C&hecked by default";
+            this.checkedByDefault.UseVisualStyleBackColor = true;
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(4, 91);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(98, 13);
-            this.label3.TabIndex = 6;
+            this.label3.TabIndex = 9;
             this.label3.Text = "Installer &arguments:";
             // 
             // installerArgumentsBox
@@ -150,7 +162,7 @@ namespace InstallPad
             this.installerArgumentsBox.Location = new System.Drawing.Point(6, 107);
             this.installerArgumentsBox.Name = "installerArgumentsBox";
             this.installerArgumentsBox.Size = new System.Drawing.Size(277, 20);
-            this.installerArgumentsBox.TabIndex = 7;
+            this.installerArgumentsBox.TabIndex = 10;
             // 
             // silentInstallCheck
             // 
@@ -160,7 +172,7 @@ namespace InstallPad
             this.silentInstallCheck.Location = new System.Drawing.Point(8, 19);
             this.silentInstallCheck.Name = "silentInstallCheck";
             this.silentInstallCheck.Size = new System.Drawing.Size(81, 17);
-            this.silentInstallCheck.TabIndex = 4;
+            this.silentInstallCheck.TabIndex = 6;
             this.silentInstallCheck.Text = "Silen&t install";
             this.silentInstallCheck.UseVisualStyleBackColor = true;
             // 
@@ -170,7 +182,7 @@ namespace InstallPad
             this.latestVersionCheck.Location = new System.Drawing.Point(8, 42);
             this.latestVersionCheck.Name = "latestVersionCheck";
             this.latestVersionCheck.Size = new System.Drawing.Size(139, 17);
-            this.latestVersionCheck.TabIndex = 5;
+            this.latestVersionCheck.TabIndex = 7;
             this.latestVersionCheck.Text = "Download latest &version";
             this.latestVersionCheck.UseVisualStyleBackColor = true;
             // 
@@ -184,7 +196,7 @@ namespace InstallPad
             this.appCommentLabel.Location = new System.Drawing.Point(13, 108);
             this.appCommentLabel.Name = "appCommentLabel";
             this.appCommentLabel.Size = new System.Drawing.Size(54, 13);
-            this.appCommentLabel.TabIndex = 10;
+            this.appCommentLabel.TabIndex = 4;
             this.appCommentLabel.Text = "Comme&nt:";
             // 
             // appCommentBox
@@ -194,19 +206,7 @@ namespace InstallPad
             this.appCommentBox.Location = new System.Drawing.Point(16, 124);
             this.appCommentBox.Name = "appCommentBox";
             this.appCommentBox.Size = new System.Drawing.Size(291, 20);
-            this.appCommentBox.TabIndex = 11;
-            // 
-            // checkedByDefault
-            // 
-            this.checkedByDefault.AutoSize = true;
-            this.checkedByDefault.Checked = true;
-            this.checkedByDefault.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkedByDefault.Location = new System.Drawing.Point(8, 65);
-            this.checkedByDefault.Name = "checkedByDefault";
-            this.checkedByDefault.Size = new System.Drawing.Size(118, 17);
-            this.checkedByDefault.TabIndex = 8;
-            this.checkedByDefault.Text = "C&hecked by default";
-            this.checkedByDefault.UseVisualStyleBackColor = true;
+            this.appCommentBox.TabIndex = 5;
             // 
             // ApplicationDialog
             // 

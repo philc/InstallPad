@@ -328,9 +328,9 @@ namespace InstallPad
                 Color targetColor;
                 // Rows that are divisble by two are colored
                 if (this.tableLayout.GetRow(control) % 2 == 0)
-                    targetColor = alternatingColor;
+                    targetColor = Color.Transparent;
                 else
-                    targetColor=Color.Transparent;
+                    targetColor=alternatingColor;
 
                 if (control.BackColor != targetColor)
                     control.BackColor = targetColor;                
