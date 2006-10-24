@@ -12,7 +12,6 @@ using InstallPad;
 
 namespace InstallPad
 {
-
     public partial class ApplicationListItem
     {
         public enum InstallState
@@ -34,35 +33,11 @@ namespace InstallPad
             get { return state; }
             set { state = value; }
         }
-        #region Properties
-        /*public bool Downloading
-        {
-            get { return downloading; }
-            set { downloading = value; }
-        }
 
-        public bool DownloadComplete
-        {
-            get { return downloadComplete; }
-            set { downloadComplete = value; }
-        }
-
-        public bool Installing
-        {
-            get { return this.labelStatus.Text.Contains("Installing"); }
-        }
-        private bool installed = false;
-
-        public bool Installed
-        {
-            get { return installed; }
-        }*/
-        #endregion
-
-        #region Event we publish
+        #region Events we publish
         public event EventHandler FinishedDownloading;
         private void OnFinishedDownloading()
-        {            
+        {
             SetState(InstallState.Downloaded);
 
             if (this.FinishedDownloading != null)
@@ -73,62 +48,29 @@ namespace InstallPad
         }
         public event EventHandler FinishedInstalling;
         private void OnFinishedInstalling()
-        {            
+        {
             // Could be an error condition
             if (installError != null || (this.installProcess != null && this.installProcess.ExitCode != 0))
             {
-                //this.labelStatus.Text = "Downloaded";
                 SetState(InstallState.Downloaded);
             }
             else
             {
                 SetState(InstallState.Installed);
-                //this.labelStatus.Text = "Install finished";
                 RunPostInstallationScript();
-                
             }
-
-            /*this.Invoke(new EventHandler(delegate
-            {
-                //if (this.installProcess != null && this.installProcess.ExitCode == 0)
-                //{
-                if (installError==null){
-                    SetState(InstallState.Installed);
-
-                    //this.labelStatus.Text = "Install finished";
-                    RunPostInstallationScript();
-                }
-                else
-                {
-                    //this.labelStatus.Text = "Downloaded";
-                    SetState(InstallState.Downloaded);
-                }
-
-                //MoveControlToTheLeftOf(labelStatus, this.Right);
-                //SetInstalLinkText("Install");
-            }));*/
-
             if (this.FinishedInstalling != null)
                 FinishedInstalling(this, new EventArgs());
         }
         private void OnFinishedUnzipping(bool status)
         {
-            //this.Invoke(new EventHandler(delegate
-            //{
-                if (status)
-                {
-                    //this.state = InstallState.Installed;
-                    SetState(InstallState.Installed);
-                    //this.labelStatus.Text = "Install finished";
-                    RunPostInstallationScript();
-                }
-                else
-                    SetState(InstallState.Downloaded);
-                    //this.labelStatus.Text = "Downloaded";
-
-                //MoveControlToTheLeftOf(labelStatus, this.Right);
-                //SetInstalLinkText("Install");
-            //}));
+            if (status)
+            {
+                SetState(InstallState.Installed);
+                RunPostInstallationScript();
+            }
+            else
+                SetState(InstallState.Downloaded);
         }
         #endregion
 
@@ -154,19 +96,10 @@ namespace InstallPad
         {
             // Update our appearance, let others know we're finished downloading.
             Debug.WriteLine("download complete.");
-            if (this.state!=InstallState.Downloading)
+            if (this.state != InstallState.Downloading)
                 return;
 
             SetState(InstallState.Downloaded);
-            
-            this.Invoke(new EventHandler(delegate
-            {
-                /*this.progressBar.Visible = false;
-                this.labelStatus.Visible = true;
-                this.labelStatus.Text = "Downloaded";
-                MoveControlToTheLeftOf(labelStatus, this.Right);*/
-                
-            }));
 
             this.OnFinishedDownloading();
         }
@@ -178,22 +111,9 @@ namespace InstallPad
         {
             this.installAfterDownload = installAfterDownload;
             // If we're already downloading this file, ignore this click
-            if (this.state == InstallState.Downloaded || this.state==InstallState.Downloading)
+            if (this.state == InstallState.Downloaded || this.state == InstallState.Downloading)
                 return;
             SetState(InstallState.Downloading);
-
-           /* this.Invoke(new EventHandler(delegate
-            {
-                // Hide any previous errors we might have had
-                this.downloadErrorBox.Visible = false;
-                this.installErrorBox.Visible = false;
-
-                // Update the progress bar with our progress
-                this.progressBar.Visible = true;
-            }));
-
-            // Change "install" to "cancel"
-            SetInstalLinkText("Cancel");*/
 
             ThreadPool.QueueUserWorkItem(new WaitCallback(this.AsyncDownload), null);
         }
@@ -230,20 +150,10 @@ namespace InstallPad
                     // Show an error
                     this.downloadErrorBox.Visible = true;
                     this.downloadErrorBox.DetailsText = ex.Message;
-                    //this.progressBar.Visible = false;
-                    //this.labelStatus.Visible = false;
                 }));
-                //this.state = InstallState.None;
-                //SetInstalLinkText("Install");
                 SetState(InstallState.None);
             }
-            /*else
-            {
-                //this.state = InstallState.Downloaded;
-                SetState(InstallState.Downloaded);
-                if (installAfterDownload)
-                    InstallApplication();
-            }*/
+
             // Downloader_Complete event will trigger the state change to downloaded
         }
 
@@ -254,13 +164,6 @@ namespace InstallPad
         {
             Debug.Assert(this.state == InstallState.Downloaded);
 
-           /* this.Invoke(new EventHandler(delegate
-            {
-                this.labelStatus.Text = "Installing...";
-                this.downloadErrorBox.Visible = false;
-                this.installErrorBox.Visible = false;
-                this.labelProgress.Hide();
-            }));*/
             SetState(InstallState.Installing);
 
             if (downloader.DownloadingTo.ToLower().EndsWith(".zip"))
@@ -301,7 +204,7 @@ namespace InstallPad
             else
                 // This will work for most installers - /S for nullsoft installers, and -s for InstallShield
                 return "/S -s";
-        
+
         }
 
         private void AsyncZipInstall(object data)
@@ -316,10 +219,9 @@ namespace InstallPad
                 ex = e;
             }
             if (ex != null)
-            {                
+            {
                 // There was an error
                 this.installProcess = null;
-                //SetState(InstallState.Downloaded);
                 this.installError = String.Format("Couldn't unzip {0} : {1}",
                         downloader.DownloadingTo, ex.Message);
 
@@ -330,9 +232,6 @@ namespace InstallPad
                     installErrorBox.Visible = true;
                 }));
             }
-            //else
-                //SetState(InstallState.Installed);
-
             // Done unzipping/installing
             OnFinishedInstalling();
         }
@@ -347,7 +246,7 @@ namespace InstallPad
             psi.Arguments = application.Options.InstallerArguments;
             if (application.Options.SilentInstall || InstallPadApp.AppList.InstallationOptions.SilentInstall)
             {
-                psi.Arguments = String.Format("{0} {1}",psi.Arguments,ArgumentsForSilentInstall(application));
+                psi.Arguments = String.Format("{0} {1}", psi.Arguments, ArgumentsForSilentInstall(application));
             }
 
             installProcess = new Process();
@@ -368,8 +267,8 @@ namespace InstallPad
             if (ex != null)
             {
                 // There was an error.
-                this.installProcess = null;                
-                this.installError = String.Format("Couldn't install {0} : {1}",downloader.DownloadingTo, ex.Message);
+                this.installProcess = null;
+                this.installError = String.Format("Couldn't install {0} : {1}", downloader.DownloadingTo, ex.Message);
 
                 this.Invoke(new EventHandler(delegate
                 {
@@ -378,16 +277,11 @@ namespace InstallPad
                     installErrorBox.Visible = true;
                 }));
 
-                //SetInstalLinkText("Install");
-                //SetState(InstallState.Downloaded);
                 // We're done running the installer..
                 OnFinishedInstalling();
             }
 
             // OnFinishedInstalling will get called by the process when it exits.
-            
-
-
         }
         void downloader_ProgressChanged(object sender, CodeProject.Downloader.DownloadEventArgs e)
         {
@@ -403,14 +297,10 @@ namespace InstallPad
                     UpdateProgressLabel(e);
                 }
             }));
-
         }
-
-
         void process_Exited(object sender, EventArgs e)
         {
             OnFinishedInstalling();
         }
-
     }
 }

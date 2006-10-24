@@ -1,6 +1,7 @@
 
 
 0.4
+- Massive refactoring of the application item UI. Not scary anymore =)
 - Removing preference for "installation root" until we can figure out what to do with it
 - UI cleanup for the add application dialog. Now it's sizable
 - UI for the preferences

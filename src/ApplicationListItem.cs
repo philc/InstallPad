@@ -64,7 +64,7 @@ namespace InstallPad
         }
         #endregion
 
-        #region Construnction
+        #region Construction
         // This should never get called, it's just for the designer
         private ApplicationListItem()
         {
@@ -187,9 +187,6 @@ namespace InstallPad
                 // Cancel the download
                 this.downloader.Cancel();
                 SetState(InstallState.None);
-                //this.progressBar.Hide();
-                //this.labelProgress.Hide();
-
             }
             else if (this.state == InstallState.Downloaded)
             {
@@ -214,7 +211,6 @@ namespace InstallPad
                 }
                 SetState(InstallState.Downloaded);
             }
-            //SetInstalLinkText("Install");
         }
         
 
