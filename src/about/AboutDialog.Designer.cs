@@ -119,10 +119,11 @@ namespace CodeProject.AboutDialog
             // descriptionLabel
             // 
             this.descriptionLabel.AutoSize = true;
-            this.descriptionLabel.Location = new System.Drawing.Point(106, 113);
+            this.descriptionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.descriptionLabel.Location = new System.Drawing.Point(88, 116);
             this.descriptionLabel.Margin = new System.Windows.Forms.Padding(3, 0, 3, 15);
             this.descriptionLabel.Name = "descriptionLabel";
-            this.descriptionLabel.Size = new System.Drawing.Size(139, 13);
+            this.descriptionLabel.Size = new System.Drawing.Size(177, 16);
             this.descriptionLabel.TabIndex = 8;
             this.descriptionLabel.Text = "Description for your program";
             // 

@@ -26,7 +26,7 @@ namespace CodeProject.AboutDialog
         private void CreditsDialog_Load(object sender, EventArgs e)
         {
             if (writtenBy!=null){
-                writtenByTextBox.Clear();
+                writtenByTextBox.Text = "";
                 foreach (String author in this.writtenBy)
                     writtenByTextBox.AppendText(author + "\n");
             }
