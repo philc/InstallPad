@@ -54,6 +54,7 @@ namespace InstallPad
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.appCommentLabel = new System.Windows.Forms.Label();
             this.appCommentBox = new System.Windows.Forms.TextBox();
+            this.checkedByDefault = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
@@ -61,7 +62,7 @@ namespace InstallPad
             // saveButton
             // 
             this.saveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.saveButton.Location = new System.Drawing.Point(131, 273);
+            this.saveButton.Location = new System.Drawing.Point(131, 305);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(75, 23);
             this.saveButton.TabIndex = 8;
@@ -73,7 +74,7 @@ namespace InstallPad
             // 
             this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(212, 273);
+            this.cancelButton.Location = new System.Drawing.Point(212, 305);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 9;
@@ -121,13 +122,14 @@ namespace InstallPad
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.checkedByDefault);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.installerArgumentsBox);
             this.groupBox1.Controls.Add(this.silentInstallCheck);
             this.groupBox1.Controls.Add(this.latestVersionCheck);
             this.groupBox1.Location = new System.Drawing.Point(16, 160);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(271, 107);
+            this.groupBox1.Size = new System.Drawing.Size(271, 137);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Options";
@@ -135,7 +137,7 @@ namespace InstallPad
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 62);
+            this.label3.Location = new System.Drawing.Point(4, 91);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(98, 13);
             this.label3.TabIndex = 6;
@@ -145,7 +147,7 @@ namespace InstallPad
             // 
             this.installerArgumentsBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.installerArgumentsBox.Location = new System.Drawing.Point(8, 78);
+            this.installerArgumentsBox.Location = new System.Drawing.Point(6, 107);
             this.installerArgumentsBox.Name = "installerArgumentsBox";
             this.installerArgumentsBox.Size = new System.Drawing.Size(257, 20);
             this.installerArgumentsBox.TabIndex = 7;
@@ -183,7 +185,7 @@ namespace InstallPad
             this.appCommentLabel.Name = "appCommentLabel";
             this.appCommentLabel.Size = new System.Drawing.Size(54, 13);
             this.appCommentLabel.TabIndex = 10;
-            this.appCommentLabel.Text = "Comment:";
+            this.appCommentLabel.Text = "Comme&nt:";
             // 
             // appCommentBox
             // 
@@ -194,11 +196,23 @@ namespace InstallPad
             this.appCommentBox.Size = new System.Drawing.Size(271, 20);
             this.appCommentBox.TabIndex = 11;
             // 
+            // checkedByDefault
+            // 
+            this.checkedByDefault.AutoSize = true;
+            this.checkedByDefault.Checked = true;
+            this.checkedByDefault.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkedByDefault.Location = new System.Drawing.Point(8, 65);
+            this.checkedByDefault.Name = "checkedByDefault";
+            this.checkedByDefault.Size = new System.Drawing.Size(118, 17);
+            this.checkedByDefault.TabIndex = 8;
+            this.checkedByDefault.Text = "C&hecked by default";
+            this.checkedByDefault.UseVisualStyleBackColor = true;
+            // 
             // ApplicationDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(299, 308);
+            this.ClientSize = new System.Drawing.Size(299, 340);
             this.Controls.Add(this.appCommentBox);
             this.Controls.Add(this.appCommentLabel);
             this.Controls.Add(this.groupBox1);
@@ -239,5 +253,6 @@ namespace InstallPad
         private System.Windows.Forms.ErrorProvider errorProvider;
         private System.Windows.Forms.TextBox appCommentBox;
         private System.Windows.Forms.Label appCommentLabel;
+        private System.Windows.Forms.CheckBox checkedByDefault;
     }
 }

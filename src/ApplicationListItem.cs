@@ -194,9 +194,10 @@ namespace InstallPad
                 this.downloader.Cancel();
                 SetState(InstallState.None);
             }
-            else if (this.state == InstallState.Downloaded)
+            else if (this.state == InstallState.Downloaded || this.state==InstallState.Installed)
             {
-                // Begin installation
+                // Begin installation. OK to install again when it's already "installed," because
+                // you can get to that state even if you accidentally quit an installer
                 InstallApplication();
             }
             else if (this.state == InstallState.Installing)

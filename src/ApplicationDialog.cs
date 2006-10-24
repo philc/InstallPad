@@ -43,10 +43,11 @@ namespace InstallPad
             this.SilentInstall = item.Options.SilentInstall;
             this.InstallerArguments = item.Options.InstallerArguments;
             this.Comment = item.Comment;
+            this.Checked = item.Options.Checked ;
             this.InstallationRoot = item.Options.InstallationRoot;
 
             // if no app specific installation root, default to applist.installationroot.
-            if (this.InstallationRoot.Length == 0)
+            if (this.InstallationRoot==null || this.InstallationRoot.Length == 0)
             {
                 this.InstallationRoot = InstallPadApp.AppList.InstallationOptions.InstallationRoot;
                 // but preferences overrides applist installation options!
@@ -155,6 +156,15 @@ namespace InstallPad
                 this.appCommentBox.Text = value;
             }
         }
+        public bool Checked
+        {
+            get
+            {
+                return this.checkedByDefault.Checked;
+            }
+            set { this.checkedByDefault.Checked = value; }
+        
+        }
         public bool DownloadLatestVersion
         {
             get
@@ -237,6 +247,7 @@ namespace InstallPad
             item.Options.DownloadLatestVersion = this.DownloadLatestVersion;
             item.Options.SilentInstall = this.SilentInstall;
             item.Options.InstallerArguments = this.InstallerArguments;
+            item.Options.Checked = this.Checked;
 
             // Setting InstallationRoot is disabled for now until the rules are decided.
             // Could allow setting Options, but probably wouldn't want to allow setting
