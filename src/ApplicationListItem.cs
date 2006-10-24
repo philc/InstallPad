@@ -42,7 +42,7 @@ namespace InstallPad
         // When we run an installer, this is a handle to its process.
         Process installProcess;
 
-
+        #region Properties
         /// <summary>
         /// True if the application list item's checkbox is checked.
         /// </summary>
@@ -50,13 +50,6 @@ namespace InstallPad
         {
             get { return this.checkboxEnabled.Checked; }
             set { this.checkboxEnabled.Checked = value; }
-        }
-
-
-
-        public ApplicationListItem()
-        {
-            InitializeComponent();
         }
 
         public ApplicationItem ApplicationItem
@@ -69,6 +62,15 @@ namespace InstallPad
                 this.toolTipComment.SetToolTip(this, this.application.Comment);
             }
         }
+        #endregion
+
+        #region Construnction
+        // This should never get called, it's just for the designer
+        private ApplicationListItem()
+        {
+            InitializeComponent();
+        }
+
         /// <summary>
         /// Initialize this with the information from an ApplicationItem
         /// </summary>
@@ -80,7 +82,6 @@ namespace InstallPad
             this.Controls.Add(downloadErrorBox);
             AddErrorBoxes();
 
-
             downloader = new FileDownloader();
             ProxyOptions options = InstallPadApp.AppList.InstallationOptions.ProxyOptions;
             if (options != null)
@@ -91,7 +92,6 @@ namespace InstallPad
 
             this.Checked = this.ApplicationItem.Options.Checked;
         }
-
 
         /// <summary>
         /// Add error boxes to the application list item, with the appropriate captions.
@@ -117,23 +117,89 @@ namespace InstallPad
             installErrorBox.Location = new Point(this.Left, this.Bottom - installErrorBox.Height - 2);
             installErrorBox.Hide();
         }
+        #endregion
+
+        private void SetState(InstallState state)
+        {
+            this.state = state;
+            this.Invoke(new EventHandler(delegate
+            {
+                switch (state)
+                {
+                    case InstallState.None:
+                        this.progressBar.Hide();
+                        this.labelProgress.Hide();
+
+                        SetInstalLinkText("Install");
+                        break;
+                    case InstallState.Downloading:
+                        // Hide any previous errors we might have had
+                        this.downloadErrorBox.Visible = false;
+                        this.installErrorBox.Visible = false;
+
+                        // Update the progress bar with our progress
+                        this.progressBar.Visible = true;
+
+                        SetInstalLinkText("Cancel");
+                        break;
+                    case InstallState.Downloaded:
+                        this.labelStatus.Visible = true;
+                        this.labelStatus.Text = "Downloaded";
+                        MoveControlToTheLeftOf(labelStatus, this.Right);
+
+                        this.progressBar.Visible = false;    
+                    
+                        SetInstalLinkText("Install");
+                        break;
+                    case InstallState.Installing:
+                        this.labelStatus.Text = "Installing...";
+                        MoveControlToTheLeftOf(labelStatus, this.Right);
+
+                        this.downloadErrorBox.Visible = false;
+
+                        // Reset any errors we've had in the past
+                        this.installError = null;
+                        this.installErrorBox.Visible = false;
+
+                        this.labelProgress.Hide();
+
+                        SetInstalLinkText("Cancel");
+                        break;
+                    case InstallState.Installed:
+                        this.labelStatus.Text = "Install finished";
+                        MoveControlToTheLeftOf(labelStatus, this.Right);
+
+                        SetInstalLinkText("Install");
+                        break;
+                }                    
+            }));
+        }
+
         private void installLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-
-            if (this.installLink.Text == "Install")
+            if (this.state == InstallState.None)
             {
+                // Begin the download
                 Download(true);
             }
-            else if (this.installLink.Text == "Cancel")
+            else if (this.state == InstallState.Downloading)
             {
-                // They've pressed cancel, so change "cancel" to "install"
-                if (this.state==InstallState.Downloading)
-                {
-                    this.downloader.Cancel();
-                    this.progressBar.Hide();
-                    this.labelProgress.Hide();
-                }
-                else if (installProcess != null)
+                // Cancel the download
+                this.downloader.Cancel();
+                SetState(InstallState.None);
+                //this.progressBar.Hide();
+                //this.labelProgress.Hide();
+
+            }
+            else if (this.state == InstallState.Downloaded)
+            {
+                // Begin installation
+                InstallApplication();
+            }
+            else if (this.state == InstallState.Installing)
+            {
+                // Cancel the installation
+                if (installProcess != null)
                 {
                     try
                     {
@@ -146,9 +212,11 @@ namespace InstallPad
                         // trying to kill it. Ignore
                     }
                 }
-                SetInstalLinkText("Install");
+                SetState(InstallState.Downloaded);
             }
+            //SetInstalLinkText("Install");
         }
+        
 
         private void SetInstalLinkText(string s)
         {
@@ -181,11 +249,6 @@ namespace InstallPad
                 MoveControlToTheLeftOf(labelProgress, this.progressBar.Left);
             }
         }
-
-        private void checkboxEnabled_CheckedChanged(object sender, EventArgs e)
-        {
-        }
-
     }
 
     /// <summary>

@@ -107,7 +107,6 @@ namespace InstallPad
             this.checkboxEnabled.Size = new System.Drawing.Size(15, 14);
             this.checkboxEnabled.TabIndex = 1;
             this.checkboxEnabled.UseVisualStyleBackColor = true;
-            this.checkboxEnabled.CheckedChanged += new System.EventHandler(this.checkboxEnabled_CheckedChanged);
             // 
             // labelProgress
             // 

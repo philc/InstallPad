@@ -198,6 +198,7 @@ namespace InstallPad
         }
         #endregion
 
+
         /// <summary>
         /// If the "O" key is hit, open the dialog to choose an applist.
         /// </summary>
@@ -420,7 +421,8 @@ namespace InstallPad
                 if (!item.Checked)
                     continue;
 
-                if (item.State==ApplicationListItem.InstallState.Downloaded)
+                // Avoid trying items again that we've tried to install before but which bailed out due to error
+                if (item.State==ApplicationListItem.InstallState.Downloaded && item.InstallError==null)
                 {
                         installing++;
                         if (toInstall == null)
