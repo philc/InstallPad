@@ -173,6 +173,7 @@ namespace InstallPad
         }
 
         #region left clicking
+
         /// <summary>
         /// When they click on a list item, check it.
         /// </summary>
@@ -180,6 +181,15 @@ namespace InstallPad
         /// <param name="e"></param>
         void controlList_ListItemClicked(object sender, MouseEventArgs e)
         {
+            // TODO: I'm turning this off for now. When you left click on an
+            // app item, the toggling is very slow - it can miss clicks
+            // which is super annoying. Also, if you click on the label of an app item,
+            // the click on that label is not registered as a click on the app
+            // item, so you're clicking away for nothing. Until these problems are
+            // solved, disable it.
+
+            return;
+
             // Only interpret left clicks. Right clicks are for opening context menus
             if (e.Button != MouseButtons.Left)
                 return;

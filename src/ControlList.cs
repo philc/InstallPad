@@ -299,6 +299,7 @@ namespace InstallPad
             }
 
             this.tableLayout.Controls.Add(control, 0, position);
+
             control.MouseClick += new MouseEventHandler(OnListItemClicked);
         }        
 

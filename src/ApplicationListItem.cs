@@ -42,6 +42,7 @@ namespace InstallPad
         // When we run an installer, this is a handle to its process.
         Process installProcess;
 
+
         #region Properties
         /// <summary>
         /// True if the application list item's checkbox is checked.
@@ -91,6 +92,8 @@ namespace InstallPad
             downloader.DownloadComplete += new EventHandler(downloader_DownloadComplete);
 
             this.Checked = this.ApplicationItem.Options.Checked;
+
+            // this.labelName.MouseClick += new MouseEventHandler(ClickHandler);
         }
 
         /// <summary>

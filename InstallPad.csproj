@@ -203,9 +203,6 @@
     <None Include="license.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="data\images\web-logo.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="data\images\about-logo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
