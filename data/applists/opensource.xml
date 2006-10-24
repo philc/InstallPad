@@ -6,17 +6,16 @@
 
   <Application>
     <Name>Azureus</Name>
-    <FileUrl>http://easynews.dl.sourceforge.net/sourceforge/azureus/Azureus_2.4.0.2_Win32.setup.exe</FileUrl>
+    <FileUrl>http://easynews.dl.sourceforge.net/sourceforge/azureus/Azureus_2.5.0.0_Win32.setup.exe</FileUrl>
   </Application>
-  
   <Application>
     <Name>FireFox</Name>
-    <FileUrl>http://download.mozilla.org/?product=firefox-1.5.0.5&os=win&lang=en-US</FileUrl>
+    <FileUrl>http://download.mozilla.org/?product=firefox-1.5.0.7&amp;os=win&amp;lang=en-US</FileUrl>
     <Options>
-      <DownloadLatestVersion/>
+      <DownloadLatestVersion />
     </Options>
   </Application>
-  
+
   <Application>
     <Name>Gaim</Name>
     <FileUrl>http://superb-west.dl.sourceforge.net/sourceforge/gaim/gaim-1.5.0.exe</FileUrl>
@@ -27,7 +26,7 @@
 
   <Application>
     <Name>Inkscape</Name>
-    <FileUrl>http://umn.dl.sourceforge.net/sourceforge/inkscape/Inkscape-0.43-2.win32.exe</FileUrl>
+    <FileUrl>http://umn.dl.sourceforge.net/sourceforge/inkscape/Inkscape-0.44-1.win32.exe</FileUrl>
   </Application>
 
   <Application>
