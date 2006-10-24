@@ -10,7 +10,7 @@
 // distribute this software internally within a corporation.
 
 using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Xml;
@@ -43,6 +43,9 @@ namespace InstallPad
         // installing, we should begin downloading/installing the next enabled app on the list.
         private bool installingAll = false;
 
+        // This is the list of items we've tried to instal in the current run. If one fails,
+        // we can check this collection to make sure we don't try to install again.
+        private List<ApplicationListItem> triedToInstall = new List<ApplicationListItem>();
         // For now, only install one app at a time.
         private int currentlyInstalling = 0;
 
@@ -292,7 +295,7 @@ namespace InstallPad
                 // Show the "encountered errors" label
                 this.errorPanel.Show();
             }
-            ArrayList toAdd = new ArrayList();
+            List<ApplicationListItem> toAdd = new List<ApplicationListItem>();
             foreach (ApplicationItem item in appList.ApplicationItems)
             {
                 ApplicationListItem listItem = CreateApplicationListItem(item);
@@ -406,7 +409,6 @@ namespace InstallPad
 
         private void InstallNext()
         {
-
             // You want to calculate what's downloading and what's installing,
             // instead of keeping counters, because users can click on the
             // individual install links at any time and trigger other things installing/downloading
@@ -421,23 +423,27 @@ namespace InstallPad
                 if (!item.Checked)
                     continue;
 
-                // Avoid trying items again that we've tried to install before but which bailed out due to error
-                if (item.State==ApplicationListItem.InstallState.Downloaded && item.InstallError==null)
+                // Avoid trying items again that we've tried to install before
+                if (item.State == ApplicationListItem.InstallState.Downloaded && !triedToInstall.Contains(item))
                 {
-                        installing++;
-                        if (toInstall == null)
-                            toInstall = item;
+                    if (toInstall == null)
+                        toInstall = item;
                 }
-                else
+                else if (item.State == ApplicationListItem.InstallState.Installing)
+                    installing++;
+                else if (item.State == ApplicationListItem.InstallState.Downloading)
                     downloading++;
             }
             // If there's no installing or downloading happening, then we're done.
-            if (installing == 0 && downloading == 0)
+            if (installing == 0 && downloading == 0 && toInstall==null)
                 this.installingAll = false;
             
             // Only install when no other installers are running - run 1 at a time.
-            if (installing==0)
+            if (toInstall != null && installing == 0)
+            {
+                triedToInstall.Add(toInstall);
                 toInstall.InstallApplication();
+            }
         }
 
 
@@ -477,7 +483,7 @@ namespace InstallPad
         private void buttonInstall_Click(object sender, EventArgs e)
         {
             this.installingAll = true;
-
+            this.triedToInstall.Clear();
             DownloadNextOnList();
         }
 

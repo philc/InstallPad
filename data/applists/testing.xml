@@ -14,7 +14,7 @@
   </Application>
   <Application>
     <Name>FireFox</Name>
-    <FileUrl>http://download.mozilla.org/?product=firefox-1.5.0.7&amp;os=win&amp;lang=en-US</FileUrl>
+    <FileUrl>http://ftp-mozilla.netscape.com/pub/mozilla.org/firefox/releases/1.5.0.7/win32/en-US/Firefox%20Setup%201.5.0.7.exe</FileUrl>
   </Application>
   <Application>
     <Name>FireFox FTP</Name>

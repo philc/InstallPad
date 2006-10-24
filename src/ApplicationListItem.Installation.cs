@@ -62,9 +62,14 @@ namespace InstallPad
         #region Event we publish
         public event EventHandler FinishedDownloading;
         private void OnFinishedDownloading()
-        {
+        {            
+            SetState(InstallState.Downloaded);
+
             if (this.FinishedDownloading != null)
                 FinishedDownloading(this, new EventArgs());
+
+            if (installAfterDownload)
+                InstallApplication();
         }
         public event EventHandler FinishedInstalling;
         private void OnFinishedInstalling()
@@ -199,6 +204,7 @@ namespace InstallPad
         /// <param name="data"></param>
         private void AsyncDownload(object data)
         {
+            Debug.WriteLine("starting an async download");
             Exception ex = null;
             try
             {
@@ -218,6 +224,7 @@ namespace InstallPad
             }
             if (ex != null)
             {
+                Debug.WriteLine("async download had error: " + ex.Message);
                 this.Invoke(new EventHandler(delegate
                 {
                     // Show an error
@@ -230,13 +237,14 @@ namespace InstallPad
                 //SetInstalLinkText("Install");
                 SetState(InstallState.None);
             }
-            else
+            /*else
             {
                 //this.state = InstallState.Downloaded;
                 SetState(InstallState.Downloaded);
                 if (installAfterDownload)
                     InstallApplication();
-            }
+            }*/
+            // Downloader_Complete event will trigger the state change to downloaded
         }
 
         /// <summary>
@@ -334,6 +342,7 @@ namespace InstallPad
         /// </summary>
         private void AsyncInstall(object data)
         {
+            Debug.WriteLine("starting async install: ");
             ProcessStartInfo psi = new ProcessStartInfo(downloader.DownloadingTo);
             psi.Arguments = application.Options.InstallerArguments;
             if (application.Options.SilentInstall || InstallPadApp.AppList.InstallationOptions.SilentInstall)
