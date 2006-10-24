@@ -12,7 +12,7 @@ namespace CodeProject.AboutDialog
     {
         static int padding = 6;
 
-        CreditsDialog credits = null;
+        CreditsDialog creditsDialog = null;
         LicenseDialog licenseDialog = null;
         
         private string projectUrl = null;
@@ -73,27 +73,30 @@ namespace CodeProject.AboutDialog
         // Expose properties from the credits dialog
         public string[] WrittenBy
         {
-            set{ credits.WrittenBy = value; }
+            get{ return creditsDialog.WrittenBy; }
+            set{ creditsDialog.WrittenBy = value; }
         }
         public string[] TranslatedBy
         {
-            set { credits.TranslatedBy = value; }
+            get { return creditsDialog.TranslatedBy; }
+            set { creditsDialog.TranslatedBy = value; }
         }
         public string[] ArtworkBy
         {
-            set { credits.ArtworkBy = value; }
+            get { return creditsDialog.ArtworkBy; }
+            set { creditsDialog.ArtworkBy = value; }
         }
 
         public AboutDialog()
         {
             InitializeComponent();
-            credits = new CreditsDialog();
+            creditsDialog = new CreditsDialog();
             licenseDialog = new LicenseDialog();
         }
 
         private void creditsButton_Click(object sender, EventArgs e)
         {
-            credits.ShowDialog();
+            creditsDialog.ShowDialog();
         }
 
         private void AboutDialog_Load(object sender, EventArgs e)
@@ -127,6 +130,9 @@ namespace CodeProject.AboutDialog
             else
                 descriptionLabel.Visible = false;
 
+            if (!NonEmpty(WrittenBy) && !NonEmpty(TranslatedBy) && !NonEmpty(ArtworkBy))
+                this.creditsButton.Visible = false;
+
             SizeDialog();
         }
         private static bool NonEmpty(String o)
@@ -155,7 +161,7 @@ namespace CodeProject.AboutDialog
             Control[] controls = new Control[] { nameAndVersion, descriptionLabel, copyrightLabel, projectLink };
             dialogHeight = LayoutControls(controls, dialogHeight);
             
-            this.Height = dialogHeight + 70;   // pixels to pad for the buttons and whitespace
+            this.Height = dialogHeight + 70;   // pixels to pad for the dialog's buttons and whitespace
 
         }
 
