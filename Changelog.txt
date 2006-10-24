@@ -1,6 +1,8 @@
 
 
 0.4
+- Removing preference for "installation root" until we can figure out what to do with it
+- UI cleanup for the add application dialog. Now it's sizable
 - UI for the preferences
 - Preferences backend (Zac Ruiz)
 - close the XML file after opening it instead of leaving it open (Craig Reynolds)
