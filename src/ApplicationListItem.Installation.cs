@@ -215,7 +215,16 @@ namespace InstallPad
             Exception ex = null;
             try
             {
-                Zip.Instance.ExtractZip(downloader.DownloadingTo, InstallPadApp.AppList.InstallationOptions.InstallationRoot);
+                string extractTo =null;
+                // If the application has an InstallationRoot option set, extract there. Otherwise
+                // use the user preference's InstallationRoot
+                string appRoot = this.application.Options.InstallationRoot;
+                if (appRoot != null && appRoot.Length > 0)
+                    extractTo = appRoot;
+                else
+                    extractTo = InstallPadApp.Preferences.InstallationRoot;
+
+                Zip.Instance.ExtractZip(downloader.DownloadingTo, InstallPadApp.Preferences.InstallationRoot);
             }
             catch (Exception e)
             {

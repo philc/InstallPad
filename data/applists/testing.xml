@@ -4,13 +4,21 @@
     <SimultaneousDownloads>3</SimultaneousDownloads>
   </InstallationOptions>
   <Application>
+	<Name>Zip file</Name>
+	<FileUrl>http://www.installpad.com/test/test4.zip</FileUrl>
+  </Application>
+  <Application>
     <Name>Azureus</Name>
     <FileUrl>http://easynews.dl.sourceforge.net/sourceforge/azureus/Azureus_2.4.0.2_Win32.setup.exe1</FileUrl>
     <Options>
       <SilentInstall />
       <InstallerArguments>&lt;&gt;^ -/s</InstallerArguments>
-      <Checked>false</Checked>
+	<Checked>false</Checked>
     </Options>
+  </Application>
+  <Application>
+    <Name>FireFox</Name>
+    <FileUrl>http://ftp-mozilla.netscape.com/pub/mozilla.org/firefox/releases/1.5.0.7/win32/en-US/Firefox%20Setup%201.5.0.7.exe</FileUrl>
   </Application>
   <Application>
     <Name>FireFox FTP</Name>
