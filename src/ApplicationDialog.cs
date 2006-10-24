@@ -188,15 +188,19 @@ namespace InstallPad
                 this.installerArgumentsBox.Text = value;
             }
         }
+        // TODO: not sure what to do with this UI feature. Should the installation root
+        // even be settable per application in the UI? It's currently a global user preference
         public string InstallationRoot
         {
             get
             {
-                return this.installationRootBox.Text;
+                //return this.installationRootBox.Text;
+                return null;
             }
             set
             {
-                this.installationRootBox.Text = value;
+                //this.installationRootBox.Text = value;
+                
             }
         }
         public ApplicationItem ApplicationItem
