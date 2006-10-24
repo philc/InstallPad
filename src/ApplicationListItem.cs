@@ -42,8 +42,6 @@ namespace InstallPad
         // When we run an installer, this is a handle to its process.
         Process installProcess;
 
-        // Listens for the "FinishedDownloadingAfterLinkClicked" event.
-        EventHandler LinkClickedDownloadHandler;
 
         private bool downloadComplete = false;
         private bool downloading = false;
@@ -87,7 +85,6 @@ namespace InstallPad
             : this()
         {
             this.ApplicationItem = application;
-            this.LinkClickedDownloadHandler = new EventHandler(this.FinishedDownloadingAfterLinkClicked);
             this.Controls.Add(downloadErrorBox);
             AddErrorBoxes();
 
@@ -133,12 +130,10 @@ namespace InstallPad
 
             if (this.installLink.Text == "Install")
             {
-                Download();
+                Download(true);
             }
             else if (this.installLink.Text == "Cancel")
             {
-                this.FinishedDownloading -= LinkClickedDownloadHandler;
-
                 // They've pressed cancel, so change "cancel" to "install"
                 if (this.downloading)
                 {

@@ -51,7 +51,6 @@ namespace InstallPad
         public InstallPad()
         {
             InitializeComponent();
-
         }
 
         /// <summary>
@@ -170,8 +169,6 @@ namespace InstallPad
             LoadApplicationList(InstallPadApp.AppListFile);
         }
 
-
-
         #region left clicking
         /// <summary>
         /// When they click on a list item, check it.
@@ -200,6 +197,7 @@ namespace InstallPad
             controlList.Unhighlight(controlList.HighlightedEntry);
         }
         #endregion
+
         /// <summary>
         /// If the "O" key is hit, open the dialog to choose an applist.
         /// </summary>
@@ -391,17 +389,58 @@ namespace InstallPad
         void HandleFinishedInstalling(object sender, EventArgs e)
         {
             currentlyInstalling--;
+            if (this.installingAll)
+                InstallNext();
         }
 
         void HandleFinishedDownloading(object sender, EventArgs e)
         {
             if (this.installingAll)
+            {
                 DownloadNextOnList();
+                InstallNext();
+            }
         }
+
+        private void InstallNext()
+        {
+
+            // You want to calculate what's downloading and what's installing,
+            // instead of keeping counters, because users can click on the
+            // individual install links at any time and trigger other things installing/downloading
+            int downloading = 0;
+            int installing = 0;
+
+            // Kepe track of the first item we found that needs to be installed
+            ApplicationListItem toInstall=null;
+
+            foreach (ApplicationListItem item in this.controlList.ListItems)
+            {
+                if (!item.Checked)
+                    continue;
+                   if (item.DownloadComplete){
+                    if (!item.Installed && !item.Installing)
+                    {
+                        installing++;
+                        if (toInstall==null)
+                            toInstall = item;
+                        break;
+                    }
+                }
+                else
+                    downloading++;
+            }
+            // If there's no installing or downloading happening, then we're done.
+            if (installing == 0 && downloading == 0)
+                this.installingAll = false;
+            else
+                toInstall.InstallApplication();            
+        }
+    
 
         // TODO this isn't being used right now.. we're not monitoring the installation. AppListItems
         // start installing their exe as soon as it downloads.
-        private void InstallNextItem()
+        /*private void InstallNextItem()
         {
             if (currentlyInstalling > 0)
                 return;
@@ -430,7 +469,7 @@ namespace InstallPad
             if (currentlyInstalling == 0 && currentlyDownloading == 0)
                 // We're done downloading and installing everything.
                 this.installingAll = false;
-        }
+        }*/
 
         private void buttonInstall_Click(object sender, EventArgs e)
         {
@@ -454,7 +493,7 @@ namespace InstallPad
                     if (!item.Installed && !item.Installing && !item.DownloadComplete)
                     {
                         currentlyDownloading++;
-                        item.Download();
+                        item.Download(false);
                     }
                 }
                 if (currentlyDownloading >= InstallPadApp.AppList.InstallationOptions.SimultaneousDownloads)

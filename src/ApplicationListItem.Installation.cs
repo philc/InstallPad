@@ -14,8 +14,12 @@ namespace InstallPad
 {
     public partial class ApplicationListItem
     {
+        public enum InstallState
+        {
+            Downloading,Downloaded,Installing,Installed
+        }
         #region Properties
-        public bool Downloading
+        /*public bool Downloading
         {
             get { return downloading; }
             set { downloading = value; }
@@ -36,15 +40,13 @@ namespace InstallPad
         public bool Installed
         {
             get { return installed; }
-        }
+        }*/
         #endregion
 
         #region Event we publish
         public event EventHandler FinishedDownloading;
         private void OnFinishedDownloading()
         {
-
-
             if (this.FinishedDownloading != null)
                 FinishedDownloading(this, new EventArgs());
         }
@@ -127,15 +129,12 @@ namespace InstallPad
             this.OnFinishedDownloading();
         }
 
-        private void FinishedDownloadingAfterLinkClicked(object sender, EventArgs e)
+        // Determines whether installation should begin after the download
+        bool installAfterDownload = false;
+
+        public void Download(bool installAfterDownload)
         {
-            // If we finished downloading after they explictly clicked on the "Install"
-            // link, they we should launch the installer
-            this.FinishedDownloading -= LinkClickedDownloadHandler;
-            InstallApplication();
-        }
-        public void Download()
-        {
+            this.installAfterDownload = installAfterDownload;
             // If we're already downloading this file, ignore this click
             if (this.Downloading)
                 return;
@@ -154,9 +153,7 @@ namespace InstallPad
             // Change "install" to "cancel"
             SetInstalLinkText("Cancel");
 
-            this.FinishedDownloading += LinkClickedDownloadHandler;
-
-            ThreadPool.QueueUserWorkItem(new WaitCallback(this.AsyncDownload), null);
+            ThreadPool.QueueUserWorkItem(new WaitCallback(this.AsyncDownload), installAfterDownload);
         }
 
         /// <summary>
@@ -197,6 +194,11 @@ namespace InstallPad
                 }));
                 this.Downloading = false;
                 SetInstalLinkText("Install");
+            }
+            else
+            {
+                if (installAfterDownload)
+                    InstallApplication();
             }
         }
 
