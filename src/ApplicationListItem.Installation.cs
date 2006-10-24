@@ -12,11 +12,19 @@ using InstallPad;
 
 namespace InstallPad
 {
+
     public partial class ApplicationListItem
     {
         public enum InstallState
         {
-            Downloading,Downloaded,Installing,Installed
+            None, Downloading, Downloaded, Installing, Installed
+        }
+        InstallState state = InstallState.None;
+
+        public InstallState State
+        {
+            get { return state; }
+            set { state = value; }
         }
         #region Properties
         /*public bool Downloading
@@ -57,7 +65,8 @@ namespace InstallPad
             {
                 if (this.installProcess != null && this.installProcess.ExitCode == 0)
                 {
-                    this.installed = true;
+                    this.state = InstallState.Installed;
+                    
                     this.labelStatus.Text = "Install finished";
                     RunPostInstallationScript();
                 }
@@ -77,7 +86,8 @@ namespace InstallPad
             {
                 if (status)
                 {
-                    this.installed = true;
+                    this.state = InstallState.Installed;
+                    
                     this.labelStatus.Text = "Install finished";
                     RunPostInstallationScript();
                 }
@@ -112,11 +122,10 @@ namespace InstallPad
         {
             // Update our appearance, let others know we're finished downloading.
             Debug.WriteLine("download complete.");
-            if (!this.downloading)
+            if (this.state!=InstallState.Downloading)
                 return;
 
-            this.downloading = false;
-            this.downloadComplete = true;
+            this.state = InstallState.Downloaded;
 
             this.Invoke(new EventHandler(delegate
             {
@@ -136,9 +145,9 @@ namespace InstallPad
         {
             this.installAfterDownload = installAfterDownload;
             // If we're already downloading this file, ignore this click
-            if (this.Downloading)
+            if (this.state == InstallState.Downloaded || this.state==InstallState.Downloading)
                 return;
-            this.downloading = true;
+            this.state = InstallState.Downloading;
 
             this.Invoke(new EventHandler(delegate
             {
@@ -153,7 +162,7 @@ namespace InstallPad
             // Change "install" to "cancel"
             SetInstalLinkText("Cancel");
 
-            ThreadPool.QueueUserWorkItem(new WaitCallback(this.AsyncDownload), installAfterDownload);
+            ThreadPool.QueueUserWorkItem(new WaitCallback(this.AsyncDownload), null);
         }
 
         /// <summary>
@@ -165,9 +174,6 @@ namespace InstallPad
             Exception ex = null;
             try
             {
-                //String downloadUrl = this.application.FindLatestUrl();
-                //downloader.Download(downloadUrl, InstallPadApp.InstallFolder);
-
                 // process alternate download locations, build a download list ordered by best location
                 List<string> downloadUrlOrderedList = this.application.CreateOrderedUrlList();
 
@@ -192,11 +198,12 @@ namespace InstallPad
                     this.progressBar.Visible = false;
                     this.labelStatus.Visible = false;
                 }));
-                this.Downloading = false;
+                this.state = InstallState.None;
                 SetInstalLinkText("Install");
             }
             else
             {
+                this.state = InstallState.Downloaded;
                 if (installAfterDownload)
                     InstallApplication();
             }
@@ -207,6 +214,7 @@ namespace InstallPad
         /// </summary>
         public void InstallApplication()
         {
+            Debug.Assert(this.state == InstallState.Downloaded);
 
             this.Invoke(new EventHandler(delegate
             {
@@ -216,7 +224,7 @@ namespace InstallPad
                 this.labelProgress.Hide();
             }));
 
-            // TODO: Should check to make sure the app is downloaded first.
+            this.state = InstallState.Installing;
 
             if (downloader.DownloadingTo.ToLower().EndsWith(".zip"))
             {
@@ -261,7 +269,7 @@ namespace InstallPad
 
         private void AsyncZipInstall(object data)
         {
-            this.installed = false;
+            this.state = InstallState.Downloaded;
 
             bool status = true;
             Exception ex = null;
@@ -295,8 +303,6 @@ namespace InstallPad
         /// </summary>
         private void AsyncInstall(object data)
         {
-            this.installed = false;
-
             ProcessStartInfo psi = new ProcessStartInfo(downloader.DownloadingTo);
             psi.Arguments = application.Options.InstallerArguments;
             if (application.Options.SilentInstall || InstallPadApp.AppList.InstallationOptions.SilentInstall)
@@ -340,7 +346,7 @@ namespace InstallPad
         {
             // Sometimes we may get events fired even after we're done downloading.
             // Don't react to them.
-            if (!this.Downloading)
+            if (this.state != InstallState.Downloading)
                 return;
             this.Invoke(new EventHandler(delegate
             {

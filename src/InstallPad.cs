@@ -113,7 +113,7 @@ namespace InstallPad
         {
             preferencesDialog = new PreferencesDialog();
             this.logoBox.Click += new EventHandler(logoBox_Click);
-            this.errorLink.Click+=new EventHandler(errorLink_Click);
+            this.errorLink.Click += new EventHandler(errorLink_Click);
             this.KeyUp += new KeyEventHandler(InstallPad_KeyUp);
             this.FormClosing += new FormClosingEventHandler(InstallPad_FormClosing);
             this.controlList = new ControlList();
@@ -176,13 +176,13 @@ namespace InstallPad
         /// <param name="sender"></param>
         /// <param name="e"></param>
         void controlList_ListItemClicked(object sender, MouseEventArgs e)
-        {            
+        {
             // Only interpret left clicks. Right clicks are for opening context menus
             if (e.Button != MouseButtons.Left)
                 return;
             ApplicationListItem item = (ApplicationListItem)sender;
-            item.Checked = !item.Checked;            
-            
+            item.Checked = !item.Checked;
+
             // Highlight the item we clicked on
             controlList.Unhighlight(controlList.HighlightedEntry);
             controlList.Highlight((Control)sender);
@@ -208,7 +208,7 @@ namespace InstallPad
             if (e.KeyValue == 'O' && e.Control)
             {
                 // Do something
-                e.Handled = true;                
+                e.Handled = true;
                 ShowAppListOpenDialog();
             }
         }
@@ -222,7 +222,8 @@ namespace InstallPad
             // Don't open a new list if something is downloading or installing
             foreach (ApplicationListItem item in this.controlList.ListItems)
             {
-                if (item.Downloading || item.Installing)
+                if (item.State == ApplicationListItem.InstallState.Downloading ||
+                    item.State == ApplicationListItem.InstallState.Installing)
                 {
                     MessageBox.Show(this,
                         "Can't open a new application list while an program is downloading or installing.",
@@ -288,7 +289,7 @@ namespace InstallPad
                     errorDialog.ErrorText += error + System.Environment.NewLine;
 
                 // Show the "encountered errors" label
-                this.errorPanel.Show();                
+                this.errorPanel.Show();
             }
             ArrayList toAdd = new ArrayList();
             foreach (ApplicationItem item in appList.ApplicationItems)
@@ -371,7 +372,7 @@ namespace InstallPad
 
         void controlList_Resize(object sender, EventArgs e)
         {
-            if (appListErrorBox!=null && appListErrorBox.Visible)
+            if (appListErrorBox != null && appListErrorBox.Visible)
                 UpdateErrorBoxLocation();
         }
         /// <summary>
@@ -412,20 +413,18 @@ namespace InstallPad
             int installing = 0;
 
             // Kepe track of the first item we found that needs to be installed
-            ApplicationListItem toInstall=null;
+            ApplicationListItem toInstall = null;
 
             foreach (ApplicationListItem item in this.controlList.ListItems)
             {
                 if (!item.Checked)
                     continue;
-                   if (item.DownloadComplete){
-                    if (!item.Installed && !item.Installing)
-                    {
+
+                if (item.State==ApplicationListItem.InstallState.Downloaded)
+                {
                         installing++;
-                        if (toInstall==null)
+                        if (toInstall == null)
                             toInstall = item;
-                        break;
-                    }
                 }
                 else
                     downloading++;
@@ -433,10 +432,12 @@ namespace InstallPad
             // If there's no installing or downloading happening, then we're done.
             if (installing == 0 && downloading == 0)
                 this.installingAll = false;
-            else
-                toInstall.InstallApplication();            
+            
+            // Only install when no other installers are running - run 1 at a time.
+            if (installing==0)
+                toInstall.InstallApplication();
         }
-    
+
 
         // TODO this isn't being used right now.. we're not monitoring the installation. AppListItems
         // start installing their exe as soon as it downloads.
@@ -483,19 +484,16 @@ namespace InstallPad
             int currentlyDownloading = 0;
             foreach (ApplicationListItem item in this.controlList.ListItems)
             {
-                if (item.Downloading)
+                if (item.State==ApplicationListItem.InstallState.Downloading)
                 {
-                    currentlyDownloading++;
-                    // Once we reach the limit on simul downloads, just exit.
+                    currentlyDownloading++;                    
                 }
-                else if (item.Checked)
-                {
-                    if (!item.Installed && !item.Installing && !item.DownloadComplete)
-                    {
-                        currentlyDownloading++;
-                        item.Download(false);
-                    }
+                else if (item.Checked && item.State == ApplicationListItem.InstallState.None)
+                {                    
+                    item.Download(false);
+                    currentlyDownloading++; 
                 }
+                // Once we reach the limit on simul downloads, just exit.
                 if (currentlyDownloading >= InstallPadApp.AppList.InstallationOptions.SimultaneousDownloads)
                     return;
             }

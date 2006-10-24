@@ -43,13 +43,6 @@ namespace InstallPad
         Process installProcess;
 
 
-        private bool downloadComplete = false;
-        private bool downloading = false;
-
-        #region Properties
-
-
-
         /// <summary>
         /// True if the application list item's checkbox is checked.
         /// </summary>
@@ -59,7 +52,6 @@ namespace InstallPad
             set { this.checkboxEnabled.Checked = value; }
         }
 
-        #endregion
 
 
         public ApplicationListItem()
@@ -135,10 +127,9 @@ namespace InstallPad
             else if (this.installLink.Text == "Cancel")
             {
                 // They've pressed cancel, so change "cancel" to "install"
-                if (this.downloading)
+                if (this.state==InstallState.Downloading)
                 {
                     this.downloader.Cancel();
-                    this.downloading = false;
                     this.progressBar.Hide();
                     this.labelProgress.Hide();
                 }

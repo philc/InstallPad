@@ -14,7 +14,7 @@
   </Application>
   <Application>
     <Name>FireFox</Name>
-    <FileUrl>http://download.mozilla.org/?product=firefox-1.5.0.2&amp;os=win&amp;lang=en-US</FileUrl>
+    <FileUrl>http://download.mozilla.org/?product=firefox-1.5.0.7&amp;os=win&amp;lang=en-US</FileUrl>
   </Application>
   <Application>
     <Name>FireFox FTP</Name>
@@ -22,6 +22,14 @@
   </Application>
   <Application>
     <Name>Gaim</Name>
+    <FileUrl>http://superb-west.dl.sourceforge.net/sourceforge/gaim/gaim-1.5.0.exe</FileUrl>
+    <Options>
+      <InstallerArguments>-s /S</InstallerArguments>
+      <PostInstallScript>c:\Notepad.exe</PostInstallScript>
+    </Options>
+  </Application>
+  <Application>
+    <Name>Gaim - download latest</Name>
     <FileUrl>http://superb-west.dl.sourceforge.net/sourceforge/gaim/gaim-1.2.0.exe</FileUrl>
     <Options>
       <DownloadLatestVersion />
