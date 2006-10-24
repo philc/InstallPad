@@ -41,6 +41,15 @@ namespace InstallPad
             }
         }
 
+        private string detailsDialogTitle = "Errors loading application list";
+
+        public string DetailsDialogTitle
+        {
+            get { return detailsDialogTitle; }
+            set { detailsDialogTitle = value; }
+        }
+
+
         private string detailsCaption;
 
         /// <summary>
@@ -49,9 +58,11 @@ namespace InstallPad
         public string DetailsCaption
         {
             get { return detailsCaption; }
-            set { detailsCaption = value;
-            BuildControlLayout();
-        }
+            set
+            {
+                detailsCaption = value;
+                BuildControlLayout();
+            }
         }
 
         private string detailsText;
@@ -97,6 +108,7 @@ namespace InstallPad
         private void moreInfoLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             AppListErrorDialog d = new AppListErrorDialog();
+            d.Text=detailsDialogTitle;
             d.ErrorText = DetailsText;
             d.ShowDialog();
         }

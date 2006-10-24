@@ -100,14 +100,17 @@ namespace InstallPad
         {
             // Add a custom error control to our list item
             downloadErrorBox = new ErrorBox();
+            
             installErrorBox = new ErrorBox();
             downloadErrorBox.ErrorCaption = Resources.ErrorDownloading;
             downloadErrorBox.DetailsCaption = Resources.ViewDetails;
             downloadErrorBox.DetailsOnSameLine = true;
+            downloadErrorBox.DetailsDialogTitle = "Error downloading file";
 
             installErrorBox.ErrorCaption = Resources.ErrorInstalling;
             installErrorBox.DetailsCaption = Resources.ViewDetails;
             installErrorBox.DetailsOnSameLine = true;
+            installErrorBox.DetailsDialogTitle = "Error installing file";
 
             this.Controls.Add(downloadErrorBox);
             downloadErrorBox.Location = new Point(this.Left, this.Bottom - downloadErrorBox.Height - 2);
@@ -171,7 +174,7 @@ namespace InstallPad
 
                         SetInstalLinkText("Install");
                         break;
-                }                    
+                }
             }));
         }
 

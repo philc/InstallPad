@@ -86,10 +86,13 @@ namespace InstallPad
             }
             catch (Exception e)
             {
-                this.installErrorBox.DetailsText =
-                    String.Format("Error running the post install script {0} : {1}",
-                        application.Options.PostInstallScript, e.Message);
-                this.installErrorBox.Show();
+                this.Invoke(new EventHandler(delegate
+                {
+                    this.installErrorBox.DetailsText =
+                        String.Format("Error running the post install script {0} : {1}",
+                            application.Options.PostInstallScript, e.Message);
+                    this.installErrorBox.Show();
+                }));
             }
         }
         void downloader_DownloadComplete(object sender, EventArgs e)
