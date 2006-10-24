@@ -36,7 +36,6 @@ namespace CodeProject.AboutDialog
             }
         }
 
-
         public string Description
         {
             set
@@ -71,18 +70,25 @@ namespace CodeProject.AboutDialog
             set { projectUrl = value; }
         }
 
+        // Expose properties from the credits dialog
+        public string[] WrittenBy
+        {
+            set{ credits.WrittenBy = value; }
+        }
+        public string[] TranslatedBy
+        {
+            set { credits.TranslatedBy = value; }
+        }
+        public string[] ArtworkBy
+        {
+            set { credits.ArtworkBy = value; }
+        }
+
         public AboutDialog()
         {
             InitializeComponent();
             credits = new CreditsDialog();
             licenseDialog = new LicenseDialog();
-        }
-        public string[] WrittenBy
-        {
-            set
-            {
-                credits.WrittenBy = value;
-            }
         }
 
         private void creditsButton_Click(object sender, EventArgs e)

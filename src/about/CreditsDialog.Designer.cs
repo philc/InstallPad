@@ -29,11 +29,17 @@ namespace CodeProject.AboutDialog
         private void InitializeComponent()
         {
             this.tabControl = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.writtenByTab = new System.Windows.Forms.TabPage();
             this.writtenByTextBox = new System.Windows.Forms.RichTextBox();
             this.closeButton = new System.Windows.Forms.Button();
+            this.translatedByTab = new System.Windows.Forms.TabPage();
+            this.artworkByTab = new System.Windows.Forms.TabPage();
+            this.artworkByTextBox = new System.Windows.Forms.RichTextBox();
+            this.translatedByTextBox = new System.Windows.Forms.RichTextBox();
             this.tabControl.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.writtenByTab.SuspendLayout();
+            this.translatedByTab.SuspendLayout();
+            this.artworkByTab.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl
@@ -41,24 +47,26 @@ namespace CodeProject.AboutDialog
             this.tabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl.Controls.Add(this.tabPage1);
+            this.tabControl.Controls.Add(this.writtenByTab);
+            this.tabControl.Controls.Add(this.translatedByTab);
+            this.tabControl.Controls.Add(this.artworkByTab);
             this.tabControl.Location = new System.Drawing.Point(12, 12);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(240, 164);
             this.tabControl.TabIndex = 0;
             // 
-            // tabPage1
+            // writtenByTab
             // 
-            this.tabPage1.AutoScroll = true;
-            this.tabPage1.Controls.Add(this.writtenByTextBox);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(232, 138);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Written by";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.writtenByTab.AutoScroll = true;
+            this.writtenByTab.Controls.Add(this.writtenByTextBox);
+            this.writtenByTab.Location = new System.Drawing.Point(4, 22);
+            this.writtenByTab.Name = "writtenByTab";
+            this.writtenByTab.Padding = new System.Windows.Forms.Padding(3);
+            this.writtenByTab.Size = new System.Drawing.Size(232, 138);
+            this.writtenByTab.TabIndex = 0;
+            this.writtenByTab.Text = "Written by";
+            this.writtenByTab.UseVisualStyleBackColor = true;
             // 
             // writtenByTextBox
             // 
@@ -86,6 +94,56 @@ namespace CodeProject.AboutDialog
             this.closeButton.Text = "&Close";
             this.closeButton.UseVisualStyleBackColor = true;
             // 
+            // translatedByTab
+            // 
+            this.translatedByTab.Controls.Add(this.translatedByTextBox);
+            this.translatedByTab.Location = new System.Drawing.Point(4, 22);
+            this.translatedByTab.Name = "translatedByTab";
+            this.translatedByTab.Size = new System.Drawing.Size(232, 138);
+            this.translatedByTab.TabIndex = 1;
+            this.translatedByTab.Text = "Translated By";
+            this.translatedByTab.UseVisualStyleBackColor = true;
+            // 
+            // artworkByTab
+            // 
+            this.artworkByTab.Controls.Add(this.artworkByTextBox);
+            this.artworkByTab.Location = new System.Drawing.Point(4, 22);
+            this.artworkByTab.Name = "artworkByTab";
+            this.artworkByTab.Size = new System.Drawing.Size(232, 138);
+            this.artworkByTab.TabIndex = 2;
+            this.artworkByTab.Text = "Artwork By";
+            this.artworkByTab.UseVisualStyleBackColor = true;
+            // 
+            // artworkByTextBox
+            // 
+            this.artworkByTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.artworkByTextBox.BackColor = System.Drawing.Color.White;
+            this.artworkByTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.artworkByTextBox.Location = new System.Drawing.Point(6, 6);
+            this.artworkByTextBox.Name = "artworkByTextBox";
+            this.artworkByTextBox.ReadOnly = true;
+            this.artworkByTextBox.Size = new System.Drawing.Size(220, 126);
+            this.artworkByTextBox.TabIndex = 1;
+            this.artworkByTextBox.Text = "";
+            this.artworkByTextBox.WordWrap = false;
+            // 
+            // translatedByTextBox
+            // 
+            this.translatedByTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.translatedByTextBox.BackColor = System.Drawing.Color.White;
+            this.translatedByTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.translatedByTextBox.Location = new System.Drawing.Point(6, 6);
+            this.translatedByTextBox.Name = "translatedByTextBox";
+            this.translatedByTextBox.ReadOnly = true;
+            this.translatedByTextBox.Size = new System.Drawing.Size(220, 126);
+            this.translatedByTextBox.TabIndex = 2;
+            this.translatedByTextBox.Text = "";
+            this.translatedByTextBox.WordWrap = false;
+            // 
             // CreditsDialog
             // 
             this.AcceptButton = this.closeButton;
@@ -105,7 +163,9 @@ namespace CodeProject.AboutDialog
             this.Text = "Credits";
             this.Load += new System.EventHandler(this.CreditsDialog_Load);
             this.tabControl.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
+            this.writtenByTab.ResumeLayout(false);
+            this.translatedByTab.ResumeLayout(false);
+            this.artworkByTab.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -113,8 +173,12 @@ namespace CodeProject.AboutDialog
         #endregion
 
         private System.Windows.Forms.TabControl tabControl;
-        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage writtenByTab;
         private System.Windows.Forms.Button closeButton;
         private System.Windows.Forms.RichTextBox writtenByTextBox;
+        private System.Windows.Forms.TabPage translatedByTab;
+        private System.Windows.Forms.TabPage artworkByTab;
+        private System.Windows.Forms.RichTextBox artworkByTextBox;
+        private System.Windows.Forms.RichTextBox translatedByTextBox;
     }
 }

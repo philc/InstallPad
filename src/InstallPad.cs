@@ -474,6 +474,8 @@ namespace InstallPad
             about.ProjectName = "InstallPad";
             about.ProjectUrl = "http://www.installpad.com";
             about.WrittenBy = new string[] { "Phil Crosby", "Honus Wagner" };
+            about.TranslatedBy = new string[] { "tr2" };
+            about.ArtworkBy = new string[] { "greg" };
             about.Copyright = "2006 Phil Crosby";
             about.Version = "0.4";
             about.Image = global::InstallPad.Properties.Resources.about_logo;
