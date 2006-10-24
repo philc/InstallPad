@@ -1,6 +1,7 @@
 
 
 0.4
+- Launch only one installer at a time, so they don't step on each other
 - Prevent user from removing items from the list that are downloading or installing.
 - Massive refactoring of the application item UI. Not scary anymore =)
 - Removing preference for "installation root" until we can figure out what to do with it
