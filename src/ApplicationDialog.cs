@@ -43,9 +43,8 @@ namespace InstallPad
             this.SilentInstall = item.Options.SilentInstall;
             this.InstallerArguments = item.Options.InstallerArguments;
             this.Comment = item.Comment;
-         
-            // set the installation root
             this.InstallationRoot = item.Options.InstallationRoot;
+
             // if no app specific installation root, default to applist.installationroot.
             if (this.InstallationRoot.Length == 0)
             {
@@ -238,6 +237,8 @@ namespace InstallPad
             // Setting InstallationRoot is disabled for now until the rules are decided.
             // Could allow setting Options, but probably wouldn't want to allow setting
             // AppList, and\or Preferences.  Might be confusing either way.
+
+            // Maybe there should be no GUI for installation root except via preferences.
         }
 
         public bool Saved

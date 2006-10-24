@@ -46,6 +46,8 @@ namespace InstallPad
         // For now, only install one app at a time.
         private int currentlyInstalling = 0;
 
+        PreferencesDialog preferencesDialog;
+
         public InstallPad()
         {
             InitializeComponent();
@@ -110,6 +112,8 @@ namespace InstallPad
 
         private void InstallPad_Load(object sender, EventArgs e)
         {
+            preferencesDialog = new PreferencesDialog();
+
             this.errorLink.Click+=new EventHandler(errorLink_Click);
             this.KeyUp += new KeyEventHandler(InstallPad_KeyUp);
             this.FormClosing += new FormClosingEventHandler(InstallPad_FormClosing);
@@ -133,23 +137,23 @@ namespace InstallPad
 
             // Try and create the temp folder that we'll be downloading to.
             // If we aren't successful, maybe log a warning            
-            if (!Directory.Exists(InstallPadApp.InstallFolder))
+            if (!Directory.Exists(InstallPadApp.Preferences.DownloadTo))
             {
                 try
                 {
-                    Directory.CreateDirectory(InstallPadApp.InstallFolder);
+                    Directory.CreateDirectory(InstallPadApp.Preferences.DownloadTo);
                 }
                 catch (System.IO.IOException)
                 {
                     //Debug.WriteLine("Error creating install folder: " + ex);
-                    MessageBox.Show(this, errorMessage + InstallPadApp.InstallFolder,
+                    MessageBox.Show(this, errorMessage + InstallPadApp.Preferences.DownloadTo,
                         "Error creating install folder", MessageBoxButtons.OK,
                         MessageBoxIcon.Error);
                     // Should log this TODO
                 }
                 catch (NotSupportedException)
                 {
-                    MessageBox.Show(this, errorMessage + InstallPadApp.InstallFolder,
+                    MessageBox.Show(this, errorMessage + InstallPadApp.Preferences.DownloadTo,
                         "Error creating install folder", MessageBoxButtons.OK,
                         MessageBoxIcon.Error);
                 }
@@ -461,7 +465,7 @@ namespace InstallPad
 
         private void preferencesLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-
+            preferencesDialog.ShowDialog();
         }
 
         private void aboutLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

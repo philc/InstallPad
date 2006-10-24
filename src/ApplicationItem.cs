@@ -397,7 +397,7 @@ namespace InstallPad
                             {
                                 value = bool.Parse(reader.ReadString());
                             }
-                            catch (Exception e)
+                            catch (Exception)
                             {
                             }
                             options.Checked = value;

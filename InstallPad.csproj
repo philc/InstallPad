@@ -114,6 +114,14 @@
     </Compile>
     <Compile Include="src\InstallPadApp.cs" />
     <Compile Include="src\Interop.cs" />
+    <Compile Include="src\Preferences.cs">
+    </Compile>
+    <Compile Include="src\PreferencesDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\PreferencesDialog.Designer.cs">
+      <DependentUpon>PreferencesDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="src\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="src\ApplicationDialog.resx">
@@ -184,6 +192,10 @@
     <EmbeddedResource Include="src\about\LicenseDialog.resx">
       <SubType>Designer</SubType>
       <DependentUpon>LicenseDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\PreferencesDialog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>PreferencesDialog.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

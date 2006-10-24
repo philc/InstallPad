@@ -1,6 +1,8 @@
 
 
 0.4
+- UI for the preferences
+- Preferences backend (Zac Ruiz)
 - close the XML file after opening it instead of leaving it open (Craig Reynolds)
 - Add comment field to application items (Craig Reynolds)
 - Add tooltip for comment fields (Craig Reynolds)

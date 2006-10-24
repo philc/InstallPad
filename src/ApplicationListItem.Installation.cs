@@ -175,7 +175,7 @@ namespace InstallPad
                 List<string> downloadUrlOrderedList = this.application.CreateOrderedUrlList();
 
                 // download from one of the sources
-                downloader.Download(downloadUrlOrderedList, InstallPadApp.InstallFolder);
+                downloader.Download(downloadUrlOrderedList, InstallPadApp.Preferences.DownloadTo);
             }
             catch (System.IO.DirectoryNotFoundException e)
             {
