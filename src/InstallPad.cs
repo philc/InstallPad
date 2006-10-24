@@ -553,7 +553,7 @@ namespace InstallPad
             AboutDialog about = new AboutDialog();
             about.ProjectName = "InstallPad";
             about.ProjectUrl = "http://www.installpad.com";
-            about.WrittenBy = new string[] { "Phil Crosby", "Zac Ruiz" };
+            about.WrittenBy = new string[] { "Phil Crosby (phil.crosby@gmail.com)", "Zac Ruiz (zac.ruiz@gmail.com)" };
             about.Copyright = "2006 Phil Crosby";
             about.Version = "0.4";
             about.Image = global::InstallPad.Properties.Resources.about_logo;

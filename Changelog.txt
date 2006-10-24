@@ -10,7 +10,7 @@
 - Removing preference for "installation root" until we can figure out what to do with it
 - UI cleanup for the add application dialog. Now it's sizable
 - UI for the preferences
-- Preferences backend (Zac Ruiz)
+- Preferences backend (App.config is extracted from an embedded resource to the user's applic. config directory) (Zac Ruiz)
 - close the XML file after opening it instead of leaving it open (Craig Reynolds)
 - Add comment field to application items (Craig Reynolds)
 - Add tooltip for comment fields (Craig Reynolds)
@@ -20,4 +20,5 @@
 - Added a link for opening an application list
 - Changed "Install All" to "Install Checked"
 - Can't open a new applist if something is downloading or installing
-- Left click to toggle checked
+- Integration of unzipping library, which is embedded as a resource and called via reflection, because we don't want to add another file to the InstallPad distribution
+- Left click anywhere on the item to toggle checked (this is disabled by default, because it is not fast, and clicks on the labels aren't interpretted as clicks on the application item
