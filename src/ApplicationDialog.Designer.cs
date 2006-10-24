@@ -62,7 +62,7 @@ namespace InstallPad
             // saveButton
             // 
             this.saveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.saveButton.Location = new System.Drawing.Point(131, 305);
+            this.saveButton.Location = new System.Drawing.Point(151, 306);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(75, 23);
             this.saveButton.TabIndex = 8;
@@ -74,7 +74,7 @@ namespace InstallPad
             // 
             this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(212, 305);
+            this.cancelButton.Location = new System.Drawing.Point(232, 306);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 9;
@@ -88,7 +88,7 @@ namespace InstallPad
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.appNameBox.Location = new System.Drawing.Point(16, 31);
             this.appNameBox.Name = "appNameBox";
-            this.appNameBox.Size = new System.Drawing.Size(271, 20);
+            this.appNameBox.Size = new System.Drawing.Size(291, 20);
             this.appNameBox.TabIndex = 1;
             // 
             // appNameLabel
@@ -115,7 +115,7 @@ namespace InstallPad
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.downloadUrlBox.Location = new System.Drawing.Point(16, 77);
             this.downloadUrlBox.Name = "downloadUrlBox";
-            this.downloadUrlBox.Size = new System.Drawing.Size(271, 20);
+            this.downloadUrlBox.Size = new System.Drawing.Size(291, 20);
             this.downloadUrlBox.TabIndex = 3;
             // 
             // groupBox1
@@ -129,7 +129,7 @@ namespace InstallPad
             this.groupBox1.Controls.Add(this.latestVersionCheck);
             this.groupBox1.Location = new System.Drawing.Point(16, 160);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(271, 137);
+            this.groupBox1.Size = new System.Drawing.Size(291, 137);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Options";
@@ -149,7 +149,7 @@ namespace InstallPad
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.installerArgumentsBox.Location = new System.Drawing.Point(6, 107);
             this.installerArgumentsBox.Name = "installerArgumentsBox";
-            this.installerArgumentsBox.Size = new System.Drawing.Size(257, 20);
+            this.installerArgumentsBox.Size = new System.Drawing.Size(277, 20);
             this.installerArgumentsBox.TabIndex = 7;
             // 
             // silentInstallCheck
@@ -193,7 +193,7 @@ namespace InstallPad
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.appCommentBox.Location = new System.Drawing.Point(16, 124);
             this.appCommentBox.Name = "appCommentBox";
-            this.appCommentBox.Size = new System.Drawing.Size(271, 20);
+            this.appCommentBox.Size = new System.Drawing.Size(291, 20);
             this.appCommentBox.TabIndex = 11;
             // 
             // checkedByDefault
@@ -212,7 +212,7 @@ namespace InstallPad
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(299, 340);
+            this.ClientSize = new System.Drawing.Size(319, 341);
             this.Controls.Add(this.appCommentBox);
             this.Controls.Add(this.appCommentLabel);
             this.Controls.Add(this.groupBox1);
@@ -224,6 +224,7 @@ namespace InstallPad
             this.Controls.Add(this.saveButton);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(199, 379);
             this.Name = "ApplicationDialog";
             this.ShowIcon = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;

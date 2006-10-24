@@ -1,6 +1,8 @@
 
 
 0.4
+- Added app item UI for "checked by default"
+- Updated some of the special-cased silent switches
 - Updated applist.xml to newest versions, added Picasa and Quicktime (thanks Mike Quinn for the suggestions)
 - Launch only one installer at a time, so they don't step on each other
 - Prevent user from removing items from the list that are downloading or installing.
