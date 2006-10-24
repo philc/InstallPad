@@ -478,6 +478,7 @@ namespace InstallPad
             about.Version = "0.4";
             about.Image = global::InstallPad.Properties.Resources.about_logo;
             about.License = global::InstallPad.Properties.Resources.license;
+            about.Description = "Get programs faster";
             about.ShowDialog();
         }
     }

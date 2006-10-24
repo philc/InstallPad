@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Settings.cs" />
     <Compile Include="src\about\AboutDialog.cs">
       <SubType>Form</SubType>
     </Compile>

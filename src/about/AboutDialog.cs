@@ -106,7 +106,7 @@ namespace CodeProject.AboutDialog
                 nameAndVersion.Visible = false;
 
             if (NonEmpty(copyright))
-                copyrightLabel.Text = "© " + copyright;
+                copyrightLabel.Text = "Copyright © " + copyright;
             else
                 copyrightLabel.Visible = false;
 
@@ -160,7 +160,7 @@ namespace CodeProject.AboutDialog
                 if (!c.Visible)
                     continue;
                 c.Top=dialogHeight;
-                dialogHeight=c.Bottom + padding;
+                dialogHeight=c.Bottom + padding + c.Margin.Bottom;
                 CenterHorizontally(c);
             }
             return dialogHeight;

@@ -91,7 +91,7 @@ namespace CodeProject.AboutDialog
             this.projectLink.Location = new System.Drawing.Point(88, 161);
             this.projectLink.Name = "projectLink";
             this.projectLink.Size = new System.Drawing.Size(157, 16);
-            this.projectLink.TabIndex = 5;
+            this.projectLink.TabIndex = 1;
             this.projectLink.TabStop = true;
             this.projectLink.Text = "http://www.yourpage.com";
             this.projectLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.installpadLink_LinkClicked);
@@ -109,17 +109,18 @@ namespace CodeProject.AboutDialog
             // nameAndVersion
             // 
             this.nameAndVersion.AutoSize = true;
-            this.nameAndVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nameAndVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nameAndVersion.Location = new System.Drawing.Point(76, 75);
             this.nameAndVersion.Name = "nameAndVersion";
-            this.nameAndVersion.Size = new System.Drawing.Size(185, 31);
+            this.nameAndVersion.Size = new System.Drawing.Size(198, 31);
             this.nameAndVersion.TabIndex = 7;
             this.nameAndVersion.Text = "Program 1.2.0";
             // 
             // descriptionLabel
             // 
             this.descriptionLabel.AutoSize = true;
-            this.descriptionLabel.Location = new System.Drawing.Point(97, 106);
+            this.descriptionLabel.Location = new System.Drawing.Point(106, 113);
+            this.descriptionLabel.Margin = new System.Windows.Forms.Padding(3, 0, 3, 15);
             this.descriptionLabel.Name = "descriptionLabel";
             this.descriptionLabel.Size = new System.Drawing.Size(139, 13);
             this.descriptionLabel.TabIndex = 8;
