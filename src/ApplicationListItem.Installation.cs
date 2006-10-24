@@ -80,9 +80,10 @@ namespace InstallPad
                 return;
             try
             {
-                ProcessStartInfo info = new ProcessStartInfo();
-                info.FileName = application.Options.PostInstallScript;
-                Process p = Process.Start(info);
+                //ProcessStartInfo info = new ProcessStartInfo();
+                //info.FileName = application.Options.PostInstallScript;
+                //Process p = Process.Start(info);
+                Process.Start(application.Options.PostInstallScript);
             }
             catch (Exception e)
             {
@@ -188,12 +189,23 @@ namespace InstallPad
             // Each rule should be on its own line; first, a regex to match the application name, and next to it,
             // the installer arguments that pertain to that app
 
-            if (application.FileName.ToLower().Contains("firefox"))
+            if (application.FileName.ToLower().EndsWith(".msi"))
+            {
+                return "/qn";
+            }else if (application.FileName.ToLower().Contains("firefox"))
                 return "-ms";
             else if (application.FileName.ToLower().Contains("itunessetup"))
             {
                 // Args are: /s /v"SILENT_INSTALL=1 ALLUSERS=1 /qb"
-                return "/s /v\"SILENT_INSTALL=1 ALLUSERS=1 /qb\"";
+                //return "/s /v\"SILENT_INSTALL=1 ALLUSERS=1 /qb\"";
+                
+                // Above is for the older iTunes. Newer itunes is just an exe that extracts to an msi.
+                return "/qn";
+            }
+            else if (application.FileName.ToLower().Contains("quicktimeinstaller"))
+            {
+                // QuickTime is just an MSI, like iTunes
+                return "/qn";
             }
             else if (application.FileName.ToLower().Contains("spybot"))
             {

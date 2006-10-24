@@ -42,12 +42,22 @@
 		<DownloadLatestVersion/>
 	</Options>
   </Application>
-
+  <Application>
+    <Name>Tortoise SVN</Name>
+    <FileUrl>
+      http://superb-east.dl.sourceforge.net/sourceforge/tortoisesvn/TortoiseSVN-1.4.0.7501-win32-svn-1.4.0.msi
+    </FileUrl>
+  </Application>
   <Application>
     <Name>WinSCP</Name>
     <FileUrl>http://easynews.dl.sourceforge.net/sourceforge/winscp/winscp381setup.exe</FileUrl>
   </Application>
-
-
-
+  <Application>
+    <Name>XviD</Name>
+    <FileUrl>http://www.koepi.org/XviD-1.1.0-30122005.exe</FileUrl>
+    <Comment>A video codec</Comment>
+    <Options>
+      <InstallerArguments>/verysilent</InstallerArguments>
+    </Options>
+  </Application>
 </ApplicationList>

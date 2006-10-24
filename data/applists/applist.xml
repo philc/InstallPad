@@ -10,11 +10,11 @@
   </Application>
   <Application>
     <Name>Azureus</Name>
-    <FileUrl>http://easynews.dl.sourceforge.net/sourceforge/azureus/Azureus_2.4.0.2_Win32.setup.exe</FileUrl>
+    <FileUrl>http://easynews.dl.sourceforge.net/sourceforge/azureus/Azureus_2.5.0.0_Win32.setup.exe</FileUrl>
   </Application>
   <Application>
     <Name>FireFox</Name>
-    <FileUrl>http://download.mozilla.org/?product=firefox-1.5.0.5&amp;os=win&amp;lang=en-US</FileUrl>
+    <FileUrl>http://download.mozilla.org/?product=firefox-1.5.0.7&amp;os=win&amp;lang=en-US</FileUrl>
     <Options>
       <DownloadLatestVersion />
     </Options>
@@ -33,10 +33,26 @@
   <Application>
     <Name>ICQ</Name>
     <FileUrl>http://ftp.icq.com/pub/ICQ_Win95_98_NT4/ICQ_5/icq5_1_setup.exe</FileUrl>
+    <Options>
+      <Checked>false</Checked>
+    </Options>
   </Application>
   <Application>
-    <Name>iTunes</Name>
-    <FileUrl>http://appldnld.apple.com.edgesuite.net/content.info.apple.com/iTunes6/Win/061-2454.20060511.tzsawd/iTunesSetup.exe</FileUrl>
+    <Name>iTunes 7</Name>
+    <FileUrl>http://appldnld.apple.com.edgesuite.net/content.info.apple.com/iTunes7/Win/061-2768.20060926.tnwN1/iTunesSetup.exe</FileUrl>
+  </Application>
+  <Application>
+    <Name>QuickTime 7</Name>
+    <FileUrl>http://appldnld.apple.com.edgesuite.net/qtinstall.info.apple.com/mcgonagail/us/win/QuickTimeInstaller.exe</FileUrl>
+  </Application>
+  <Application>
+    <Name>Picasa</Name>
+    <FileUrl>
+      http://dl.google.com/picasa/picasaweb-current-setup.exe
+    </FileUrl>
+    <Options>
+      <Checked>false</Checked>
+    </Options>
   </Application>
   <Application>
     <Name>SpyBot</Name>

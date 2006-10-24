@@ -101,9 +101,8 @@ namespace InstallPad
 
         public string DownloadUrl
         {
-            get { 
-                
-                return downloadUrl; 
+            get {                 
+                return downloadUrl.Trim(); 
             }
             set {
                 downloadUrl = value;
@@ -144,9 +143,9 @@ namespace InstallPad
             List<int> intsEncountered = new List<int>();
             List<int> indexOfInt = new List<int>();            
             
-            for (int i = downloadUrl.Length - 1; i > 0; i--)
+            for (int i = DownloadUrl.Length - 1; i > 0; i--)
             {
-                if (!IsNumber(downloadUrl[i]))
+                if (!IsNumber(DownloadUrl[i]))
                     continue;
                 
                 // Found a number. Search to the left until we find the end of the int.
@@ -165,7 +164,7 @@ namespace InstallPad
 
                 // After finding the int, if our next character isn't a delimeter we should
                 // exit if we have two version numbers; otherwise, keep searching through the string.
-                if (!IsDelimeterCharacter(downloadUrl[i]))
+                if (!IsDelimeterCharacter(DownloadUrl[i]))
                 {
                     if (intsEncountered.Count >= 2)
                         break;
@@ -177,7 +176,7 @@ namespace InstallPad
                 }
             }
             this.originalVersion = intsEncountered;
-            this.parsedDownloadUrl = this.downloadUrl;
+            this.parsedDownloadUrl = this.DownloadUrl;
 
             // Replace all the integers we found with {0}, {1}, ... so the version string looks like firefox-{0}.{1}.exe
             // Go backwards so that when we start replacing characters with {0} etc., the stored indices don't get all jacked up.
@@ -191,10 +190,10 @@ namespace InstallPad
         private string SearchLeftForInt(int index)
         {
             string s = "";
-            while (index>=0 && IsNumber(downloadUrl[index]))
+            while (index>=0 && IsNumber(DownloadUrl[index]))
             {
                 // if the number is 
-                s=s.Insert(0, downloadUrl[index].ToString());
+                s=s.Insert(0, DownloadUrl[index].ToString());
                 index--;
             }
             return s;
@@ -208,12 +207,12 @@ namespace InstallPad
 
             // Search from right to left find integers separated by periods.
             // We interpret this pattern as being the version.
-            for (int i = downloadUrl.Length - 1; i > 0; i--)
+            for (int i = DownloadUrl.Length - 1; i > 0; i--)
             {
                 // If we have a delimeter, search for an int after it
-                if (IsDelimeterCharacter(downloadUrl[i]))
+                if (IsDelimeterCharacter(DownloadUrl[i]))
                 {
-                    int n = FindInteger(downloadUrl, i - 1);
+                    int n = FindInteger(DownloadUrl, i - 1);
                     if (n > -1)
                     {
                         //store in reverse order that we found them
@@ -245,7 +244,7 @@ namespace InstallPad
                     break;
             }
 
-            this.parsedDownloadUrl = this.downloadUrl;
+            this.parsedDownloadUrl = this.DownloadUrl;
 
             // Replace all the integers we found with {0} etc.
             // Go backwards so that when we start replacing characters with {0} etc., the stored indices don't get all jacked up.
@@ -379,7 +378,7 @@ namespace InstallPad
                         }
                         else if (reader.Name == "PostInstallScript")
                         {
-                            options.PostInstallScript = reader.ReadString();
+                            options.PostInstallScript = reader.ReadString().Trim();
                             reader.ReadEndElement();
                         }
                         else if (reader.Name == "InstallationRoot")
