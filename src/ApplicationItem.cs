@@ -38,7 +38,8 @@ namespace InstallPad
                 return System.IO.Path.GetFileName(DownloadUrl);
             }
         }
-         string comment;
+
+        string comment;
 
         public string Comment
         {
@@ -76,19 +77,25 @@ namespace InstallPad
             return this.downloadUrl;
         }
 
+        /// <summary>
+        /// Creates an ordered list of download URLs to try - primary, alternate, etc.
+        /// </summary>
         public List<string> CreateOrderedUrlList()
         {
             List<string> urlList = new List<string>();
 
-            // first would be preferred alternate download location (because its probably local cache)
+            // first would be alternate download location from preferences (because its probably local cache)
+            // TODO add this, and a UI for it.
 
             // next would be the specified url
             urlList.Add(FindLatestUrl());
 
             // next would be appitem alternate download location
-
-            // next would be applist alternate download location
-
+            foreach (String s in options.AlternateDownloadLocations)
+            {
+                if (s.Length > 0)
+                    urlList.Add(s);
+            }
             return urlList;
         }
 
@@ -382,7 +389,7 @@ namespace InstallPad
                         }
                         else if (reader.Name == "AlternateDownloadLocation")
                         {
-                            options.AlternateDownloadLocation = reader.ReadString();
+                            options.AlternateDownloadLocations.Add(reader.ReadString());
                             reader.ReadEndElement();
                         }
                         else if (reader.Name == "InstallerArguments")
@@ -437,8 +444,11 @@ namespace InstallPad
                     writer.WriteElementString("PostInstallScript", this.PostInstallScript);
                 if (InstallationRoot.Length > 0)
                     writer.WriteElementString("InstallationRoot", this.InstallationRoot);
-                if (AlternateDownloadLocation.Length > 0)
-                    writer.WriteElementString("AlternateDownloadLocation", this.AlternateDownloadLocation);
+                foreach (string s in AlternateDownloadLocations)
+                {
+                    if (s.Length > 0)
+                        writer.WriteElementString("AlternateDownloadLocation", s);
+                }
                 if (Checked==false)
                     writer.WriteElementString("Checked", "false");
 
@@ -495,12 +505,12 @@ namespace InstallPad
             set { installationRoot = value; }
         }
 
-        private string alternateDownloadLocation = string.Empty;
+        private List<string> alternateDownloadLocations = new List<string>();
 
-        public string AlternateDownloadLocation
+        public List<string> AlternateDownloadLocations
         {
-            get { return alternateDownloadLocation; }
-            set { alternateDownloadLocation = value; }
+            get { return alternateDownloadLocations; }
+            set { alternateDownloadLocations = value; }
         }
     }
 }

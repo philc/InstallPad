@@ -88,7 +88,6 @@ namespace InstallPad
         {
             this.ApplicationItem = application;
             this.LinkClickedDownloadHandler = new EventHandler(this.FinishedDownloadingAfterLinkClicked);
-
             this.Controls.Add(downloadErrorBox);
             AddErrorBoxes();
 
@@ -103,6 +102,7 @@ namespace InstallPad
 
             this.Checked = this.ApplicationItem.Options.Checked;
         }
+
 
         /// <summary>
         /// Add error boxes to the application list item, with the appropriate captions.

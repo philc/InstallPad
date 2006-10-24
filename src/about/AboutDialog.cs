@@ -130,7 +130,7 @@ namespace CodeProject.AboutDialog
             else
                 descriptionLabel.Visible = false;
 
-            if (!NonEmpty(WrittenBy) && !NonEmpty(TranslatedBy) && !NonEmpty(ArtworkBy))
+            if (WrittenBy==null && ArtworkBy == null && TranslatedBy == null)
                 this.creditsButton.Visible = false;
 
             SizeDialog();

@@ -113,7 +113,7 @@ namespace InstallPad
         private void InstallPad_Load(object sender, EventArgs e)
         {
             preferencesDialog = new PreferencesDialog();
-
+            this.logoBox.Click += new EventHandler(logoBox_Click);
             this.errorLink.Click+=new EventHandler(errorLink_Click);
             this.KeyUp += new KeyEventHandler(InstallPad_KeyUp);
             this.FormClosing += new FormClosingEventHandler(InstallPad_FormClosing);
@@ -170,27 +170,36 @@ namespace InstallPad
             LoadApplicationList(InstallPadApp.AppListFile);
         }
 
+
+
+        #region left clicking
         /// <summary>
         /// When they click on a list item, check it.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         void controlList_ListItemClicked(object sender, MouseEventArgs e)
-        {
-            
+        {            
             // Only interpret left clicks. Right clicks are for opening context menus
             if (e.Button != MouseButtons.Left)
                 return;
             ApplicationListItem item = (ApplicationListItem)sender;
-            Console.WriteLine("clicked");
-            Console.WriteLine(item.Checked);
             item.Checked = !item.Checked;            
             
             // Highlight the item we clicked on
             controlList.Unhighlight(controlList.HighlightedEntry);
             controlList.Highlight((Control)sender);
         }
-
+        protected override void OnClick(EventArgs e)
+        {
+            base.OnClick(e);
+            controlList.Unhighlight(controlList.HighlightedEntry);
+        }
+        void logoBox_Click(object sender, EventArgs e)
+        {
+            controlList.Unhighlight(controlList.HighlightedEntry);
+        }
+        #endregion
         /// <summary>
         /// If the "O" key is hit, open the dialog to choose an applist.
         /// </summary>
@@ -473,9 +482,7 @@ namespace InstallPad
             AboutDialog about = new AboutDialog();
             about.ProjectName = "InstallPad";
             about.ProjectUrl = "http://www.installpad.com";
-            about.WrittenBy = new string[] { "Phil Crosby", "Honus Wagner" };
-            about.TranslatedBy = new string[] { "tr2" };
-            about.ArtworkBy = new string[] { "greg" };
+            about.WrittenBy = new string[] { "Phil Crosby", "Zac Ruiz" };
             about.Copyright = "2006 Phil Crosby";
             about.Version = "0.4";
             about.Image = global::InstallPad.Properties.Resources.about_logo;
