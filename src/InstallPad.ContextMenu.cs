@@ -101,6 +101,18 @@ namespace InstallPad
         {
             ApplicationListItem item = (ApplicationListItem)highlightedControl;
             string appTitle = item.ApplicationItem.Name;
+
+            if (item.State==ApplicationListItem.InstallState.Downloading){
+                MessageBox.Show(String.Format("{0} is currently being downloaded. Stop the download before removing the item.",appTitle));
+                return;
+            }
+            else if (item.State == ApplicationListItem.InstallState.Installing)
+            {
+                MessageBox.Show(String.Format("{0} is currently being installed. Stop the download before removing the item.", appTitle));
+                return;
+            }
+
+
             DialogResult result = MessageBox.Show(this,
                 String.Format("Are you sure you want to remove '{0}' from the list of installable applications?", appTitle),
                 String.Format("Remove {0}?", appTitle),
