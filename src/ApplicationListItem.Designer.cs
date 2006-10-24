@@ -52,7 +52,6 @@ namespace InstallPad
             // labelName
             // 
             this.labelName.AutoSize = true;
-            this.labelName.Enabled = false;
             this.labelName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelName.Location = new System.Drawing.Point(29, 13);
             this.labelName.Name = "labelName";
