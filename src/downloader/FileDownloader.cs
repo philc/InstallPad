@@ -12,7 +12,7 @@ using System.Collections.Generic;
 namespace CodeProject.Downloader
 {
     /// <summary>
-    /// Downloads and resumes files from HTTP, FTP, and File URLS
+    /// Downloads and resumes files from HTTP, FTP, and File (file://) URLS
     /// </summary>
     public class FileDownloader
     {
@@ -89,15 +89,11 @@ namespace CodeProject.Downloader
                 // Find out the name of the file that the web server gave us.
                 string destFileName = Path.GetFileName(data.Response.ResponseUri.ToString());
 
-                
+
                 // The place we're downloading to (not from) must not be a URI,
                 // because Path and File don't handle them...
                 destFolder = destFolder.Replace("file:///", "").Replace("file://", "");
                 this.downloadingTo = Path.Combine(destFolder, destFileName);
-                
-                // TODO cleanup
-                //if (! destFolder.StartsWith("file://"))
-                    //this.downloadingTo=Path.GetFullPath(this.downloadingTo);
 
                 // Create the file on disk here, so even if we don't receive any data of the file
                 // it's still on disk. This allows us to download 0-byte files.
@@ -177,22 +173,18 @@ namespace CodeProject.Downloader
         {
             // validate input
             if (urlList == null)
-            {
                 throw new ArgumentException("Url list not specified.");
-            }
 
             if (urlList.Count == 0)
-            {
                 throw new ArgumentException("Url list empty.");
-            }
 
             // try each url in the list.
             // if one succeeds, we are done.
             // if any fail, move to the next.
-            Exception ex=null;
+            Exception ex = null;
             foreach (string s in urlList)
             {
-                ex=null;
+                ex = null;
                 try
                 {
                     Download(s, destFolder);
@@ -210,7 +202,7 @@ namespace CodeProject.Downloader
         }
 
         /// <summary>
-        /// Download a file from the url asynchronously.
+        /// Asynchronously download a file from the url.
         /// </summary>
         public void AsyncDownload(string url)
         {
@@ -218,7 +210,7 @@ namespace CodeProject.Downloader
                 new System.Threading.WaitCallback(this.WaitCallbackMethod), new string[] { url, "" });
         }
         /// <summary>
-        /// Download a file from the url to the destination folder asynchronously.
+        /// Asynchronously download a file from the url to the destination folder.
         /// </summary>
         public void AsyncDownload(string url, string destFolder)
         {
@@ -226,12 +218,42 @@ namespace CodeProject.Downloader
                 new System.Threading.WaitCallback(this.WaitCallbackMethod), new string[] { url, destFolder });
         }
         /// <summary>
+        /// Asynchronously download a file from a list or URLs. If downloading from one of the URLs fails,
+        /// another URL is tried.
+        /// </summary>
+        public void AsyncDownload(List<string> urlList, string destFolder)
+        {
+            System.Threading.ThreadPool.QueueUserWorkItem(
+                new System.Threading.WaitCallback(this.WaitCallbackMethod), new object[] { urlList, destFolder });
+        }
+        /// <summary>
+        /// Asynchronously download a file from a list or URLs. If downloading from one of the URLs fails,
+        /// another URL is tried.
+        /// </summary>
+        public void AsyncDownload(List<string> urlList)
+        {
+            System.Threading.ThreadPool.QueueUserWorkItem(
+                new System.Threading.WaitCallback(this.WaitCallbackMethod), new object[] { urlList, "" });
+        }
+        /// <summary>
         /// A WaitCallback used by the AsyncDownload methods.
         /// </summary>
-        private void WaitCallbackMethod(object data){
-            // Expecting an array of two strings (url and dest folder)
-            String[] strings = data as String[];
-            this.Download(strings[0], strings[1]);
+        private void WaitCallbackMethod(object data)
+        {
+            // Can either be a string array of two strings (url and dest folder),
+            // or an object array containing a list<string> and a dest folder
+            if (data is string[])
+            {
+                String[] strings = data as String[];
+                this.Download(strings[0], strings[1]);
+            }
+            else
+            {
+                Object[] list = data as Object[];
+                List<String> urlList = list[0] as List<String>;
+                String destFolder = list[1] as string;
+                this.Download(urlList, destFolder);
+            }
         }
         private void SaveToFile(byte[] buffer, int count, string fileName)
         {
@@ -272,16 +294,16 @@ namespace CodeProject.Downloader
         private long size;
         private long start;
 
-        private IWebProxy proxy=null;
+        private IWebProxy proxy = null;
 
         public static DownloadData Create(string url, string destFolder)
         {
             return Create(url, destFolder, null);
         }
 
-        public static DownloadData Create(string url, string destFolder,IWebProxy proxy)
+        public static DownloadData Create(string url, string destFolder, IWebProxy proxy)
         {
-            
+
             // This is what we will return
             DownloadData downloadData = new DownloadData();
             downloadData.proxy = proxy;
@@ -317,7 +339,7 @@ namespace CodeProject.Downloader
             if (downloadData.IsProgressKnown && File.Exists(downloadTo))
             {
                 // We only support resuming on http requests
-                if (! (downloadData.Response is HttpWebResponse))
+                if (!(downloadData.Response is HttpWebResponse))
                 {
                     File.Delete(downloadTo);
                 }
@@ -337,7 +359,7 @@ namespace CodeProject.Downloader
                         req = downloadData.GetRequest(url);
                         ((HttpWebRequest)req).AddRange((int)downloadData.start);
                         downloadData.response = req.GetResponse();
-                        
+
                         if (((HttpWebResponse)downloadData.Response).StatusCode != HttpStatusCode.PartialContent)
                         {
                             // They didn't support our resume request. 
@@ -430,14 +452,7 @@ namespace CodeProject.Downloader
             {
                 request.Proxy = this.proxy;
             }
-            /*else if (request is FtpWebRequest)
-            {
-                WebProxy proxy = new WebProxy();
-                proxy.Address = new Uri("http://123yesman123.com");
-                request.Proxy = proxy;
-                
-            }*/
-            
+
             return request;
         }
 
@@ -462,7 +477,7 @@ namespace CodeProject.Downloader
                     this.stream = this.response.GetResponseStream();
                 return this.stream;
             }
-        }        
+        }
         public long FileSize
         {
             get
@@ -484,10 +499,10 @@ namespace CodeProject.Downloader
                 // If the size of the remote url is -1, that means we
                 // couldn't determine it, and so we don't know
                 // progress information.
-                return this.size>-1;
+                return this.size > -1;
             }
         }
-        #endregion        
+        #endregion
     }
 
     /// <summary>
