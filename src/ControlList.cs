@@ -64,6 +64,7 @@ namespace InstallPad
         public ControlList()
         {
             InitializeComponent();
+            //this.DoubleBuffered = true;
         }
 
         private ScrollPanel scrollPanel;

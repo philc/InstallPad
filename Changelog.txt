@@ -1,3 +1,6 @@
+0.5
+- Turned on double buffering for the ApplicationListItem control. Makes resizing a little faster.
+
 0.4 - 10/24/2006
 - Added app item UI for "checked by default"
 - There is support in the applist options and the downloader component for accepting proxy credentials and downloading through a proxy, but there is no UI for it yet in the preferences dialog and it is not tested

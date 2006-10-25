@@ -130,6 +130,7 @@ namespace InstallPad
             this.Controls.Add(this.progressBar);
             this.Controls.Add(this.installLink);
             this.Controls.Add(this.labelName);
+            this.DoubleBuffered = true;
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "ApplicationListItem";
             this.Size = new System.Drawing.Size(397, 46);
