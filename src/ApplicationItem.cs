@@ -91,7 +91,7 @@ namespace InstallPad
             urlList.Add(FindLatestUrl());
 
             // next would be appitem alternate download location
-            foreach (String s in options.AlternateDownloadLocations)
+            foreach (String s in options.AlternateFileUrls)
             {
                 if (s.Length > 0)
                     urlList.Add(s);
@@ -386,9 +386,9 @@ namespace InstallPad
                             options.InstallationRoot = reader.ReadString();
                             reader.ReadEndElement();
                         }
-                        else if (reader.Name == "AlternateDownloadLocation")
+                        else if (reader.Name == "AlternateFileUrl")
                         {
-                            options.AlternateDownloadLocations.Add(reader.ReadString());
+                            options.AlternateFileUrls.Add(reader.ReadString());
                             reader.ReadEndElement();
                         }
                         else if (reader.Name == "InstallerArguments")
@@ -443,10 +443,10 @@ namespace InstallPad
                     writer.WriteElementString("PostInstallScript", this.PostInstallScript);
                 if (InstallationRoot.Length > 0)
                     writer.WriteElementString("InstallationRoot", this.InstallationRoot);
-                foreach (string s in AlternateDownloadLocations)
+                foreach (string s in AlternateFileUrls)
                 {
                     if (s.Length > 0)
-                        writer.WriteElementString("AlternateDownloadLocation", s);
+                        writer.WriteElementString("AlternateFileUrl", s);
                 }
                 if (Checked==false)
                     writer.WriteElementString("Checked", "false");
@@ -504,12 +504,12 @@ namespace InstallPad
             set { installationRoot = value; }
         }
 
-        private List<string> alternateDownloadLocations = new List<string>();
+        private List<string> alternateFileUrls = new List<string>();
 
-        public List<string> AlternateDownloadLocations
+        public List<string> AlternateFileUrls
         {
-            get { return alternateDownloadLocations; }
-            set { alternateDownloadLocations = value; }
+            get { return alternateFileUrls; }
+            set { alternateFileUrls = value; }
         }
     }
 }

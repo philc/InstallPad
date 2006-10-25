@@ -11,6 +11,15 @@
     </Options>
   </Application>
   <Application>
+    <Name>Many alternates</Name>
+    <FileUrl>bad!@#url1</FileUrl>
+    <Options>
+      <AlternateFileUrl>http://www.philisoft.com/404testing.exe</AlternateFileUrl>
+      <AlternateFileUrl>
+        http://www.installpad.com/test/test4.zip</AlternateFileUrl>
+      </Options>
+  </Application>
+  <Application>
     <Name>Zip file</Name>
     <FileUrl>http://www.installpad.com/test/test4.zip</FileUrl>
   </Application>
