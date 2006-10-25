@@ -31,7 +31,7 @@
 
   <Application>
     <Name>Open Office</Name>
-    <FileUrl>http://mirrors.ibiblio.org/pub/mirrors/openoffice/stable/2.0.2/OOo_2.0.2_Win32Intel_install_wJRE.exe</FileUrl>
+    <FileUrl>http://mirrors.ibiblio.org/pub/mirrors/openoffice/stable/2.0.4/OOo_2.0.4_Win32Intel_install_wJRE.exe</FileUrl>
   </Application>
   
   <Application>
