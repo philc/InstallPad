@@ -58,7 +58,7 @@ namespace InstallPad
         {
             // Annoying. Read in the whole file, replace ampersands and other invalid characters
             // in urls, or our xml reader will crash.
-            System.IO.TextReader reader=null;
+            System.IO.TextReader reader = null;
 
             string fileContents;
 
@@ -116,11 +116,54 @@ namespace InstallPad
             if (this.FileName == null)
                 throw new ArgumentException("Can't save an application list without a filename.");
 
-            XmlTextWriter writer = new XmlTextWriter(this.fileName,null);
-            writer.Formatting = Formatting.Indented;
-            this.WriteXml(writer);
-            writer.Close();
+            //get original file contents
+            System.IO.StreamReader originalReader = null;
+            System.IO.StreamWriter originalWriter = null;
+            string originalContents;
+
+            originalReader = new System.IO.StreamReader(this.FileName);
+            try
+            {
+                //store contents of the file in case it needs to be written back out
+                //in the case of an error writing the XML to file.
+                originalContents = originalReader.ReadToEnd();
+            }
+            finally
+            {
+                originalReader.Close();
+            }
+
+            try
+            {
+                XmlTextWriter writer = new XmlTextWriter(this.fileName, null);
+                try
+                {
+                    writer.Formatting = Formatting.Indented;
+                    this.WriteXml(writer);
+                }
+                finally
+                {
+                    writer.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                // write the original contents of the file back out so no data is lost.
+                originalWriter = new System.IO.StreamWriter(this.FileName);
+                try
+                {
+                    originalWriter.Write(originalContents);
+                }
+                finally
+                {
+                    originalWriter.Close();
+                }
+
+                // throw the exception so that the user can see the error and report it.
+                throw (e);
+            }
         }
+
         #region XML methods
         private static ApplicationList FromXml(XmlReader reader)
         {
@@ -136,10 +179,10 @@ namespace InstallPad
                     if (reader.Name.Equals("Application") && !reader.IsEmptyElement)
                         list.applicationItems.Add(ApplicationItem.FromXml(reader, list.errors));
                     else if (reader.Name.Equals("InstallationOptions") && !reader.IsEmptyElement)
-                        list.installationOptions = InstallationOptions.FromXml(reader,list.errors);
+                        list.installationOptions = InstallationOptions.FromXml(reader, list.errors);
                     else
                         list.errors.Add(String.Format("Unrecognized element: \"{0}\"", reader.Name));
-                }                
+                }
             }
             return list;
         }
@@ -365,9 +408,9 @@ namespace InstallPad
         public void WriteXml(XmlWriter writer)
         {
             writer.WriteStartElement("Proxy");
-            if (this.Address !=null)
+            if (this.Address != null)
                 writer.WriteElementString("Address", this.Address);
-            if (this.Username!=null)
+            if (this.Username != null)
                 writer.WriteElementString("Username", this.Username);
             if (this.Password != null)
                 writer.WriteElementString("Password", this.Password);
