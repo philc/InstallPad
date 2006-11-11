@@ -1,3 +1,4 @@
+
 0.5
 - Bugfix: If there is an error writing our applist back to disk, backup the original file and then restore it so it is not lost (Craig Reynolds)
 - Turned on double buffering for the ApplicationListItem control. Makes resizing a little faster.
