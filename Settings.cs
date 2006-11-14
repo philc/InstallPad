@@ -1,6 +1,16 @@
-namespace InstallPad.Properties {
-    
-    
+//
+// Author: Phil Crosby
+//
+
+// Copyright (C) 2006 Phil Crosby
+// Permission is granted to use, copy, modify, and merge copies
+// of this software for personal use. Permission is not granted
+// to use or change this software for commercial use or commercial
+// redistribution. Permission is not granted to use, modify or 
+// distribute this software internally within a corporation.
+
+namespace InstallPad.Properties 
+{        
     // This class allows you to handle specific events on the settings class:
     //  The SettingChanging event is raised before a setting's value is changed.
     //  The PropertyChanged event is raised after a setting's value is changed.

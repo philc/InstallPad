@@ -10,10 +10,12 @@
 // distribute this software internally within a corporation.
 
 using System;
-using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Reflection;
+using System.Collections;
+using System.Collections.Generic;
+
 namespace InstallPad
 {
     /// <summary>
@@ -26,7 +28,11 @@ namespace InstallPad
 
         // Reflected types
         private Assembly zipAssembly = null;
+
         Type fastZipType = null;
+        Type zipFileType = null;
+        Type zipEntryType = null;
+
         object fastZipInstance;
 
         private static Zip instance = null;
@@ -51,6 +57,111 @@ namespace InstallPad
 
             fastZipType = zipAssembly.GetType("ICSharpCode.SharpZipLib.Zip.FastZip");
             fastZipInstance = Activator.CreateInstance(fastZipType);
+
+            zipFileType = zipAssembly.GetType("ICSharpCode.SharpZipLib.Zip.ZipFile");
+            zipEntryType = zipAssembly.GetType("ICSharpCode.SharpZipLib.Zip.ZipEntry");
+        }
+
+        /// <summary>
+        /// This method determines whether all the files in the specified zip file are rooted
+        /// within a single directory.
+        /// </summary>
+        /// <remarks>
+        /// Signatures of what we're calling:
+        ///     ZipFile zf = new ZipFile(zipFile);
+        ///     foreach(ZipEntry ze in zf)
+        ///     {
+        ///        string name = ze.Name;
+        ///     }
+        /// </remarks>
+        /// <param name="zipFile">Zip file to examine.</param>
+        /// <returns></returns>
+        public bool HasRootFolder(string zipFile)
+        {
+            // Construct new ZipFile.
+            IEnumerable zipFileInstance = (IEnumerable)Activator.CreateInstance(zipFileType, new object[1] { zipFile });
+
+            try
+            {
+                // Iterate ZipEntries.
+                string temp = string.Empty;
+                foreach (object e in zipFileInstance)
+                {
+                    // Retrieve zip entry name.
+                    object oName = zipEntryType.GetProperty("Name").GetValue(e, null);
+                    string sName = (string)oName;
+
+                    // Scan for root folder.
+                    int offset = sName.IndexOf(@"/");
+
+                    // If there are no folders, return as such.
+                    if (offset == -1)
+                    {
+                        return false;
+                    }
+
+                    // Save first folder for comparison to every other zip entry name.
+                    if (temp == string.Empty)
+                    {
+                        temp = sName.Substring(0, offset);
+                    }
+                    else
+                    {
+                        // If any zip entry name does not begin with same root folder, return false.
+                        if (sName.Substring(0, offset) != temp)
+                            return false;
+                    }
+                }
+            }
+            finally
+            {
+                zipFileType.InvokeMember("Close", BindingFlags.InvokeMethod | BindingFlags.Public | BindingFlags.Instance, null, zipFileInstance, null);
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// This method determines whether a given file exists in a specified zip file.
+        /// </summary>
+        /// <remarks>
+        /// Signatures of what we're calling:
+        ///     ZipFile zf = new ZipFile(zipFile);
+        ///     foreach(ZipEntry ze in zf)
+        ///     {
+        ///        string name = ze.Name;
+        ///     }
+        /// </remarks>
+        /// <param name="zipFile"></param>
+        /// <param name="searchCriteria"></param>
+        /// <returns></returns>
+        public bool Contains(string zipFile, string searchCriteria)
+        {
+            // Construct new ZipFile.
+            IEnumerable zipFileInstance = (IEnumerable)Activator.CreateInstance(zipFileType, new object[1] { zipFile });
+
+            try
+            {
+                // Iterate ZipEntries.
+                string temp = string.Empty;
+                foreach (object e in zipFileInstance)
+                {
+                    // Retrieve zip entry name.
+                    object oName = zipEntryType.GetProperty("Name").GetValue(e, null);
+                    string sName = (string)oName;
+
+                    if (sName.Contains(searchCriteria))
+                    {
+                        return true;
+                    }
+                }
+            }
+            finally
+            {
+                zipFileType.InvokeMember("Close", BindingFlags.InvokeMethod | BindingFlags.Public | BindingFlags.Instance, null, zipFileInstance, null);
+            }
+
+            return false;
         }
 
         public void ExtractZip(string zipFile, string extractTo)

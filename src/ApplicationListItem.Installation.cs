@@ -1,4 +1,16 @@
+//
+// Author: Phil Crosby
+//
+
+// Copyright (C) 2006 Phil Crosby
+// Permission is granted to use, copy, modify, and merge copies
+// of this software for personal use. Permission is not granted
+// to use or change this software for commercial use or commercial
+// redistribution. Permission is not granted to use, modify or 
+// distribute this software internally within a corporation.
+
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -236,7 +248,15 @@ namespace InstallPad
                 else
                     extractTo = InstallPadApp.Preferences.InstallationRoot;
 
-                Zip.Instance.ExtractZip(downloader.DownloadingTo, InstallPadApp.Preferences.InstallationRoot);
+                // If zip file is not constructed in such a way that it extracts to a single folder, then
+                // extract it into a newly created folder within appRoot or InstallationRoot.
+                if (Zip.Instance.HasRootFolder(downloader.DownloadingTo) == false)
+                {
+                    extractTo = Path.Combine(extractTo, Path.GetFileNameWithoutExtension(downloader.DownloadingTo));
+                    Directory.CreateDirectory(extractTo);
+                }
+
+                Zip.Instance.ExtractZip(downloader.DownloadingTo, extractTo);
             }
             catch (Exception e)
             {

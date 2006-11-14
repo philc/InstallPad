@@ -10,97 +10,71 @@
 // distribute this software internally within a corporation.
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.IO;
-using NUnit.Framework;
 using System.Diagnostics;
+
+using NUnit.Framework;
 
 namespace InstallPadTest
 {
     [TestFixture]
-    public class ZipTest
+    public class ZipTestFixture : BaseTestFixture
     {
-        Dictionary<string, long> fileSizes = new Dictionary<string, long>();
-
-        public ZipTest()
-        {
-           // fileSizes.Add("test1.txt", 0);
-            fileSizes.Add("test2.txt", 98);
-            fileSizes.Add("test3.txt", 1747);
-        }
-
-        [SetUp]
-        public void SetUp()
-        {                        
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
+        #region Test UnZip
         [Test]
-        public void UnZip1()
+        public void TestUnZip()
         {
             string target = "test4.zip";
-            string dataDirectory = "../../data/";
-            string outputDirectory = "../../data/out/";
 
-            string fileUrl = Path.GetFullPath(dataDirectory + target);
-            string destUrl = Path.GetFullPath(outputDirectory);
+            string fileUrl = Path.Combine(DATA_DIRECTORY, target);
 
             try
             {
-                InstallPad.Zip.Instance.ExtractZip(fileUrl, destUrl);
+                InstallPad.Zip.Instance.ExtractZip(fileUrl, OUTPUT_DIRECTORY);
             }
             catch(Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
 
-            foreach (String s in fileSizes.Keys)
+            foreach (string f in Directory.GetFiles(OUTPUT_DIRECTORY))
             {
-                fileUrl = "file:///" + Path.GetFullPath(outputDirectory + s);
+                FileInfo fi = new FileInfo(f);
+                FileInfo fr = new FileInfo(Path.Combine(DATA_DIRECTORY, fi.Name));
 
                 // Veryify file exists and is the correct size
-                Assert.IsTrue(InstallPadTest.VerifyExistenceAndSize(s, fileSizes[s]));
+                Assert.IsTrue(InstallPadTest.VerifyExistenceAndSize(f, fr.Length));
             }
         }
+        #endregion
 
-        /// <summary>
-        /// 
-        /// </summary>
+        #region Test Zip Contains
         [Test]
-        public void UnZip2()
+        public void TestZipContains()
         {
-            string target = "test5.zip";
-            string dataDirectory = "../../data/";
-            string outputDirectory = "../../data/out2/";
+            string fileUrl0 = Path.Combine(DATA_DIRECTORY, "test4.zip");
+            string fileUrl1 = Path.Combine(DATA_DIRECTORY, "test5.zip");
 
-            string fileUrl = Path.GetFullPath(dataDirectory + target);
-            string destUrl = Path.GetFullPath(outputDirectory);
-
-            try
-            {
-                InstallPad.Zip.Instance.ExtractZip(fileUrl, destUrl);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
-            foreach (String s in fileSizes.Keys)
-            {
-                fileUrl = "file:///" + Path.GetFullPath(outputDirectory + @"test\" + s);
-
-                // Veryify file exists and is the correct size
-                Assert.IsTrue(InstallPadTest.VerifyExistenceAndSize(s, fileSizes[s]));
-            }
+            Assert.IsTrue(InstallPad.Zip.Instance.Contains(fileUrl0, "test2.txt") == true);
+            Assert.IsTrue(InstallPad.Zip.Instance.Contains(fileUrl0, "test3.txt") == true);
+            Assert.IsTrue(InstallPad.Zip.Instance.Contains(fileUrl0, "test4.txt") == false);
+            Assert.IsTrue(InstallPad.Zip.Instance.Contains(fileUrl1, "test5") == true);
+            Assert.IsTrue(InstallPad.Zip.Instance.Contains(fileUrl1, "test2.txt") == true);
+            Assert.IsTrue(InstallPad.Zip.Instance.Contains(fileUrl1, "test3.txt") == true);
+            Assert.IsTrue(InstallPad.Zip.Instance.Contains(fileUrl1, "test4.txt") == false);
         }
+        #endregion
 
-        [TearDown]
-        public void TearDown()
+        #region Test Zip Has Root Folder
+        [Test]
+        public void TestZipHasRootFolder()
         {
-        }
+            string fileUrl0 = Path.Combine(DATA_DIRECTORY, "test4.zip");
+            string fileUrl1 = Path.Combine(DATA_DIRECTORY, "test5.zip");
 
+            Assert.IsTrue(InstallPad.Zip.Instance.HasRootFolder(fileUrl0) == false);
+            Assert.IsTrue(InstallPad.Zip.Instance.HasRootFolder(fileUrl1) == true);
+        }
+        #endregion
     }
 }
