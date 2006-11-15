@@ -1,3 +1,4 @@
+- Added ability to edit an applications details by double clicking on it.
 
 0.5
 - refactored unit tests, embedded /data as a resource so the unit test dl can be run from anywhere (Zac Ruiz)

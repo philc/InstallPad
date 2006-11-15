@@ -72,6 +72,7 @@ namespace InstallPad
         #endregion
 
         public event MouseEventHandler  ListItemClicked;
+        public event MouseEventHandler ListItemDoubleClicked;
         public ControlList()
         {
             InitializeComponent();
@@ -128,6 +129,12 @@ namespace InstallPad
         {
             if (ListItemClicked != null)
                 ListItemClicked(sender, e);
+        }
+
+        void OnlistItemDoubleClicked(object sender, MouseEventArgs e)
+        {
+            if (ListItemDoubleClicked != null)
+                ListItemDoubleClicked(sender, e);
         }
 
         /// <summary>
@@ -313,6 +320,7 @@ namespace InstallPad
             this.tableLayout.Controls.Add(control, 0, position);
 
             control.MouseClick += new MouseEventHandler(OnListItemClicked);
+            control.MouseDoubleClick += new MouseEventHandler(OnlistItemDoubleClicked);
         }        
 
         void control_VisibleChanged(object sender, EventArgs e)

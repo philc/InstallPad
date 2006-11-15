@@ -121,6 +121,7 @@ namespace InstallPad
             this.FormClosing += new FormClosingEventHandler(InstallPad_FormClosing);
             this.controlList = new ControlList();
             this.controlList.ListItemClicked += new MouseEventHandler(controlList_ListItemClicked);
+            this.controlList.ListItemDoubleClicked += new MouseEventHandler(controlList_ListItemDoubleClicked);
             controlList.Width = this.controlListPanel.Width;
             controlList.Height = this.controlListPanel.Height;
             this.controlListPanel.Controls.Add(controlList);
@@ -170,6 +171,34 @@ namespace InstallPad
             // Load the application list. If not successful (file not found),
             // all controls will be disabled.
             LoadApplicationList(InstallPadApp.AppListFile);
+        }
+
+        void controlList_ListItemDoubleClicked(object sender, MouseEventArgs e)
+        {
+            Control doubleClickedControl = controlList.ControlAtAbsolutePosition(Cursor.Position);
+            
+            //remove highlight from whatever controler may have been hightlighted.
+            controlList.Unhighlight(controlList.HighlightedEntry);
+            //highlight control that the user double clicked, so it shows behind the editing dialog.
+            controlList.Highlight(doubleClickedControl);
+
+            if (doubleClickedControl != null && doubleClickedControl is ApplicationListItem)
+            {
+                ApplicationListItem item = (ApplicationListItem)controlList.HighlightedEntry;
+                ApplicationDialog dialog = new ApplicationDialog(item.ApplicationItem);
+                dialog.Title = "Edit Application";
+                dialog.ShowDialog(this);
+
+                if (dialog.Saved)
+                {
+                    // Update the list item
+                    item.ApplicationItem = item.ApplicationItem;
+                    SaveApplist();
+                }
+
+                //remove highlight from the control once editing is complete.
+                controlList.Unhighlight(doubleClickedControl);
+            }                        
         }
 
         #region left clicking
