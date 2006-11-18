@@ -20,6 +20,14 @@
       </Options>
   </Application>
   <Application>
+    <Name>Alternate with bad drive</Name>
+    <FileUrl>file:///P:/badDrive.xml</FileUrl>
+    <Options>
+	<AlternateFileUrl>file:///P:/badDrive.xml</AlternateFileUrl>
+      <AlternateFileUrl>file:///C:/Documents and Settings/reformist/Desktop/projects/installpad/data/applists/test2.txt</AlternateFileUrl>
+      </Options>
+  </Application>
+  <Application>
     <Name>Zip file</Name>
     <FileUrl>http://www.installpad.com/test/test4.zip</FileUrl>
   </Application>
