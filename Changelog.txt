@@ -1,4 +1,5 @@
-- Added ability to edit an applications details by double clicking on it.
+- Small error dialog on startup if your environment vars are bad in some way; keeps installpad from bombing out silently
+- Added ability to edit an applications details by double clicking on it. (Craig Reynolds)
 - refactored unit tests, embedded /data as a resource so the unit test dl can be run from anywhere (Zac Ruiz)
 - helper methods for zip class (contains(), hasRootFolder())  (Zac Ruiz)
 - Create a root folder for the zip if it doesn't have one, instead of extracting tons of files to c:\program files (Zac Ruiz)
