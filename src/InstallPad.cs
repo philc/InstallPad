@@ -133,8 +133,22 @@ namespace InstallPad
             BuildContextMenuEntries();
 
             // Restore form position etc. from the installpad config file
-            LoadConfigFile();
-
+            // Depending upon where we bomb out, this may or may not be recoverable.
+            // E.g. if the static initializer for Preferences fails because the user
+            // has messed up system environment variables, then we should exit.
+            try
+            {
+                LoadConfigFile();
+            }
+            catch (Exception ex)
+            {
+                string message = (ex is TypeInitializationException && 
+                    ex.InnerException!=null) ?
+                    ex.InnerException.InnerException.Message : ex.Message;
+                MessageBox.Show(message);
+                System.Windows.Forms.Application.Exit();
+                return;
+            }
             // Should be externalized
             string errorMessage = "Error creating temporary folder for downloaded files: ";
 
@@ -409,6 +423,9 @@ namespace InstallPad
                 writer = new StreamWriter(InstallPadApp.ConfigFilePath);
                 writer.Write(formPosition);
             }
+            // We can get here if InstallPad.form_load had a problem,
+            // so just eat exceptions rather than throwing more of them.
+            catch (Exception ex) { }
             finally
             {
                 if (writer != null)

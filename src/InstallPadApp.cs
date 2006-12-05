@@ -23,7 +23,8 @@ namespace InstallPad
     partial class InstallPadApp
     {
         #region Fields and Ctor
-        private static string appListFile = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "applist.xml");
+        private static string appListFile = 
+            Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "applist.xml");
         private static ApplicationList appList = null;
         private static Preferences preferences = new Preferences();
 

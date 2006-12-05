@@ -53,11 +53,16 @@ namespace InstallPad
             {
                 // If these every become dynamic, we can just build this map every time we need it.
                 Dictionary<string, string> defaults = new Dictionary<string, string>();
-                
-                defaults.Add("DownloadTo", Path.GetFullPath(
-                    Path.Combine(Environment.GetEnvironmentVariable("TEMP"), @"InstallPad\")));
-                defaults.Add("InstallationRoot", Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles));
-                
+                try
+                {
+                    defaults.Add("DownloadTo", Path.GetFullPath(
+                        Path.Combine(Environment.GetEnvironmentVariable("TEMP"), @"InstallPad\")));
+                    defaults.Add("InstallationRoot", Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles));
+                }
+                catch (Exception e) { 
+                    throw new Exception("We were unable to find the full path of either your temp folder " + 
+                        "or your program files folder. This might be due to some bad environment variables.",e);
+                }
                 return defaults;
             }
 
