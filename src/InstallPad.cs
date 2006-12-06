@@ -339,10 +339,10 @@ namespace InstallPad
                 SetControlsEnabled(true);
 
             // Show errors, if we had any in loading
-            if (appList.Errors.Count > 0)
+            if (appList.XmlErrors.Count > 0)
             {
                 errorDialog = new AppListErrorDialog();
-                foreach (string error in appList.Errors)
+                foreach (string error in appList.XmlErrors)
                     errorDialog.ErrorText += error + System.Environment.NewLine;
 
                 // Show the "encountered errors" label

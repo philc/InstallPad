@@ -60,6 +60,7 @@ namespace InstallPad
             {
                 application = value;
                 this.labelName.Text = this.application.Name;
+                this.labelVersion.Text = this.application.DetectedVersion;
                 this.toolTipComment.SetToolTip(this, this.application.Comment);
             }
         }

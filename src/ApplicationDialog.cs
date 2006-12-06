@@ -249,6 +249,8 @@ namespace InstallPad
             item.Options.InstallerArguments = this.InstallerArguments;
             item.Options.Checked = this.Checked;
 
+            item.DetectVersion();
+
             // Setting InstallationRoot is disabled for now until the rules are decided.
             // Could allow setting Options, but probably wouldn't want to allow setting
             // AppList, and\or Preferences.  Might be confusing either way.

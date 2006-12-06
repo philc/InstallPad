@@ -47,6 +47,7 @@ namespace InstallPad
             this.checkboxEnabled = new System.Windows.Forms.CheckBox();
             this.labelProgress = new System.Windows.Forms.Label();
             this.toolTipComment = new System.Windows.Forms.ToolTip(this.components);
+            this.labelVersion = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // labelName
@@ -120,10 +121,20 @@ namespace InstallPad
             this.labelProgress.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.labelProgress.Visible = false;
             // 
+            // labelVersion
+            // 
+            this.labelVersion.AutoSize = true;
+            this.labelVersion.Location = new System.Drawing.Point(153, 16);
+            this.labelVersion.Name = "labelVersion";
+            this.labelVersion.Size = new System.Drawing.Size(13, 13);
+            this.labelVersion.TabIndex = 8;
+            this.labelVersion.Text = "v";
+            // 
             // ApplicationListItem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.labelVersion);
             this.Controls.Add(this.labelProgress);
             this.Controls.Add(this.checkboxEnabled);
             this.Controls.Add(this.labelStatus);
@@ -148,5 +159,6 @@ namespace InstallPad
         private System.Windows.Forms.CheckBox checkboxEnabled;
         private System.Windows.Forms.Label labelProgress;
         private System.Windows.Forms.ToolTip toolTipComment;
+        private System.Windows.Forms.Label labelVersion;
     }
 }

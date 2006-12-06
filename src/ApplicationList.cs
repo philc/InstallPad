@@ -18,11 +18,10 @@ using System.ComponentModel;
 
 namespace InstallPad
 {
-    class ApplicationList
+    class ApplicationList : Persistable
     {
         private ApplicationList() { }
         private List<ApplicationItem> applicationItems = new List<ApplicationItem>();
-        private List<string> errors = new List<string>();
         private string fileName;
 
         /// <summary>
@@ -32,12 +31,6 @@ namespace InstallPad
         {
             get { return fileName; }
             set { fileName = value; }
-        }
-
-        public List<string> Errors
-        {
-            get { return errors; }
-            set { errors = value; }
         }
 
         public List<ApplicationItem> ApplicationItems
@@ -177,11 +170,20 @@ namespace InstallPad
                 if (reader.NodeType == XmlNodeType.Element)
                 {
                     if (reader.Name.Equals("Application") && !reader.IsEmptyElement)
-                        list.applicationItems.Add(ApplicationItem.FromXml(reader, list.errors));
+                    {
+                        ApplicationItem ai = ApplicationItem.FromXml(reader);
+                        list.XmlErrors.AddRange(ai.XmlErrors);
+                        list.applicationItems.Add(ai);
+                    }
                     else if (reader.Name.Equals("InstallationOptions") && !reader.IsEmptyElement)
-                        list.installationOptions = InstallationOptions.FromXml(reader, list.errors);
+                    {
+                        list.installationOptions = InstallationOptions.FromXml(reader);
+                        list.XmlErrors.AddRange(list.installationOptions.XmlErrors);
+                    }
                     else
-                        list.errors.Add(String.Format("Unrecognized element: \"{0}\"", reader.Name));
+                    {
+                        list.XmlErrors.Add(String.Format("Unrecognized element: \"{0}\"", reader.Name));
+                    }
                 }
             }
             return list;
@@ -195,226 +197,11 @@ namespace InstallPad
             writer.WriteEndElement();
         }
         #endregion
-    }
 
-    public class InstallationOptions
-    {
-        private bool installInOrder = false;
-
-        public bool InstallInOrder
+        #region Persistable
+        public override bool Validate()
         {
-            get { return installInOrder; }
-            set { installInOrder = value; }
-        }
-
-        private bool silentInstall = false;
-
-        public bool SilentInstall
-        {
-            get { return silentInstall; }
-            set { silentInstall = value; }
-        }
-
-        private int simultaneousDownloads = 2;
-
-        public int SimultaneousDownloads
-        {
-            get { return simultaneousDownloads; }
-            set { simultaneousDownloads = value; }
-        }
-
-        private ProxyOptions proxyOptions = null;
-
-        public ProxyOptions ProxyOptions
-        {
-            get { return proxyOptions; }
-            set { proxyOptions = value; }
-        }
-
-        private string installationRoot = string.Empty;
-
-        public string InstallationRoot
-        {
-            get { return installationRoot; }
-            set { installationRoot = value; }
-        }
-
-        private string alternateDownloadLocation = string.Empty;
-
-        public string AlternateDownloadLocation
-        {
-            get { return alternateDownloadLocation; }
-            set { alternateDownloadLocation = value; }
-        }
-
-        #region XML methods
-        public static InstallationOptions FromXml(XmlReader reader, List<String> errors)
-        {
-            InstallationOptions options = new InstallationOptions();
-            while (reader.Read())
-            {
-                switch (reader.NodeType)
-                {
-                    case XmlNodeType.Element:
-                        if (reader.Name == "InstallInOrder")
-                            options.InstallInOrder = true;
-                        else if (reader.Name == "Proxy")
-                        {
-                            options.ProxyOptions = ProxyOptions.FromXml(reader, errors);
-                        }
-                        else if (reader.Name == "SilentInstall")
-                        {
-                            options.SilentInstall = true;
-                        }
-                        else if (reader.Name == "SimultaneousDownloads")
-                        {
-                            options.SimultaneousDownloads = int.Parse(reader.ReadString());
-                            reader.ReadEndElement();
-                        }
-                        else if (reader.Name == "InstallationRoot")
-                        {
-                            options.InstallationRoot = reader.ReadString();
-                            reader.ReadEndElement();
-                        }
-                        else if (reader.Name == "AlternateDownloadLocation")
-                        {
-                            options.AlternateDownloadLocation = reader.ReadString();
-                            reader.ReadEndElement();
-                        }
-                        else
-                            errors.Add(
-                                String.Format("Unrecognized installation option: \"{0}\"", reader.Name));
-                        break;
-
-                    case XmlNodeType.EndElement:
-                        // Only stop reading when we've hit the end of the InstallationOptions element
-                        if (reader.Name == "InstallationOptions")
-                            return options;
-                        break;
-                }
-
-            }
-            return options;
-        }
-        public void WriteXml(XmlWriter writer)
-        {
-            writer.WriteStartElement("InstallationOptions");
-            if (this.InstallInOrder)
-                writer.WriteElementString("InstallInOrder", "");
-            if (this.SilentInstall)
-                writer.WriteElementString("SilentInstall", "");
-            if (this.proxyOptions != null)
-                this.proxyOptions.WriteXml(writer);
-            if (this.installationRoot != string.Empty)
-                writer.WriteElementString("InstallationRoot", this.InstallationRoot);
-            if (this.alternateDownloadLocation != string.Empty)
-                writer.WriteElementString("AlternateDownloadLocation", this.AlternateDownloadLocation);
-
-            writer.WriteElementString("SimultaneousDownloads", this.SimultaneousDownloads.ToString());
-
-            writer.WriteEndElement();
-        }
-        #endregion
-    }
-
-    public class ProxyOptions
-    {
-        private string address = null;
-
-        public string Address
-        {
-            get { return address; }
-            set { address = value; }
-        }
-        private string username = null;
-
-        public string Username
-        {
-            get { return username; }
-            set { username = value; }
-        }
-        private string password = null;
-
-        public string Password
-        {
-            get { return password; }
-            set { password = value; }
-        }
-
-        public System.Net.WebProxy ProxyFromOptions()
-        {
-            System.Net.WebProxy proxy = new System.Net.WebProxy();
-            Uri addressUri = null;
-
-            // Try and create this URi from the address given in the file. It can fail if it's
-            // malformed, or it can fail if they specify an IP without http://.
-            if (!Uri.TryCreate(address, UriKind.Absolute, out addressUri))
-            {
-                // Try and create it again, appending http:// this time (rooting it)
-                if (!Uri.TryCreate("http://" + address, UriKind.Absolute, out addressUri))
-                {
-                    // Could not understand the URL. Exception case.
-                    return null;
-                }
-            }
-
-            proxy.Address = addressUri;
-            if (this.username == null || this.password == null)
-                proxy.UseDefaultCredentials = true;
-            else
-                proxy.Credentials = new System.Net.NetworkCredential(this.username, this.password);
-            return proxy;
-        }
-
-        #region XML methods
-        public static ProxyOptions FromXml(XmlReader reader, List<String> errors)
-        {
-            ProxyOptions options = new ProxyOptions();
-            while (reader.Read())
-            {
-                switch (reader.NodeType)
-                {
-                    case XmlNodeType.Element:
-                        if (reader.Name == "Address")
-                        {
-                            options.Address = reader.ReadString();
-                            reader.ReadEndElement();
-                        }
-                        else if (reader.Name == "Username")
-                        {
-                            options.Username = reader.ReadString();
-                            reader.ReadEndElement();
-                        }
-                        else if (reader.Name == "Password")
-                        {
-                            options.Password = reader.ReadString();
-                            reader.ReadEndElement();
-                        }
-                        else
-                            errors.Add(
-                                String.Format("Unrecognized proxy option: \"{0}\"", reader.Name));
-                        break;
-
-                    case XmlNodeType.EndElement:
-                        // Only stop reading when we've hit the end of the InstallationOptions element
-                        if (reader.Name == "Proxy")
-                            return options;
-                        break;
-                }
-
-            }
-            return options;
-        }
-        public void WriteXml(XmlWriter writer)
-        {
-            writer.WriteStartElement("Proxy");
-            if (this.Address != null)
-                writer.WriteElementString("Address", this.Address);
-            if (this.Username != null)
-                writer.WriteElementString("Username", this.Username);
-            if (this.Password != null)
-                writer.WriteElementString("Password", this.Password);
-            writer.WriteEndElement();
+            return true;
         }
         #endregion
     }

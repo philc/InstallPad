@@ -14,13 +14,15 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml;
 
+using Microsoft.Win32;
+
 namespace InstallPad
 {
     /// <summary>
     /// An application item describes an application - its name, filename, and download options.
     /// It can also attempt to check and find the latest version of the application online.
     /// </summary>
-    public class ApplicationItem
+    public class ApplicationItem : Persistable
     {
         string name;
 
@@ -116,6 +118,58 @@ namespace InstallPad
         {
             get { return version; }
             set { version = value; }
+        }
+
+        string detectedVersion = string.Empty;
+        public string DetectedVersion
+        {
+            get { return detectedVersion; }
+        }
+
+        public bool DetectVersion()
+        {
+            RegistryKey UninstallKey = Registry.LocalMachine;
+            UninstallKey = UninstallKey.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall", true);
+
+            try
+            {
+                // Iterate subkeys... each subkey is an installed package
+                foreach (string subkeyname in UninstallKey.GetSubKeyNames())
+                {
+                    RegistryKey pkg = Registry.LocalMachine;
+                    pkg = UninstallKey.OpenSubKey(subkeyname, true);
+
+                    try
+                    {
+                        string displayname = pkg.GetValue("DisplayName").ToString();
+
+                        if (displayname.Contains(name) || name.Contains(displayname))
+                        {
+                            try
+                            {
+                                detectedVersion = "v"+pkg.GetValue("DisplayVersion").ToString();
+                                return true;
+                            }
+                            catch
+                            {
+                                detectedVersion = "found but not found";
+                            }
+                        }
+                    }
+                    catch
+                    {
+                    }
+                    finally
+                    {
+                        pkg.Close();
+                    }
+                }
+            }
+            finally
+            {
+                UninstallKey.Close();
+            }
+            return false;
         }
 
         ApplicationItemOptions options = new ApplicationItemOptions();
@@ -292,7 +346,7 @@ namespace InstallPad
         }
 
         #region Xml methods
-        public static ApplicationItem FromXml(XmlReader reader, List<string> errors)
+        public static ApplicationItem FromXml(XmlReader reader)
         {
             ApplicationItem item = new ApplicationItem();
 
@@ -303,36 +357,49 @@ namespace InstallPad
                     case XmlNodeType.Element:
                         if (reader.Name == "Name")
                         {
-                            item.Name = reader.ReadString();
-                            reader.ReadEndElement();
+                            if (reader.IsEmptyElement == false)
+                            {
+                                item.Name = reader.ReadString();
+                                reader.ReadEndElement();
+                            }
                         }
                         else if (reader.Name == "FileUrl")
                         {
-                            item.DownloadUrl = reader.ReadString();
-                            reader.ReadEndElement();
+                            if (reader.IsEmptyElement == false)
+                            {
+                                item.DownloadUrl = reader.ReadString();
+                                reader.ReadEndElement();
+                            }
                         }
                         else if (reader.Name == "Comment")
                         {
-                            item.Comment = reader.ReadString();
-                            reader.ReadEndElement();
+                            if (reader.IsEmptyElement == false)
+                            {
+                                item.Comment = reader.ReadString();
+                                reader.ReadEndElement();
+                            }
                         }
                         else if (reader.Name == "Options")
                         {
-                            item.Options = ApplicationItemOptions.FromXml(reader, errors);
+                            item.Options = ApplicationItemOptions.FromXml(reader);
+                            item.XmlErrors.AddRange(item.options.XmlErrors);
                         }
-
                         else
                         {
-                            errors.Add(
+                            item.XmlErrors.Add(
                                 String.Format("Unrecognized element in an application: \"{0}\"", reader.Name));
                         }
                         break;
                     case XmlNodeType.EndElement:
-                        if (reader.Name=="Application")
+                        if (reader.Name == "Application")
+                        {
+                            item.DetectVersion();
                             return item;
+                        }
                         break;
                 }
             }
+            item.DetectVersion();
             return item;
         }
 
@@ -340,176 +407,24 @@ namespace InstallPad
         {
             writer.WriteStartElement("Application");
             writer.WriteElementString("Name", this.Name);
-            writer.WriteElementString("FileUrl", this.DownloadUrl);
+			writer.WriteElementString("FileUrl", this.DownloadUrl);
             
             if (this.Comment != null && this.Comment.Length > 0)
+            {
                 writer.WriteElementString("Comment", this.Comment);
+            }
 
             this.Options.WriteXml(writer);
 
             writer.WriteEndElement();
         }
         #endregion 
-    }
 
-    public class ApplicationItemOptions
-    {
-        #region XML methods
-        public static  ApplicationItemOptions FromXml(XmlReader reader, List<string> errors)
+        #region Persistable
+        public override bool Validate()
         {
-            ApplicationItemOptions options = new ApplicationItemOptions();
-            
-            // If this is an empty option element then don't read further
-            if (reader.IsEmptyElement)
-                return options;
-
-            while (reader.Read())
-            {
-                switch (reader.NodeType)
-                {
-                    case XmlNodeType.Element:
-                        if (reader.Name == "DownloadLatestVersion")
-                        {
-                            options.DownloadLatestVersion = true;
-                        }
-                        else if (reader.Name == "SilentInstall")
-                        {
-                            options.SilentInstall = true;
-                        }
-                        else if (reader.Name == "PostInstallScript")
-                        {
-                            options.PostInstallScript = reader.ReadString().Trim();
-                            reader.ReadEndElement();
-                        }
-                        else if (reader.Name == "InstallationRoot")
-                        {
-                            options.InstallationRoot = reader.ReadString();
-                            reader.ReadEndElement();
-                        }
-                        else if (reader.Name == "AlternateFileUrl")
-                        {
-                            options.AlternateFileUrls.Add(reader.ReadString());
-                            reader.ReadEndElement();
-                        }
-                        else if (reader.Name == "InstallerArguments")
-                        {
-                            options.InstallerArguments = reader.ReadString();
-                            reader.ReadEndElement();
-                        }
-                        else if (reader.Name == "Checked")
-                        {
-                            bool value=true;
-                            try
-                            {
-                                value = bool.Parse(reader.ReadString());
-                            }
-                            catch (Exception)
-                            {
-                            }
-                            options.Checked = value;
-                        }
-
-
-                        else
-                            errors.Add(String.Format("Unrecognized application option: \"{0}\"", reader.Name));
-
-                        break;
-                    case XmlNodeType.EndElement:
-                        // Only stop reading when we've hit the end of the Options element
-                        if (reader.Name == "Options")
-                            return options;
-                        break;
-                }
-            }
-            return options;
-        }
-        public void WriteXml(XmlWriter writer)
-        {
-            // Only write if there is an option set. This could be more elegant.
-            if ((InstallerArguments != null && InstallerArguments.Length > 0) ||
-                (PostInstallScript != null && PostInstallScript.Length > 0) ||
-                this.SilentInstall || this.DownloadLatestVersion || !this.Checked)
-            {
-
-                writer.WriteStartElement("Options");
-                if (this.DownloadLatestVersion)
-                    writer.WriteElementString("DownloadLatestVersion", "");
-                if (this.SilentInstall)
-                    writer.WriteElementString("SilentInstall", "");
-
-                if (InstallerArguments != null && InstallerArguments.Length > 0)
-                    writer.WriteElementString("InstallerArguments", this.InstallerArguments);
-                if (PostInstallScript != null && PostInstallScript.Length > 0)
-                    writer.WriteElementString("PostInstallScript", this.PostInstallScript);
-                if (InstallationRoot.Length > 0)
-                    writer.WriteElementString("InstallationRoot", this.InstallationRoot);
-                foreach (string s in AlternateFileUrls)
-                {
-                    if (s.Length > 0)
-                        writer.WriteElementString("AlternateFileUrl", s);
-                }
-                if (Checked==false)
-                    writer.WriteElementString("Checked", "false");
-
-                writer.WriteEndElement();
-            }
+            return true;
         }
         #endregion
-
-        /// <summary>
-        /// You can specify in the applist whether this application should be checked by default
-        /// </summary>
-        private bool checkEnabled = true;
-
-        public bool Checked
-        {
-            get { return checkEnabled; }
-            set { checkEnabled = value; }
-        }
-
-        private bool downloadLatestVersion=false;
-
-        public bool DownloadLatestVersion
-        {
-            get { return downloadLatestVersion; }
-            set { downloadLatestVersion = value; }
-        }
-
-        private bool silentInstall = false;
-        public bool SilentInstall
-        {
-            get { return silentInstall; }
-            set { silentInstall = value; }
-        }
-        private string installerArguments=null;
-
-        public string InstallerArguments
-        {
-            get { return installerArguments; }
-            set { installerArguments = value; }
-        }
-        private string postInstallScript=null;
-
-        public string PostInstallScript
-        {
-            get { return postInstallScript; }
-            set { postInstallScript = value; }
-        }
-
-        private string installationRoot = string.Empty;
-
-        public string InstallationRoot
-        {
-            get { return installationRoot; }
-            set { installationRoot = value; }
-        }
-
-        private List<string> alternateFileUrls = new List<string>();
-
-        public List<string> AlternateFileUrls
-        {
-            get { return alternateFileUrls; }
-            set { alternateFileUrls = value; }
-        }
     }
 }

@@ -1,7 +1,9 @@
+- Prototype version lookup for installed applist items.
+- Add ability to parse empty XML elements.  Slightly refactor XML error message collection.  Add stubs for applist validation.
 - Small error dialog on startup if your environment vars are bad in some way; keeps installpad from bombing out silently
 - Added ability to edit an applications details by double clicking on it. (Craig Reynolds)
-- refactored unit tests, embedded /data as a resource so the unit test dl can be run from anywhere (Zac Ruiz)
-- helper methods for zip class (contains(), hasRootFolder())  (Zac Ruiz)
+- Refactored unit tests, embedded /data as a resource so the unit test dl can be run from anywhere (Zac Ruiz)
+- Helper methods for zip class (contains(), hasRootFolder())  (Zac Ruiz)
 - Create a root folder for the zip if it doesn't have one, instead of extracting tons of files to c:\program files (Zac Ruiz)
 - Bugfix: If there is an error writing our applist back to disk, backup the original file and then restore it so it is not lost (Craig Reynolds)
 - Turned on double buffering for the ApplicationListItem control. Makes resizing a little faster.
