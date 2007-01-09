@@ -28,7 +28,7 @@ namespace InstallPad
     {
         public enum InstallState
         {
-            None, Downloading, Downloaded, Installing, Installed
+            None, Downloading, Downloaded, Installing, Installed, UnInstalling, UnInstalled
         }
         InstallState state = InstallState.None;
 
@@ -73,6 +73,21 @@ namespace InstallPad
             }
             if (this.FinishedInstalling != null)
                 FinishedInstalling(this, new EventArgs());
+        }
+        public event EventHandler FinishedUnInstalling;
+        private void OnFinishedUnInstalling()
+        {
+            // Could be an error condition
+            if (installError != null || (this.installProcess != null && this.installProcess.ExitCode != 0))
+            {
+                SetState(InstallState.Installed);
+            }
+            else
+            {
+                SetState(InstallState.UnInstalled);
+            }
+            if (this.FinishedUnInstalling != null)
+                FinishedUnInstalling(this, new EventArgs());
         }
         private void OnFinishedUnzipping(bool status)
         {
@@ -192,6 +207,19 @@ namespace InstallPad
             }
         }
 
+        /// <summary>
+        /// UnInstalls the application referred to by this app list item. 
+        /// </summary>
+        public void UnInstallApplication()
+        {
+            Debug.Assert(this.state == InstallState.Installed);
+
+            SetState(InstallState.UnInstalling);
+
+            ThreadPool.QueueUserWorkItem(new WaitCallback(this.AsyncUnInstall), null);
+        }
+
+        
         private static string ArgumentsForSilentInstall(ApplicationItem application)
         {
             // Coding in special rules here for apps. Each of these special rules should be moved
@@ -327,6 +355,53 @@ namespace InstallPad
 
             // OnFinishedInstalling will get called by the process when it exits.
         }
+
+        /// <summary>
+        /// Begin an async un-install
+        /// </summary>
+        private void AsyncUnInstall(object data)
+        {
+            Debug.WriteLine("starting async un-install: ");
+
+            string cmd = this.ApplicationItem.UnInstallString;
+           
+            ProcessStartInfo psi = new ProcessStartInfo(cmd);
+          
+            //psi.Arguments = cmd.Substring(cmd.IndexOf(" "));
+            uninstallProcess = new Process();
+            uninstallProcess.StartInfo = psi;
+            uninstallProcess.EnableRaisingEvents = true;
+            uninstallProcess.Exited += new EventHandler(process_Exited2);
+
+            Exception ex = null;
+            try
+            {
+                uninstallProcess.Start();
+            }
+            catch (Exception e)
+            {
+                ex = e;
+            }
+            if (ex != null)
+            {
+                // There was an error.
+                this.uninstallProcess = null;
+                this.installError = String.Format("Couldn't un-install {0} : {1}", cmd, ex.Message);
+
+                this.Invoke(new EventHandler(delegate
+                {
+                    // Show an error
+                    installErrorBox.DetailsText = this.installError;
+                    installErrorBox.Visible = true;
+                }));
+
+                // We're done running the installer..
+                OnFinishedUnInstalling();
+            }
+
+            // OnFinishedInstalling will get called by the process when it exits.
+        }
+        
         void downloader_ProgressChanged(object sender, CodeProject.Downloader.DownloadEventArgs e)
         {
             // Sometimes we may get events fired even after we're done downloading.
@@ -345,6 +420,10 @@ namespace InstallPad
         void process_Exited(object sender, EventArgs e)
         {
             OnFinishedInstalling();
+        }
+        void process_Exited2(object sender, EventArgs e)
+        {
+            OnFinishedUnInstalling();
         }
     }
 }

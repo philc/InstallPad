@@ -25,6 +25,7 @@ namespace CodeProject.AboutDialog
 
         CreditsDialog creditsDialog = null;
         LicenseDialog licenseDialog = null;
+        FeedbackDialog feedbackDialog = null;
         
         private string projectUrl = null;
         private string copyright = null;
@@ -103,6 +104,7 @@ namespace CodeProject.AboutDialog
             InitializeComponent();
             creditsDialog = new CreditsDialog();
             licenseDialog = new LicenseDialog();
+            feedbackDialog = new FeedbackDialog();
         }
 
         private void creditsButton_Click(object sender, EventArgs e)
@@ -143,6 +145,8 @@ namespace CodeProject.AboutDialog
 
             if (WrittenBy==null && ArtworkBy == null && TranslatedBy == null)
                 this.creditsButton.Visible = false;
+
+            feedbackDialog.To = "support@installpad.com";
 
             SizeDialog();
         }
@@ -203,6 +207,11 @@ namespace CodeProject.AboutDialog
         private void licenseButton_Click(object sender, EventArgs e)
         {
             this.licenseDialog.ShowDialog();
+        }
+
+        private void feedbackButton_Click(object sender, EventArgs e)
+        {
+            this.feedbackDialog.ShowDialog();
         }
     }
 }

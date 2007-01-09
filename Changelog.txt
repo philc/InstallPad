@@ -1,3 +1,6 @@
+- Add feedback dialog.
+- Refactor 80% of strings to resources.
+- Prototype uninstall functionality.
 - Prototype version lookup for installed applist items.
 - Add ability to parse empty XML elements.  Slightly refactor XML error message collection.  Add stubs for applist validation.
 - Small error dialog on startup if your environment vars are bad in some way; keeps installpad from bombing out silently

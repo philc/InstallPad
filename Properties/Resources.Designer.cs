@@ -68,6 +68,222 @@ namespace InstallPad.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Address.
+        /// </summary>
+        internal static string Address {
+            get {
+                return ResourceManager.GetString("Address", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AlternateDownloadLocation.
+        /// </summary>
+        internal static string AlternateDownloadLocation {
+            get {
+                return ResourceManager.GetString("AlternateDownloadLocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AlternateFileUrl.
+        /// </summary>
+        internal static string AlternateFileUrl {
+            get {
+                return ResourceManager.GetString("AlternateFileUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not find an application file. Ensure that there is an applist.xml file in the same folder as InstallPad.exe.
+        /// </summary>
+        internal static string AppFileNotFound {
+            get {
+                return ResourceManager.GetString("AppFileNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error parsing the application file. The file contains invalid XML..
+        /// </summary>
+        internal static string AppFileParseError {
+            get {
+                return ResourceManager.GetString("AppFileParseError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Application.
+        /// </summary>
+        internal static string Application {
+            get {
+                return ResourceManager.GetString("Application", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ApplicationList.
+        /// </summary>
+        internal static string ApplicationList {
+            get {
+                return ResourceManager.GetString("ApplicationList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AppListFile.
+        /// </summary>
+        internal static string AppListFile {
+            get {
+                return ResourceManager.GetString("AppListFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Can&apos;t save an application list without a filename..
+        /// </summary>
+        internal static string AppListMissingFilename {
+            get {
+                return ResourceManager.GetString("AppListMissingFilename", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unrecognized element in an application.
+        /// </summary>
+        internal static string AppListUnknownElement {
+            get {
+                return ResourceManager.GetString("AppListUnknownElement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unrecognized application option.
+        /// </summary>
+        internal static string AppListXmlUnknown {
+            get {
+                return ResourceManager.GetString("AppListXmlUnknown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Can&apos;t open new application list.
+        /// </summary>
+        internal static string AppLocked {
+            get {
+                return ResourceManager.GetString("AppLocked", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Can&apos;t open a new application list while an program is downloading or installing..
+        /// </summary>
+        internal static string AppLockedShort {
+            get {
+                return ResourceManager.GetString("AppLockedShort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to found but not found.
+        /// </summary>
+        internal static string AppVersionNotFound {
+            get {
+                return ResourceManager.GetString("AppVersionNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unrecognized proxy option.
+        /// </summary>
+        internal static string BadProxyOption {
+            get {
+                return ResourceManager.GetString("BadProxyOption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to false.
+        /// </summary>
+        internal static string BooleanFalse {
+            get {
+                return ResourceManager.GetString("BooleanFalse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checked.
+        /// </summary>
+        internal static string Checked {
+            get {
+                return ResourceManager.GetString("Checked", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Comment.
+        /// </summary>
+        internal static string Comment {
+            get {
+                return ResourceManager.GetString("Comment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DisplayName.
+        /// </summary>
+        internal static string DisplayName {
+            get {
+                return ResourceManager.GetString("DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DisplayVersion.
+        /// </summary>
+        internal static string DisplayVersion {
+            get {
+                return ResourceManager.GetString("DisplayVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DownloadLatestVersion.
+        /// </summary>
+        internal static string DownloadLatestVersion {
+            get {
+                return ResourceManager.GetString("DownloadLatestVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DownloadTo.
+        /// </summary>
+        internal static string DownloadTo {
+            get {
+                return ResourceManager.GetString("DownloadTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Application.
+        /// </summary>
+        internal static string EditApplication {
+            get {
+                return ResourceManager.GetString("EditApplication", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error creating install folder.
+        /// </summary>
+        internal static string Errorcreatinginstallfolder {
+            get {
+                return ResourceManager.GetString("Errorcreatinginstallfolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There were errors while downloading..
         /// </summary>
         internal static string ErrorDownloading {
@@ -82,6 +298,132 @@ namespace InstallPad.Properties {
         internal static string ErrorInstalling {
             get {
                 return ResourceManager.GetString("ErrorInstalling", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FileUrl.
+        /// </summary>
+        internal static string FileUrl {
+            get {
+                return ResourceManager.GetString("FileUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to InstallationOptions.
+        /// </summary>
+        internal static string InstallationOptions {
+            get {
+                return ResourceManager.GetString("InstallationOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to InstallationRoot.
+        /// </summary>
+        internal static string InstallationRoot {
+            get {
+                return ResourceManager.GetString("InstallationRoot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to InstallerArguments.
+        /// </summary>
+        internal static string InstallerArguments {
+            get {
+                return ResourceManager.GetString("InstallerArguments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error creating install folder.
+        /// </summary>
+        internal static string InstallFolderCreateError {
+            get {
+                return ResourceManager.GetString("InstallFolderCreateError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to InstallInOrder.
+        /// </summary>
+        internal static string InstallInOrder {
+            get {
+                return ResourceManager.GetString("InstallInOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to InstallPad.
+        /// </summary>
+        internal static string InstallPad {
+            get {
+                return ResourceManager.GetString("InstallPad", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phil Crosby (phil.crosby@gmail.com).
+        /// </summary>
+        internal static string InstallPadAuthor {
+            get {
+                return ResourceManager.GetString("InstallPadAuthor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zac Ruiz (zac.ruiz@gmail.com).
+        /// </summary>
+        internal static string InstallPadContrib1 {
+            get {
+                return ResourceManager.GetString("InstallPadContrib1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 2006 Phil Crosby.
+        /// </summary>
+        internal static string InstallPadCopyRight {
+            get {
+                return ResourceManager.GetString("InstallPadCopyRight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get programs faster.
+        /// </summary>
+        internal static string InstallPadSlogan {
+            get {
+                return ResourceManager.GetString("InstallPadSlogan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://www.installpad.com.
+        /// </summary>
+        internal static string InstallPadUrl {
+            get {
+                return ResourceManager.GetString("InstallPadUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 0.4.
+        /// </summary>
+        internal static string InstallPadVersion {
+            get {
+                return ResourceManager.GetString("InstallPadVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid namespace..
+        /// </summary>
+        internal static string InvalidNamespace {
+            get {
+                return ResourceManager.GetString("InvalidNamespace", resourceCulture);
             }
         }
         
@@ -111,6 +453,96 @@ namespace InstallPad.Properties {
             get {
                 object obj = ResourceManager.GetObject("logoBorder", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        internal static string Name {
+            get {
+                return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Options.
+        /// </summary>
+        internal static string Options {
+            get {
+                return ResourceManager.GetString("Options", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password.
+        /// </summary>
+        internal static string Password {
+            get {
+                return ResourceManager.GetString("Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PostInstallScript.
+        /// </summary>
+        internal static string PostInstallScript {
+            get {
+                return ResourceManager.GetString("PostInstallScript", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Proxy.
+        /// </summary>
+        internal static string Proxy {
+            get {
+                return ResourceManager.GetString("Proxy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SilentInstall.
+        /// </summary>
+        internal static string SilentInstall {
+            get {
+                return ResourceManager.GetString("SilentInstall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SimultaneousDownloads.
+        /// </summary>
+        internal static string SimultaneousDownloads {
+            get {
+                return ResourceManager.GetString("SimultaneousDownloads", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error creating temporary folder for downloaded files: .
+        /// </summary>
+        internal static string TempFileCreateError {
+            get {
+                return ResourceManager.GetString("TempFileCreateError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to We were unable to find the full path of either your temp folder or your program files folder. This might be due to some bad environment variables..
+        /// </summary>
+        internal static string TempFileNotFound {
+            get {
+                return ResourceManager.GetString("TempFileNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username.
+        /// </summary>
+        internal static string Username {
+            get {
+                return ResourceManager.GetString("Username", resourceCulture);
             }
         }
         

@@ -16,6 +16,8 @@ using System.Xml;
 
 using Microsoft.Win32;
 
+using InstallPad.Properties;
+
 namespace InstallPad
 {
     /// <summary>
@@ -126,6 +128,12 @@ namespace InstallPad
             get { return detectedVersion; }
         }
 
+        string uninstallString = string.Empty;
+        public string UnInstallString
+        {
+            get { return uninstallString; }
+        }
+
         public bool DetectVersion()
         {
             RegistryKey UninstallKey = Registry.LocalMachine;
@@ -141,18 +149,19 @@ namespace InstallPad
 
                     try
                     {
-                        string displayname = pkg.GetValue("DisplayName").ToString();
+                        string displayname = pkg.GetValue(Resources.DisplayName).ToString();
 
                         if (displayname.Contains(name) || name.Contains(displayname))
                         {
                             try
                             {
-                                detectedVersion = "v"+pkg.GetValue("DisplayVersion").ToString();
+                                detectedVersion = pkg.GetValue(Resources.DisplayVersion).ToString();
+                                uninstallString = pkg.GetValue("UninstallString").ToString();
                                 return true;
                             }
                             catch
                             {
-                                detectedVersion = "found but not found";
+                                detectedVersion = Resources.AppVersionNotFound;
                             }
                         }
                     }
@@ -355,7 +364,7 @@ namespace InstallPad
                 switch (reader.NodeType)
                 {
                     case XmlNodeType.Element:
-                        if (reader.Name == "Name")
+                        if (reader.Name == Resources.Name)
                         {
                             if (reader.IsEmptyElement == false)
                             {
@@ -363,7 +372,7 @@ namespace InstallPad
                                 reader.ReadEndElement();
                             }
                         }
-                        else if (reader.Name == "FileUrl")
+                        else if (reader.Name == Resources.FileUrl)
                         {
                             if (reader.IsEmptyElement == false)
                             {
@@ -371,7 +380,7 @@ namespace InstallPad
                                 reader.ReadEndElement();
                             }
                         }
-                        else if (reader.Name == "Comment")
+                        else if (reader.Name == Resources.Comment)
                         {
                             if (reader.IsEmptyElement == false)
                             {
@@ -379,7 +388,7 @@ namespace InstallPad
                                 reader.ReadEndElement();
                             }
                         }
-                        else if (reader.Name == "Options")
+                        else if (reader.Name == Resources.Options)
                         {
                             item.Options = ApplicationItemOptions.FromXml(reader);
                             item.XmlErrors.AddRange(item.options.XmlErrors);
@@ -387,11 +396,11 @@ namespace InstallPad
                         else
                         {
                             item.XmlErrors.Add(
-                                String.Format("Unrecognized element in an application: \"{0}\"", reader.Name));
+                                String.Format("{0}: \"{1}\"", Resources.AppListUnknownElement, reader.Name));
                         }
                         break;
                     case XmlNodeType.EndElement:
-                        if (reader.Name == "Application")
+                        if (reader.Name == Resources.Application)
                         {
                             item.DetectVersion();
                             return item;
@@ -405,13 +414,13 @@ namespace InstallPad
 
         public void WriteXml(XmlWriter writer)
         {
-            writer.WriteStartElement("Application");
-            writer.WriteElementString("Name", this.Name);
-			writer.WriteElementString("FileUrl", this.DownloadUrl);
+            writer.WriteStartElement(Resources.Application);
+            writer.WriteElementString(Resources.Name, this.Name);
+			writer.WriteElementString(Resources.FileUrl, this.DownloadUrl);
             
             if (this.Comment != null && this.Comment.Length > 0)
             {
-                writer.WriteElementString("Comment", this.Comment);
+                writer.WriteElementString(Resources.Comment, this.Comment);
             }
 
             this.Options.WriteXml(writer);

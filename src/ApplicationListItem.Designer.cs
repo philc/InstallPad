@@ -66,7 +66,7 @@ namespace InstallPad
             this.installLink.AutoSize = true;
             this.installLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.installLink.LinkColor = System.Drawing.Color.MediumBlue;
-            this.installLink.Location = new System.Drawing.Point(351, 28);
+            this.installLink.Location = new System.Drawing.Point(351, 26);
             this.installLink.Name = "installLink";
             this.installLink.Size = new System.Drawing.Size(42, 16);
             this.installLink.TabIndex = 2;

@@ -13,6 +13,8 @@ using System;
 using System.Xml;
 using System.Collections.Generic;
 
+using InstallPad.Properties;
+
 namespace InstallPad
 {
     public class InstallationOptions : Persistable
@@ -74,18 +76,18 @@ namespace InstallPad
                 switch (reader.NodeType)
                 {
                     case XmlNodeType.Element:
-                        if (reader.Name == "InstallInOrder")
+                        if (reader.Name == Resources.InstallInOrder)
                             options.InstallInOrder = true;
-                        else if (reader.Name == "Proxy")
+                        else if (reader.Name == Resources.Proxy)
                         {
                             options.ProxyOptions = ProxyOptions.FromXml(reader);
                             options.XmlErrors.AddRange(options.ProxyOptions.XmlErrors);
                         }
-                        else if (reader.Name == "SilentInstall")
+                        else if (reader.Name == Resources.SilentInstall)
                         {
                             options.SilentInstall = true;
                         }
-                        else if (reader.Name == "SimultaneousDownloads")
+                        else if (reader.Name == Resources.SimultaneousDownloads)
                         {
                             if (reader.IsEmptyElement == false)
                             {
@@ -93,7 +95,7 @@ namespace InstallPad
                                 reader.ReadEndElement();
                             }
                         }
-                        else if (reader.Name == "InstallationRoot")
+                        else if (reader.Name == Resources.InstallationRoot)
                         {
                             if (reader.IsEmptyElement == false)
                             {
@@ -101,7 +103,7 @@ namespace InstallPad
                                 reader.ReadEndElement();
                             }
                         }
-                        else if (reader.Name == "AlternateDownloadLocation")
+                        else if (reader.Name == Resources.AlternateDownloadLocation)
                         {
                             if (reader.IsEmptyElement == false)
                             {
@@ -111,12 +113,12 @@ namespace InstallPad
                         }
                         else
                             options.XmlErrors.Add(
-                                String.Format("Unrecognized installation option: \"{0}\"", reader.Name));
+                                String.Format("{0}: \"{1}\"", Resources.AppListXmlUnknown, reader.Name));
                         break;
 
                     case XmlNodeType.EndElement:
                         // Only stop reading when we've hit the end of the InstallationOptions element
-                        if (reader.Name == "InstallationOptions")
+                        if (reader.Name == Resources.InstallationOptions)
                             return options;
                         break;
                 }
@@ -126,19 +128,19 @@ namespace InstallPad
         }
         public void WriteXml(XmlWriter writer)
         {
-            writer.WriteStartElement("InstallationOptions");
+            writer.WriteStartElement(Resources.InstallationOptions);
             if (this.InstallInOrder)
-                writer.WriteElementString("InstallInOrder", "");
+                writer.WriteElementString(Resources.InstallInOrder, "");
             if (this.SilentInstall)
-                writer.WriteElementString("SilentInstall", "");
+                writer.WriteElementString(Resources.SilentInstall, "");
             if (this.proxyOptions != null)
                 this.proxyOptions.WriteXml(writer);
             if (this.installationRoot != string.Empty)
-                writer.WriteElementString("InstallationRoot", this.InstallationRoot);
+                writer.WriteElementString(Resources.InstallationRoot, this.InstallationRoot);
             if (this.alternateDownloadLocation != string.Empty)
-                writer.WriteElementString("AlternateDownloadLocation", this.AlternateDownloadLocation);
+                writer.WriteElementString(Resources.AlternateDownloadLocation, this.AlternateDownloadLocation);
 
-            writer.WriteElementString("SimultaneousDownloads", this.SimultaneousDownloads.ToString());
+            writer.WriteElementString(Resources.SimultaneousDownloads, this.SimultaneousDownloads.ToString());
 
             writer.WriteEndElement();
         }

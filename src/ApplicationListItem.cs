@@ -41,7 +41,7 @@ namespace InstallPad
 
         // When we run an installer, this is a handle to its process.
         Process installProcess;
-
+        Process uninstallProcess;
 
         #region Properties
         /// <summary>
@@ -61,6 +61,12 @@ namespace InstallPad
                 application = value;
                 this.labelName.Text = this.application.Name;
                 this.labelVersion.Text = this.application.DetectedVersion;
+                if (this.labelVersion.Text.Length > 0 && this.labelVersion.Text != "-")
+                {
+                    this.installLink.Text = "UnInstall";
+                    this.state = InstallState.Installed;
+                    MoveControlToTheLeftOf(this.installLink, this.Right);
+                }
                 this.toolTipComment.SetToolTip(this, this.application.Comment);
             }
         }
@@ -133,11 +139,25 @@ namespace InstallPad
             {
                 switch (state)
                 {
+                    case InstallState.UnInstalled:
+                        this.progressBar.Hide();
+                        this.labelProgress.Hide();
+                        this.labelStatus.Text = "UnInstall finished";
+                        MoveControlToTheLeftOf(labelStatus, this.Right);
+                        SetInstalLinkText("Install");
+                        break;
                     case InstallState.None:
                         this.progressBar.Hide();
                         this.labelProgress.Hide();
 
-                        SetInstalLinkText("Install");
+                        if (this.ApplicationItem.DetectedVersion.Length > 0)
+                        {
+                            SetInstalLinkText("UnInstall");
+                        }
+                        else
+                        {
+                            SetInstalLinkText("Install");
+                        }
                         break;
                     case InstallState.Downloading:
                         // Hide any previous errors we might have had
@@ -175,8 +195,9 @@ namespace InstallPad
                     case InstallState.Installed:
                         this.labelStatus.Text = "Install finished";
                         MoveControlToTheLeftOf(labelStatus, this.Right);
-
-                        SetInstalLinkText("Install");
+                        this.ApplicationItem.DetectVersion();
+                        
+                        SetInstalLinkText("UnInstall");
                         break;
                 }
             }));
@@ -184,7 +205,7 @@ namespace InstallPad
 
         private void installLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if (this.state == InstallState.None)
+            if (this.state == InstallState.None || this.state == InstallState.UnInstalled)
             {
                 // Begin the download
                 Download(true);
@@ -195,10 +216,9 @@ namespace InstallPad
                 this.downloader.Cancel();
                 SetState(InstallState.None);
             }
-            else if (this.state == InstallState.Downloaded || this.state==InstallState.Installed)
+            else if (this.state == InstallState.Downloaded)
             {
-                // Begin installation. OK to install again when it's already "installed," because
-                // you can get to that state even if you accidentally quit an installer
+                // Begin installation. 
                 InstallApplication();
             }
             else if (this.state == InstallState.Installing)
@@ -218,6 +238,11 @@ namespace InstallPad
                     }
                 }
                 SetState(InstallState.Downloaded);
+            }
+            else if (this.state == InstallState.Installed)
+            {
+                // Begin un-installation. 
+                UnInstallApplication();
             }
         }
         

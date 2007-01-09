@@ -16,6 +16,8 @@ using System.Xml;
 using System.Diagnostics;
 using System.ComponentModel;
 
+using InstallPad.Properties;
+
 namespace InstallPad
 {
     class ApplicationList : Persistable
@@ -107,7 +109,7 @@ namespace InstallPad
         public void SaveToFile()
         {
             if (this.FileName == null)
-                throw new ArgumentException("Can't save an application list without a filename.");
+                throw new ArgumentException(Resources.AppListMissingFilename);
 
             //get original file contents
             System.IO.StreamReader originalReader = null;
@@ -169,20 +171,20 @@ namespace InstallPad
             {
                 if (reader.NodeType == XmlNodeType.Element)
                 {
-                    if (reader.Name.Equals("Application") && !reader.IsEmptyElement)
+                    if (reader.Name.Equals(Resources.Application) && !reader.IsEmptyElement)
                     {
                         ApplicationItem ai = ApplicationItem.FromXml(reader);
                         list.XmlErrors.AddRange(ai.XmlErrors);
                         list.applicationItems.Add(ai);
                     }
-                    else if (reader.Name.Equals("InstallationOptions") && !reader.IsEmptyElement)
+                    else if (reader.Name.Equals(Resources.InstallationOptions) && !reader.IsEmptyElement)
                     {
                         list.installationOptions = InstallationOptions.FromXml(reader);
                         list.XmlErrors.AddRange(list.installationOptions.XmlErrors);
                     }
                     else
                     {
-                        list.XmlErrors.Add(String.Format("Unrecognized element: \"{0}\"", reader.Name));
+                        list.XmlErrors.Add(String.Format("{0}: \"{1}\"", Resources.AppListXmlUnknown, reader.Name));
                     }
                 }
             }
@@ -190,7 +192,7 @@ namespace InstallPad
         }
         private void WriteXml(XmlWriter writer)
         {
-            writer.WriteStartElement("ApplicationList");
+            writer.WriteStartElement(Resources.ApplicationList);
             this.InstallationOptions.WriteXml(writer);
             foreach (ApplicationItem item in this.ApplicationItems)
                 item.WriteXml(writer);

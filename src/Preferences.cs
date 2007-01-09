@@ -17,6 +17,8 @@ using System.Configuration;
 using System.IO;
 using System.Reflection;
 
+using InstallPad.Properties;
+
 namespace InstallPad
 {
     partial class InstallPadApp
@@ -36,7 +38,7 @@ namespace InstallPad
                 if (File.Exists(InstallPadApp.AppConfigFilePath) == false)
                 {
                     // TODO: should throw a dialog if user can't write the file to disk (rare...)
-                    ExtractToFile(InstallPadApp.ApplicationDataPath, "InstallPad", ".config");
+                    ExtractToFile(InstallPadApp.ApplicationDataPath, Resources.InstallPad, ".config");
                 }
 
                 // Build default list of preferences
@@ -55,13 +57,12 @@ namespace InstallPad
                 Dictionary<string, string> defaults = new Dictionary<string, string>();
                 try
                 {
-                    defaults.Add("DownloadTo", Path.GetFullPath(
+                    defaults.Add(Resources.DownloadTo, Path.GetFullPath(
                         Path.Combine(Environment.GetEnvironmentVariable("TEMP"), @"InstallPad\")));
-                    defaults.Add("InstallationRoot", Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles));
+                    defaults.Add(Resources.InstallationRoot, Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles));
                 }
                 catch (Exception e) { 
-                    throw new Exception("We were unable to find the full path of either your temp folder " + 
-                        "or your program files folder. This might be due to some bad environment variables.",e);
+                    throw new Exception(Resources.TempFileNotFound, e);
                 }
                 return defaults;
             }
@@ -82,9 +83,9 @@ namespace InstallPad
             {
                 get
                 {
-                    return GetAppSetting("AlternateDownloadLocation");
+                    return GetAppSetting(Resources.AlternateDownloadLocation);
                 }
-                set { SetAppSetting("AlternateDownloadLocation", value); }
+                set { SetAppSetting(Resources.AlternateDownloadLocation, value); }
             }
 
             /// <summary>
@@ -94,9 +95,9 @@ namespace InstallPad
             {
                 get
                 {
-                    return GetAppSetting("InstallationRoot");
+                    return GetAppSetting(Resources.InstallationRoot);
                 }
-                set { SetAppSetting("InstallationRoot", value); }
+                set { SetAppSetting(Resources.InstallationRoot, value); }
             }
 
             /// <summary>
@@ -106,9 +107,9 @@ namespace InstallPad
             {
                 get
                 {
-                    return GetAppSetting("DownloadTo");
+                    return GetAppSetting(Resources.DownloadTo);
                 }
-                set { SetAppSetting("DownloadTo", value); }
+                set { SetAppSetting(Resources.DownloadTo, value); }
             }
 
             /// <summary>
@@ -118,9 +119,9 @@ namespace InstallPad
             {
                 get
                 {
-                    return GetAppSetting("AppListFile");
+                    return GetAppSetting(Resources.AppListFile);
                 }
-                set { SetAppSetting("AppListFile", value); }
+                set { SetAppSetting(Resources.AppListFile, value); }
             }
             #endregion
 
@@ -200,7 +201,7 @@ namespace InstallPad
                         int nsLoc = s.IndexOf(Namespace) + Namespace.Length + 1;
 
                         // Ensure namespace is present within resource name.
-                        if (nsLoc < 0) throw new FileNotFoundException("Invalid namespace.");
+                        if (nsLoc < 0) throw new FileNotFoundException(Resources.InvalidNamespace);
 
                         string filename = System.IO.Path.Combine(Path, s.Substring(nsLoc));
 

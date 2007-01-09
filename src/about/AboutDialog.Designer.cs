@@ -36,6 +36,7 @@ namespace CodeProject.AboutDialog
             this.copyrightLabel = new System.Windows.Forms.Label();
             this.nameAndVersion = new System.Windows.Forms.Label();
             this.descriptionLabel = new System.Windows.Forms.Label();
+            this.feedbackButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -127,11 +128,24 @@ namespace CodeProject.AboutDialog
             this.descriptionLabel.TabIndex = 8;
             this.descriptionLabel.Text = "Description for your program";
             // 
+            // feedbackButton
+            // 
+            this.feedbackButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.feedbackButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.feedbackButton.Location = new System.Drawing.Point(152, 202);
+            this.feedbackButton.Name = "feedbackButton";
+            this.feedbackButton.Size = new System.Drawing.Size(98, 25);
+            this.feedbackButton.TabIndex = 9;
+            this.feedbackButton.Text = "&Feedback";
+            this.feedbackButton.UseVisualStyleBackColor = true;
+            this.feedbackButton.Click += new System.EventHandler(this.feedbackButton_Click);
+            // 
             // AboutDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(325, 232);
+            this.Controls.Add(this.feedbackButton);
             this.Controls.Add(this.descriptionLabel);
             this.Controls.Add(this.nameAndVersion);
             this.Controls.Add(this.copyrightLabel);
@@ -166,5 +180,6 @@ namespace CodeProject.AboutDialog
         private System.Windows.Forms.Label copyrightLabel;
         private System.Windows.Forms.Label nameAndVersion;
         private System.Windows.Forms.Label descriptionLabel;
+        private System.Windows.Forms.Button feedbackButton;
     }
 }

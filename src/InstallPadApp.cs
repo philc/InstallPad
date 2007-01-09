@@ -15,6 +15,8 @@ using System.IO;
 using System.Text;
 using System.Reflection;
 
+using InstallPad.Properties;
+
 namespace InstallPad
 {
     /// <summary>
@@ -52,7 +54,7 @@ namespace InstallPad
         {
             get
             {
-                return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"InstallPad");
+                return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), Resources.InstallPad);
             }
         }
 
@@ -63,7 +65,7 @@ namespace InstallPad
         {
             get
             {
-                return System.IO.Path.Combine(ApplicationDataPath, @"ui.xml");
+                return System.IO.Path.Combine(ApplicationDataPath, "ui.xml");
             }
         }
 
@@ -74,7 +76,7 @@ namespace InstallPad
         {
             get
             {
-                return System.IO.Path.Combine(ApplicationDataPath, @"InstallPad.exe.config");
+                return System.IO.Path.Combine(ApplicationDataPath, "InstallPad.exe.config");
             }
         }
 

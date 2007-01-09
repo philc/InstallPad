@@ -13,6 +13,8 @@ using System;
 using System.Xml;
 using System.Collections.Generic;
 
+using InstallPad.Properties;
+
 namespace InstallPad
 {
     public class ApplicationItemOptions : Persistable
@@ -31,15 +33,15 @@ namespace InstallPad
                 switch (reader.NodeType)
                 {
                     case XmlNodeType.Element:
-                        if (reader.Name == "DownloadLatestVersion")
+                        if (reader.Name == Resources.DownloadLatestVersion)
                         {
                             options.DownloadLatestVersion = true;
                         }
-                        else if (reader.Name == "SilentInstall")
+                        else if (reader.Name == Resources.SilentInstall)
                         {
                             options.SilentInstall = true;
                         }
-                        else if (reader.Name == "PostInstallScript")
+                        else if (reader.Name == Resources.PostInstallScript)
                         {
                             if (reader.IsEmptyElement == false)
                             {
@@ -47,7 +49,7 @@ namespace InstallPad
                                 reader.ReadEndElement();
                             }
                         }
-                        else if (reader.Name == "InstallationRoot")
+                        else if (reader.Name == Resources.InstallationRoot)
                         {
                             if (reader.IsEmptyElement == false)
                             {
@@ -55,7 +57,7 @@ namespace InstallPad
                                 reader.ReadEndElement();
                             }
                         }
-                        else if (reader.Name == "AlternateFileUrl")
+                        else if (reader.Name == Resources.AlternateFileUrl)
                         {
                             if (reader.IsEmptyElement == false)
                             {
@@ -63,7 +65,7 @@ namespace InstallPad
                                 reader.ReadEndElement();
                             }
                         }
-                        else if (reader.Name == "InstallerArguments")
+                        else if (reader.Name == Resources.InstallerArguments)
                         {
                             if (reader.IsEmptyElement == false)
                             {
@@ -71,7 +73,7 @@ namespace InstallPad
                                 reader.ReadEndElement();
                             }
                         }
-                        else if (reader.Name == "Checked")
+                        else if (reader.Name == Resources.Checked)
                         {
                             bool value = true;
                             try
@@ -84,12 +86,12 @@ namespace InstallPad
                             options.Checked = value;
                         }
                         else
-                            options.XmlErrors.Add(String.Format("Unrecognized application option: \"{0}\"", reader.Name));
+                            options.XmlErrors.Add(String.Format("{0}: \"{1}\"", Resources.AppListXmlUnknown, reader.Name));
 
                         break;
                     case XmlNodeType.EndElement:
                         // Only stop reading when we've hit the end of the Options element
-                        if (reader.Name == "Options")
+                        if (reader.Name == Resources.Options)
                             return options;
                         break;
                 }
@@ -104,25 +106,25 @@ namespace InstallPad
                 this.SilentInstall || this.DownloadLatestVersion || !this.Checked)
             {
 
-                writer.WriteStartElement("Options");
+                writer.WriteStartElement(Resources.Options);
                 if (this.DownloadLatestVersion)
-                    writer.WriteElementString("DownloadLatestVersion", "");
+                    writer.WriteElementString(Resources.DownloadLatestVersion, "");
                 if (this.SilentInstall)
-                    writer.WriteElementString("SilentInstall", "");
+                    writer.WriteElementString(Resources.SilentInstall, "");
 
                 if (InstallerArguments != null && InstallerArguments.Length > 0)
-                    writer.WriteElementString("InstallerArguments", this.InstallerArguments);
+                    writer.WriteElementString(Resources.InstallerArguments, this.InstallerArguments);
                 if (PostInstallScript != null && PostInstallScript.Length > 0)
-                    writer.WriteElementString("PostInstallScript", this.PostInstallScript);
+                    writer.WriteElementString(Resources.PostInstallScript, this.PostInstallScript);
                 if (InstallationRoot.Length > 0)
-                    writer.WriteElementString("InstallationRoot", this.InstallationRoot);
+                    writer.WriteElementString(Resources.InstallationRoot, this.InstallationRoot);
                 foreach (string s in AlternateFileUrls)
                 {
                     if (s.Length > 0)
-                        writer.WriteElementString("AlternateFileUrl", s);
+                        writer.WriteElementString(Resources.AlternateFileUrl, s);
                 }
                 if (Checked == false)
-                    writer.WriteElementString("Checked", "false");
+                    writer.WriteElementString(Resources.Checked, Resources.BooleanFalse);
 
                 writer.WriteEndElement();
             }

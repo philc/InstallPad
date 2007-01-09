@@ -150,7 +150,7 @@ namespace InstallPad
                 return;
             }
             // Should be externalized
-            string errorMessage = "Error creating temporary folder for downloaded files: ";
+            string errorMessage = Resources.TempFileCreateError;
 
             // Try and create the temp folder that we'll be downloading to.
             // If we aren't successful, maybe log a warning            
@@ -164,14 +164,14 @@ namespace InstallPad
                 {
                     //Debug.WriteLine("Error creating install folder: " + ex);
                     MessageBox.Show(this, errorMessage + InstallPadApp.Preferences.DownloadTo,
-                        "Error creating install folder", MessageBoxButtons.OK,
+                        Resources.InstallFolderCreateError, MessageBoxButtons.OK,
                         MessageBoxIcon.Error);
                     // Should log this TODO
                 }
                 catch (NotSupportedException)
                 {
                     MessageBox.Show(this, errorMessage + InstallPadApp.Preferences.DownloadTo,
-                        "Error creating install folder", MessageBoxButtons.OK,
+                        Resources.Errorcreatinginstallfolder, MessageBoxButtons.OK,
                         MessageBoxIcon.Error);
                 }
             }
@@ -200,7 +200,7 @@ namespace InstallPad
             {
                 ApplicationListItem item = (ApplicationListItem)controlList.HighlightedEntry;
                 ApplicationDialog dialog = new ApplicationDialog(item.ApplicationItem);
-                dialog.Title = "Edit Application";
+                dialog.Title = Resources.EditApplication;
                 dialog.ShowDialog(this);
 
                 if (dialog.Saved)
@@ -283,8 +283,8 @@ namespace InstallPad
                     item.State == ApplicationListItem.InstallState.Installing)
                 {
                     MessageBox.Show(this,
-                        "Can't open a new application list while an program is downloading or installing.",
-                        "Can't open new application list", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        Resources.AppLockedShort,
+                        Resources.AppLocked, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
             }
@@ -320,14 +320,12 @@ namespace InstallPad
             }
             catch (FileNotFoundException)
             {
-                ShowErrorBox("Could not find an application file. Ensure that there is an " +
-                "applist.xml file in the same folder as InstallPad.exe", null);
+                ShowErrorBox(Resources.AppFileNotFound, null);
                 return;
             }
             catch (XmlException ex)
             {
-                ShowErrorBox("Error parsing the application file. The file contains invalid XML.",
-                    ex.Message);
+                ShowErrorBox(Resources.AppFileParseError, ex.Message);
                 return;
             }
 
@@ -385,6 +383,7 @@ namespace InstallPad
             ApplicationListItem listItem = new ApplicationListItem(item);
             listItem.FinishedDownloading += new EventHandler(HandleFinishedDownloading);
             listItem.FinishedInstalling += new EventHandler(HandleFinishedInstalling);
+            listItem.FinishedUnInstalling += new EventHandler(HandleFinishedUnInstalling);
             return listItem;
         }
         /// <summary>
@@ -468,6 +467,10 @@ namespace InstallPad
             currentlyInstalling--;
             if (this.installingAll)
                 InstallNext();
+        }
+
+        void HandleFinishedUnInstalling(object sender, EventArgs e)
+        {
         }
 
         void HandleFinishedDownloading(object sender, EventArgs e)
@@ -597,14 +600,14 @@ namespace InstallPad
         private void aboutLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             AboutDialog about = new AboutDialog();
-            about.ProjectName = "InstallPad";
-            about.ProjectUrl = "http://www.installpad.com";
-            about.WrittenBy = new string[] { "Phil Crosby (phil.crosby@gmail.com)", "Zac Ruiz (zac.ruiz@gmail.com)" };
-            about.Copyright = "2006 Phil Crosby";
-            about.Version = "0.4";
+            about.ProjectName = Resources.InstallPad;
+            about.ProjectUrl = Resources.InstallPadUrl;
+            about.WrittenBy = new string[] { Resources.InstallPadAuthor, Resources.InstallPadContrib1 };
+            about.Copyright = Resources.InstallPadCopyRight;
+            about.Version = Resources.InstallPadVersion;
             about.Image = global::InstallPad.Properties.Resources.about_logo;
             about.License = global::InstallPad.Properties.Resources.license;
-            about.Description = "Get programs faster";
+            about.Description = Resources.InstallPadSlogan;
             about.ShowDialog();
         }
     }

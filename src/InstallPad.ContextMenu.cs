@@ -93,6 +93,7 @@ namespace InstallPad
                     InstallPadApp.AppList.ApplicationItems.Insert(i,dialog.ApplicationItem);
                 else
                     InstallPadApp.AppList.ApplicationItems.Add(dialog.ApplicationItem);
+
                 SaveApplist();
             }
             

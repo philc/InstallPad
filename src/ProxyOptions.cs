@@ -13,6 +13,8 @@ using System;
 using System.Xml;
 using System.Collections.Generic;
 
+using InstallPad.Properties;
+
 namespace InstallPad
 {
     public class ProxyOptions : Persistable
@@ -73,7 +75,7 @@ namespace InstallPad
                 switch (reader.NodeType)
                 {
                     case XmlNodeType.Element:
-                        if (reader.Name == "Address")
+                        if (reader.Name == Resources.Address)
                         {
                             if (reader.IsEmptyElement == false)
                             {
@@ -81,7 +83,7 @@ namespace InstallPad
                                 reader.ReadEndElement();
                             }
                         }
-                        else if (reader.Name == "Username")
+                        else if (reader.Name == Resources.Username)
                         {
                             if (reader.IsEmptyElement == false)
                             {
@@ -89,7 +91,7 @@ namespace InstallPad
                                 reader.ReadEndElement();
                             }
                         }
-                        else if (reader.Name == "Password")
+                        else if (reader.Name == Resources.Password)
                         {
                             if (reader.IsEmptyElement == false)
                             {
@@ -99,12 +101,12 @@ namespace InstallPad
                         }
                         else
                             options.XmlErrors.Add(
-                                String.Format("Unrecognized proxy option: \"{0}\"", reader.Name));
+                                String.Format("{0}: \"{1}\"", Resources.BadProxyOption, reader.Name));
                         break;
 
                     case XmlNodeType.EndElement:
                         // Only stop reading when we've hit the end of the InstallationOptions element
-                        if (reader.Name == "Proxy")
+                        if (reader.Name == Resources.Proxy)
                             return options;
                         break;
                 }
@@ -114,13 +116,13 @@ namespace InstallPad
         }
         public void WriteXml(XmlWriter writer)
         {
-            writer.WriteStartElement("Proxy");
+            writer.WriteStartElement(Resources.Proxy);
             if (this.Address != null)
-                writer.WriteElementString("Address", this.Address);
+                writer.WriteElementString(Resources.Address, this.Address);
             if (this.Username != null)
-                writer.WriteElementString("Username", this.Username);
+                writer.WriteElementString(Resources.Username, this.Username);
             if (this.Password != null)
-                writer.WriteElementString("Password", this.Password);
+                writer.WriteElementString(Resources.Password, this.Password);
             writer.WriteEndElement();
         }
         #endregion
