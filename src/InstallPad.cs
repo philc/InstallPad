@@ -224,7 +224,7 @@ namespace InstallPad
         /// <param name="e"></param>
         void controlList_ListItemClicked(object sender, MouseEventArgs e)
         {
-            // TODO: I'm turning this off for now. When you left click on an
+            // TODO: I'm (philc) turning this off for now. When you left click on an
             // app item, the toggling is very slow - it can miss clicks
             // which is super annoying. Also, if you click on the label of an app item,
             // the click on that label is not registered as a click on the app
@@ -234,14 +234,15 @@ namespace InstallPad
             return;
 
             // Only interpret left clicks. Right clicks are for opening context menus
-            if (e.Button != MouseButtons.Left)
-                return;
-            ApplicationListItem item = (ApplicationListItem)sender;
-            item.Checked = !item.Checked;
 
-            // Highlight the item we clicked on
-            controlList.Unhighlight(controlList.HighlightedEntry);
-            controlList.Highlight((Control)sender);
+            //if (e.Button != MouseButtons.Left)
+            //    return;
+            //ApplicationListItem item = (ApplicationListItem)sender;
+            //item.Checked = !item.Checked;
+
+            //// Highlight the item we clicked on
+            //controlList.Unhighlight(controlList.HighlightedEntry);
+            //controlList.Highlight((Control)sender);
         }
         protected override void OnClick(EventArgs e)
         {

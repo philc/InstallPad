@@ -95,7 +95,7 @@
       <DependentUpon>AppListErrorDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="src\ControlList.cs">
-      <SubType>Component</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="src\ControlList.Designer.cs">
       <DependentUpon>ControlList.cs</DependentUpon>

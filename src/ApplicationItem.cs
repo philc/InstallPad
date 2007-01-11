@@ -134,6 +134,10 @@ namespace InstallPad
             get { return uninstallString; }
         }
 
+        /// <summary>
+        /// Detect the version that's already installed.
+        /// </summary>
+        /// <returns></returns>
         public bool DetectVersion()
         {
             RegistryKey UninstallKey = Registry.LocalMachine;
@@ -149,14 +153,23 @@ namespace InstallPad
 
                     try
                     {
-                        string displayname = pkg.GetValue(Resources.DisplayName).ToString();
+                        object pkgValue = pkg.GetValue(Resources.DisplayName);
+                        if (pkgValue == null)
+                            continue;
+                        string displayName=pkgValue.ToString();
 
-                        if (displayname.Contains(name) || name.Contains(displayname))
+                        if (displayName.Contains(name) || name.Contains(displayName))
                         {
                             try
                             {
-                                detectedVersion = pkg.GetValue(Resources.DisplayVersion).ToString();
-                                uninstallString = pkg.GetValue("UninstallString").ToString();
+                                object versionValue = pkg.GetValue(Resources.DisplayVersion);
+                                if (versionValue!=null)
+                                    detectedVersion = versionValue.ToString();
+
+                                object uninstallValue = pkg.GetValue("UninstallString").ToString();
+                                if (uninstallValue != null)
+                                    uninstallString = uninstallValue.ToString();
+
                                 return true;
                             }
                             catch
@@ -262,64 +275,7 @@ namespace InstallPad
             return s;
         }
 
-        private void ParseDownloadUrl2()
-        {
-            
-            List<int> intsEncountered = new List<int>();
-            List<int> indexOfInt = new List<int>();
-
-            // Search from right to left find integers separated by periods.
-            // We interpret this pattern as being the version.
-            for (int i = DownloadUrl.Length - 1; i > 0; i--)
-            {
-                // If we have a delimeter, search for an int after it
-                if (IsDelimeterCharacter(DownloadUrl[i]))
-                {
-                    int n = FindInteger(DownloadUrl, i - 1);
-                    if (n > -1)
-                    {
-                        //store in reverse order that we found them
-                        intsEncountered.Insert(0, n);
-
-                        // Digit can be two chars big
-                        int sizeOfInt = n < 10 ? 1 : 2;
-                        i = i - sizeOfInt;
-                        indexOfInt.Insert(0, i); 
-                        
-                    }
-                }
-                else
-                {
-                    // If we found a revision that's two lengths long, and now we're no
-                    // longer near a delimeter, go ahead and say we're done.
-                    if (intsEncountered.Count < 2)
-                    {
-                        // Otherwise, clear what we thought was a version number and keep searching
-                        intsEncountered.Clear();
-                        indexOfInt.Clear();
-                    }
-                    else
-                        // Found a version string with two or more elements. That's good enough. We're done.
-                        break;
-                }
-                if (intsEncountered.Count >= 4)
-                    // We're done. 4 is enough version parts.
-                    break;
-            }
-
-            this.parsedDownloadUrl = this.DownloadUrl;
-
-            // Replace all the integers we found with {0} etc.
-            // Go backwards so that when we start replacing characters with {0} etc., the stored indices don't get all jacked up.
-            for (int i = indexOfInt.Count - 1; i >= 0; i--)
-            {
-                this.parsedDownloadUrl = this.parsedDownloadUrl.Remove(indexOfInt[i], (intsEncountered[i] < 10 ? 1 : 2));
-                this.parsedDownloadUrl = this.parsedDownloadUrl.Insert(indexOfInt[i], "{" + i + "}");
-            }
-
-            // This is the original version we've picked up from our parsed url.
-            this.originalVersion = intsEncountered;
-        }
+   
 
         private bool IsDelimeterCharacter(char c)
         {
