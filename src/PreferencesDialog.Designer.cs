@@ -49,6 +49,7 @@ namespace InstallPad
             this.extractToButton = new System.Windows.Forms.Button();
             this.extractTo = new System.Windows.Forms.TextBox();
             this.extractToDialog = new System.Windows.Forms.FolderBrowserDialog();
+            this.resetButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // okButton
@@ -90,6 +91,7 @@ namespace InstallPad
             this.downloadTo.Name = "downloadTo";
             this.downloadTo.Size = new System.Drawing.Size(259, 20);
             this.downloadTo.TabIndex = 3;
+            this.downloadTo.TextChanged += new System.EventHandler(this.downloadTo_TextChanged);
             // 
             // downloadToButton
             // 
@@ -130,6 +132,17 @@ namespace InstallPad
             this.extractTo.Name = "extractTo";
             this.extractTo.Size = new System.Drawing.Size(259, 20);
             this.extractTo.TabIndex = 6;
+            this.extractTo.TextChanged += new System.EventHandler(this.extractTo_TextChanged);
+            // 
+            // resetButton
+            // 
+            this.resetButton.Location = new System.Drawing.Point(15, 127);
+            this.resetButton.Name = "resetButton";
+            this.resetButton.Size = new System.Drawing.Size(75, 23);
+            this.resetButton.TabIndex = 10;
+            this.resetButton.Text = "Reset";
+            this.resetButton.UseVisualStyleBackColor = true;
+            this.resetButton.Click += new System.EventHandler(this.resetButton_Click);
             // 
             // PreferencesDialog
             // 
@@ -138,6 +151,7 @@ namespace InstallPad
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelButton;
             this.ClientSize = new System.Drawing.Size(367, 162);
+            this.Controls.Add(this.resetButton);
             this.Controls.Add(this.extractToButton);
             this.Controls.Add(this.extractTo);
             this.Controls.Add(this.label2);
@@ -173,5 +187,6 @@ namespace InstallPad
         private System.Windows.Forms.Button extractToButton;
         private System.Windows.Forms.TextBox extractTo;
         private System.Windows.Forms.FolderBrowserDialog extractToDialog;
+        private System.Windows.Forms.Button resetButton;
     }
 }

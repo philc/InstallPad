@@ -77,6 +77,14 @@ namespace InstallPad
             }
 
             /// <summary>
+            /// The loaded application default settings
+            /// </summary>
+            public static Dictionary<string, string> Defaults
+            {
+                get { return defaults; }
+            }
+
+            /// <summary>
             /// Preferred location to search for alternate downloads.
             /// </summary>
             public static string AlternateDownloadLocation

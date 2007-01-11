@@ -17,12 +17,16 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
+using InstallPad.Properties;
+
 namespace InstallPad
 {
     public partial class PreferencesDialog : Form
     {
         // Could bind the controls to a preference value... meh.
         // http://msdn2.microsoft.com/en-us/library/system.windows.forms.binding.aspx
+
+        private Dictionary<string, string> defaults = null;
 
         public PreferencesDialog()
         {
@@ -44,7 +48,9 @@ namespace InstallPad
 
         private void PreferencesDialog_Load(object sender, EventArgs e)
         {
-            
+            //populate defaults to avoid regenerating them each time they are referenced.
+            defaults = InstallPadApp.Preferences.Defaults;
+
             this.downloadTo.Text = InstallPadApp.Preferences.DownloadTo;
             this.extractTo.Text = InstallPadApp.Preferences.InstallationRoot;
         }
@@ -73,6 +79,30 @@ namespace InstallPad
         {
             this.DialogResult = DialogResult.OK;
             this.Close();
+        }
+
+        private void resetButton_Click(object sender, EventArgs e)
+        {
+            extractTo.Text = InstallPadApp.Preferences.Defaults[Resources.InstallationRoot];
+            downloadTo.Text = InstallPadApp.Preferences.Defaults[Resources.DownloadTo];
+        }
+
+        public override void Refresh()
+        {
+            base.Refresh();
+
+            resetButton.Enabled = (extractTo.Text != defaults[Resources.InstallationRoot]) ||
+                                  (downloadTo.Text != defaults[Resources.DownloadTo]);
+        }
+
+        private void extractTo_TextChanged(object sender, EventArgs e)
+        {
+            Refresh();
+        }
+
+        private void downloadTo_TextChanged(object sender, EventArgs e)
+        {
+            Refresh();
         }
     }
 }

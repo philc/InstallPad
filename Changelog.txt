@@ -1,3 +1,4 @@
+- Added reset button to applications preferences dialog. (Craig Reynolds)
 - Add feedback dialog.
 - Refactor 80% of strings to resources.
 - Prototype uninstall functionality.
