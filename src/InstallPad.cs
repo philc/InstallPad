@@ -595,6 +595,7 @@ namespace InstallPad
 
         private void preferencesLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
+            preferencesDialog.Defaults = InstallPadApp.Preferences.Defaults;
             preferencesDialog.ShowDialog();
         }
 

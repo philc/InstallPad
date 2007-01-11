@@ -28,6 +28,12 @@ namespace InstallPad
 
         private Dictionary<string, string> defaults = null;
 
+        public Dictionary<string, string> Defaults
+        {
+            get { return defaults; }
+            set { defaults = value; }
+        }
+
         public PreferencesDialog()
         {
             InitializeComponent();
@@ -48,9 +54,6 @@ namespace InstallPad
 
         private void PreferencesDialog_Load(object sender, EventArgs e)
         {
-            //populate defaults to avoid regenerating them each time they are referenced.
-            defaults = InstallPadApp.Preferences.Defaults;
-
             this.downloadTo.Text = InstallPadApp.Preferences.DownloadTo;
             this.extractTo.Text = InstallPadApp.Preferences.InstallationRoot;
         }
@@ -83,8 +86,8 @@ namespace InstallPad
 
         private void resetButton_Click(object sender, EventArgs e)
         {
-            extractTo.Text = InstallPadApp.Preferences.Defaults[Resources.InstallationRoot];
-            downloadTo.Text = InstallPadApp.Preferences.Defaults[Resources.DownloadTo];
+            extractTo.Text = Defaults[Resources.InstallationRoot];
+            downloadTo.Text = Defaults[Resources.DownloadTo];
         }
 
         public override void Refresh()
