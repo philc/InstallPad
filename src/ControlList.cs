@@ -11,12 +11,13 @@
 
 using System;
 using System.Diagnostics;
-using System.Collections;
+//using System.Collections;
 using System.ComponentModel;
 using System.Drawing;
 using System.Data;
 using System.Text;
 using System.Windows.Forms;
+using System.Collections.Generic;
 
 namespace InstallPad
 {
@@ -73,6 +74,7 @@ namespace InstallPad
 
         public event MouseEventHandler  ListItemClicked;
         public event MouseEventHandler ListItemDoubleClicked;
+
         public ControlList()
         {
             InitializeComponent();
@@ -237,10 +239,11 @@ namespace InstallPad
         /// Add many controls at once. Improves drawing performance slightly.
         /// </summary>
         /// <param name="controls"></param>
-        public void AddAll(IEnumerable controls)
+        public void AddAll(List<Control> controls)
         {
+            
             foreach (Control control in controls)
-            {
+            {                
                 FormatAndAddControl(control);
             }
             foreach (RowStyle style in this.tableLayout.RowStyles)
@@ -334,6 +337,7 @@ namespace InstallPad
             UpdateTableHeight();
         }
 
+        #region Highlighting, coloring
         /// <summary>
         /// Alternates colors of entries between gray and transparent.
         /// </summary>
@@ -371,6 +375,7 @@ namespace InstallPad
             AlternateColorsOfEntries();
             highlightedEntry = null;
         }
+        #endregion
 
         #region Properties
         public Control HighlightedEntry

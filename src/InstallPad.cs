@@ -348,13 +348,13 @@ namespace InstallPad
                 //this.errorPanel.Show();
                 SetErrorPanelVisibility(true);
             }
-            List<ApplicationListItem> toAdd = new List<ApplicationListItem>();
+            List<Control> toAdd = new List<Control>();
             foreach (ApplicationItem item in appList.ApplicationItems)
             {
                 ApplicationListItem listItem = CreateApplicationListItem(item);
                 toAdd.Add(listItem);
             }
-
+            
             // Add the controls all at once.
             this.controlList.AddAll(toAdd);
         }
