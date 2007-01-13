@@ -183,6 +183,9 @@
     </Compile>
     <Compile Include="src\ProxyOptions.cs" />
     <Compile Include="src\RemoteVersionChecker.cs" />
+    <Compile Include="src\ui\ImageButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="src\Zip.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -220,7 +223,11 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="data\images\close.png" />
+    <None Include="data\images\closePressed.png" />
+    <None Include="data\images\closeOver.png" />
     <Content Include="icon.ico" />
+    <None Include="Resources\close.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -137,11 +137,15 @@ namespace InstallPad
         /// <summary>
         /// Detect the version that's already installed.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Whether the version was successfully retrieved from the registry</returns>
         public bool DetectVersion()
         {
             RegistryKey UninstallKey = Registry.LocalMachine;
             UninstallKey = UninstallKey.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall", true);
+
+            // If this app doesn't have a name, we can't find it in the registry..
+            if (name == null || name == "")
+                return false;
 
             try
             {

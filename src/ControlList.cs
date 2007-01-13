@@ -89,6 +89,7 @@ namespace InstallPad
 
         private void ControlList_Load(object sender, EventArgs e)
         {
+            
             // Build a scrollable control and add a table layout to it.
             this.tableLayout = new TableLayoutPanel();
 
@@ -102,12 +103,6 @@ namespace InstallPad
             this.Controls.Add(scrollPanel);
             this.scrollPanel.Controls.Add(this.tableLayout);
 
-            this.tableLayout.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top)
-            | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            // Don't anchor to the bottom; if you do, the table control will be too big and won't scroll right.
-            //| System.Windows.Forms.AnchorStyles.Bottom));
-
             this.tableLayout.ColumnCount = 1;
             this.tableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayout.Location = new System.Drawing.Point(0, 0);
@@ -116,8 +111,20 @@ namespace InstallPad
             this.tableLayout.RowCount = 1;
             this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 149F));
             this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 149F));
+
             this.tableLayout.Size = scrollPanel.Size;
+
+            this.tableLayout.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top)
+                | System.Windows.Forms.AnchorStyles.Left)
+                | System.Windows.Forms.AnchorStyles.Right)));
+            // Don't anchor to the bottom; if you do, the table control will be too big and won't scroll right.
+            //| System.Windows.Forms.AnchorStyles.Bottom));
+
             this.tableLayout.TabIndex = 2;
+
+            Console.WriteLine(this.Width);
+            Console.WriteLine(this.scrollPanel.Width);
+            Console.WriteLine(this.tableLayout.Width);
 
             foreach (RowStyle style in this.tableLayout.RowStyles)
                 style.SizeType = SizeType.Absolute;
@@ -241,7 +248,6 @@ namespace InstallPad
         /// <param name="controls"></param>
         public void AddAll(List<Control> controls)
         {
-            
             foreach (Control control in controls)
             {                
                 FormatAndAddControl(control);

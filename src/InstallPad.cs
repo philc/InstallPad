@@ -22,6 +22,7 @@ using CodeProject.Downloader;
 using CodeProject.AboutDialog;
 using System.IO;
 using InstallPad.Properties;
+using InstallPad.UI;
 namespace InstallPad
 {
     /// <summary>
@@ -51,9 +52,12 @@ namespace InstallPad
 
         PreferencesDialog preferencesDialog;
 
+        private Panel controlListPanel = null;
+
         public InstallPad()
         {
             InitializeComponent();
+            this.controlListPanel = splitContainer.Panel1;
         }
 
         /// <summary>
@@ -114,6 +118,7 @@ namespace InstallPad
 
         private void InstallPad_Load(object sender, EventArgs e)
         {
+            
             preferencesDialog = new PreferencesDialog();
             this.logoBox.Click += new EventHandler(logoBox_Click);
             this.errorLink.Click += new EventHandler(errorLink_Click);
@@ -122,8 +127,8 @@ namespace InstallPad
             this.controlList = new ControlList();
             this.controlList.ListItemClicked += new MouseEventHandler(controlList_ListItemClicked);
             this.controlList.ListItemDoubleClicked += new MouseEventHandler(controlList_ListItemDoubleClicked);
-            controlList.Width = this.controlListPanel.Width;
-            controlList.Height = this.controlListPanel.Height;
+            
+            controlList.Size = this.controlListPanel.Size;
             this.controlListPanel.Controls.Add(controlList);
 
             controlList.Anchor = AnchorStyles.Right | AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Bottom;
@@ -182,9 +187,31 @@ namespace InstallPad
             appListErrorBox.Visible = false;
             appListErrorBox.openLink.Click += new EventHandler(openLink_Click);
 
+            BuildSearchBox();
+
+
             // Load the application list. If not successful (file not found),
             // all controls will be disabled.
             LoadApplicationList(InstallPadApp.AppListFile);
+        }
+
+    
+
+        void BuildSearchBox()
+        {
+            // Add a close button to the search box; only visible when it's "open"
+            ImageButton button = new ImageButton();
+            button.Parent = this.searchPanel;
+            button.Location=new Point(this.searchPanel.Width-21,8);
+            button.Anchor = AnchorStyles.Right | AnchorStyles.Top;
+
+            button.BackgroundImage = global::InstallPad.Properties.Resources.close;
+            button.OverImage = global::InstallPad.Properties.Resources.closeOver;
+            button.PressedImage = global::InstallPad.Properties.Resources.closePressed;
+            button.Visible = false;
+
+            this.searchPanel.Controls.Add(button);
+            
         }
 
         void controlList_ListItemDoubleClicked(object sender, MouseEventArgs e)
@@ -365,12 +392,15 @@ namespace InstallPad
             if (visible)
             {
                 this.errorPanel.Show();
-                this.controlList.Height = controlList.Height - (this.controlList.Bottom - errorPanel.Top);
+                //this.controlListPanel.Height = errorPanel.Top - this.logoBox.Bottom;
+                this.controlList.Height = controlListPanel.Height-this.errorPanel.Height;
             }
             else
             {
                 //this.controlList.Bottom = errorPanel.Bottom;
-                this.controlList.Height = controlList.Height - (this.controlList.Bottom - errorPanel.Bottom);
+                //this.controlList.Height = controlList.Height - (this.controlList.Bottom - errorPanel.Bottom);
+                //this.controlListPanel.Height = this.errorPanel.Bottom - this.logoBox.Bottom; //controlList.Height - (this.controlList.Bottom - errorPanel.Bottom);
+                this.controlList.Height = controlListPanel.Height;// -this.errorPanel.Height;
                 this.errorPanel.Hide();
             }
         }

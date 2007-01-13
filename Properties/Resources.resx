@@ -644,4 +644,52 @@ The terms "reproduce," "reproduction" and "distribution" have the same meaning h
   <data name="BadProxyOption" xml:space="preserve">
     <value>Unrecognized proxy option</value>
   </data>
+  <data name="close" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAlwSFlzAAALEwAA
+        CxMBAJqcGAAAAl5JREFUOE+NkN1L02EcxR+lmyiKoL+iv6EoQSTUNjXFNF8aW8M0ab5VzgudGrbAl7CI
+        3WSvVGIXUWGZ2txuaqE53+Ys/SmKilPbUnK4rdNzHi2Cbhp8d3bO+Ry23+LenMo4ceDwwdvxh/Ydwd49
+        YueFXf1b4pSJ24qK7Y3t+cX4/XXCnZ0zHmy24cfzOwj2dWCt/y6+ux5g0/0QG7tHvyrzb7JXXLMt5jxb
+        OC9cmdlYr6vGyvVaDLXY4Gqrx7TDjrWOFqzea0XgfitmpHfebMCg7MmR504407KwVFUGrbYG3s4nGOzt
+        wYC9EX5rBRZrr8JfU6k8c/bkyHMn+nWZmLeUYrmxHptDg4hFIpj65EG39QqGS8xK6ZmzX260KZ470Zea
+        gbmSYiyUW7Byqx3hqSlEwmFooyN40VCnlJ75Sns7FsosiudO9KakQysyY/biBcxdkr+grQVhbQaxaBTB
+        QEApPXP25MhzJ94lp2PGfB6zxUXQ5E3IovtaA0KrAfBFpWfOnhx57kTPST2+GI0q8JqMeFVZAW3Eq74x
+        GgoppWfOnhx57sRb+eY7Z8CYyYT3NVb4PR71jFtfp7HkcCilZ86eHHnuRHeSHiN5hfBayjHncu/8qz4f
+        ZpvsmDTKx5FKz5w9OfLciddJOgzlFMB/2Yr1ATeCHz3Qmm5g3GDCWL5BKT1z9uTIcydeJup+fsjKw3Ch
+        CRNV1Zgoq4K3wIjPuQV/jp45e3Lk5Q6iKyFtuCf5TMypy4VT/x8nOclHuhL0PvEovzTnaeLphWdHU9B5
+        TN5v3f3M/J87rp98nG5I/QUoEWHM6/6wWgAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="closeOver" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAlwSFlzAAALEwAA
+        CxMBAJqcGAAAAgdJREFUOE+NkE1PE1EUhi8mxIVu9F+48Be4aGDjJ6EGpNoW0E7S6Qe1gLAYwwhUgjEk
+        RiIlGhNdoDVRcCsmRo1ujSBtTIUNGmLTqLXQSKQzndd5r50hrupNTs495zzPyc1teqAm2w/v27m3d3/z
+        QasZotHZYzSJ6i+jsGQe0ERODRTM+Rng7Rys5UcyasuZ+j3j3p0eOfIfor2bIq/4gLsTwONbyKZ1ZC71
+        wFq0ly3eBp6lYT1P23kWDweDWJkZkRx5eiLffRqYGgZuaHjxdAHFjQ1kEgowrbnBmn3OcdPu2zw9kfd7
+        YV0bgHV9ECiXwENwIRrEz/GYzKzlsefkyNMTH8+2wRxPoDaRhDk76S74vLaK+4kwmB2Rc/Oqzdk8PZHz
+        2fJoBFaqDwZj+gqsb4W/Qv2wZp/zWioueXoi13UKVV2FZT/RGIujMhLB/FD8H5k1+5ybYzHJ0xPZMyex
+        fTkMQ49gR4/hiXJu96n1FXw6+5xX9ajk6YmVzhOoDCnY1sKYUwLu59SKX/H7zhSYnU/knBx5emLJexw/
+        +npQ7r+wK5a+o5IaxtZASOaaXTsLNvtDkqcn3rcfQzHajdLFXgkQ3JrUUE6ed4O1s4AceXriXdtRfAn5
+        UFD9stkoCmpA8vTEm9bW9WyHF6v+DqwFuxrGJ38nyNMTLz1HDr3ytKy/9rTgf4M8vT/A3XpekMbFTAAA
+        AABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="closePressed" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAlwSFlzAAALEwAA
+        CxMBAJqcGAAAAfVJREFUOE+NkdtLVFEYxXeX/0F6l/6M3gR11Ey8oXOhGeschxmbaZS84ZgiIeYlEfKh
+        h6AyiGbwwaDn8qGXLKbRBoIIvI3OxSbxEs7s1V7HOSfNB/tg8Z1vfb+12exz4UWgu/FK7OP0xUK+RPxn
+        yUuXt9KlV1vFu5qa7PrIPZmKTCAdmUQ6qsT+r4o+OfKLVbYfItZah/V2O5JaCz4012GurBwZv/OM6HNP
+        jjxzYul6Oba8DmT9LryPLCC1toFXTjdygZuWONPnnhx55sSn2gpkfE7kgm7InQxYBOftLmx4XUbnzOKe
+        HHnmRKy+ErudHux1a9gfD1sHrH37jjm9A+xmkHty5JkTXxps2O+5jcM+HQdKh2O9kNubRsAszvSNvRJ5
+        5kS8sQq/+zXkwzqOBnTs9d7Cm2DoVJgzfe7JkWdOxJuqDSM/6MNR2IcFt8e6qnkCr06fe3LkmRMrzSp8
+        34/8cAeibZr1OEglUXj6SL1e0npE7smRZ04kWmohHwQgR+/+DeaykLNDygsaHWo2/wI58syJhOMG8LAL
+        mOw5vuWvn8CzKWBKzaY402eRUzxzIuFpAp6MANEZ4O2s0uNi5/dJFX1yimdOrLQ7vhZez0gsPof8/PJc
+        kSO/rNlXxbx+51o8pG8mBtQjDPvOFblYpzcdCfXZ/gAKmYl1lexrIwAAAABJRU5ErkJggg==
+</value>
+  </data>
 </root>
