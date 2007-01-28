@@ -1,3 +1,4 @@
+- Application item check status can now be toggled by clicking the title of the application in the list. Also refactored 'Checked' to be 'CheckedByDefault'.  (Craig Reynolds)
 - Added reset button to applications preferences dialog. (Craig Reynolds)
 - Add feedback dialog.
 - Refactor 80% of strings to resources.

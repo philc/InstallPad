@@ -592,6 +592,7 @@ The terms "reproduce," "reproduction" and "distribution" have the same meaning h
   </data>
   <data name="Checked" xml:space="preserve">
     <value>Checked</value>
+    <comment>Legacy. Replaced by CheckedByDefault</comment>
   </data>
   <data name="AppListXmlUnknown" xml:space="preserve">
     <value>Unrecognized application option</value>
@@ -691,5 +692,8 @@ The terms "reproduce," "reproduction" and "distribution" have the same meaning h
         mOw5vuWvn8CzKWBKzaY402eRUzxzIuFpAp6MANEZ4O2s0uNi5/dJFX1yimdOrLQ7vhZez0gsPof8/PJc
         kSO/rNlXxbx+51o8pG8mBtQjDPvOFblYpzcdCfXZ/gAKmYl1lexrIwAAAABJRU5ErkJggg==
 </value>
+  </data>
+  <data name="CheckedByDefault" xml:space="preserve">
+    <value>CheckedByDefault</value>
   </data>
 </root>

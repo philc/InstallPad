@@ -43,7 +43,7 @@ namespace InstallPad
             this.SilentInstall = item.Options.SilentInstall;
             this.InstallerArguments = item.Options.InstallerArguments;
             this.Comment = item.Comment;
-            this.Checked = item.Options.Checked ;
+            this.CheckedByDefault = item.Options.CheckedByDefault;
             this.InstallationRoot = item.Options.InstallationRoot;
 
             // if no app specific installation root, default to applist.installationroot.
@@ -156,7 +156,7 @@ namespace InstallPad
                 this.appCommentBox.Text = value;
             }
         }
-        public bool Checked
+        public bool CheckedByDefault
         {
             get
             {
@@ -247,7 +247,7 @@ namespace InstallPad
             item.Options.DownloadLatestVersion = this.DownloadLatestVersion;
             item.Options.SilentInstall = this.SilentInstall;
             item.Options.InstallerArguments = this.InstallerArguments;
-            item.Options.Checked = this.Checked;
+            item.Options.CheckedByDefault = this.CheckedByDefault;
 
             item.DetectVersion();
 

@@ -74,6 +74,18 @@ namespace InstallPad
                             }
                         }
                         else if (reader.Name == Resources.Checked)
+                        {//Legacy. Replaced by CheckedByDefault
+                            bool value = true;
+                            try
+                            {
+                                value = bool.Parse(reader.ReadString());
+                            }
+                            catch (Exception)
+                            {
+                            }
+                            options.CheckedByDefault = value;
+                        }
+                        else if (reader.Name == Resources.CheckedByDefault)
                         {
                             bool value = true;
                             try
@@ -83,7 +95,7 @@ namespace InstallPad
                             catch (Exception)
                             {
                             }
-                            options.Checked = value;
+                            options.CheckedByDefault = value;
                         }
                         else
                             options.XmlErrors.Add(String.Format("{0}: \"{1}\"", Resources.AppListXmlUnknown, reader.Name));
@@ -103,7 +115,7 @@ namespace InstallPad
             // Only write if there is an option set. This could be more elegant.
             if ((InstallerArguments != null && InstallerArguments.Length > 0) ||
                 (PostInstallScript != null && PostInstallScript.Length > 0) ||
-                this.SilentInstall || this.DownloadLatestVersion || !this.Checked)
+                this.SilentInstall || this.DownloadLatestVersion || !this.CheckedByDefault)
             {
 
                 writer.WriteStartElement(Resources.Options);
@@ -123,8 +135,8 @@ namespace InstallPad
                     if (s.Length > 0)
                         writer.WriteElementString(Resources.AlternateFileUrl, s);
                 }
-                if (Checked == false)
-                    writer.WriteElementString(Resources.Checked, Resources.BooleanFalse);
+                if (CheckedByDefault == false)
+                    writer.WriteElementString(Resources.CheckedByDefault, Resources.BooleanFalse);
 
                 writer.WriteEndElement();
             }
@@ -136,7 +148,7 @@ namespace InstallPad
         /// </summary>
         private bool checkEnabled = true;
 
-        public bool Checked
+        public bool CheckedByDefault
         {
             get { return checkEnabled; }
             set { checkEnabled = value; }

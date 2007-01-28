@@ -220,6 +220,15 @@ namespace InstallPad.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to CheckedByDefault.
+        /// </summary>
+        internal static string CheckedByDefault {
+            get {
+                return ResourceManager.GetString("CheckedByDefault", resourceCulture);
+            }
+        }
+        
         internal static System.Drawing.Bitmap close {
             get {
                 object obj = ResourceManager.GetObject("close", resourceCulture);

@@ -72,6 +72,8 @@ namespace InstallPad
         }
         #endregion
 
+        public event ToggleEventHandler Toggled;
+
         #region Construction
         // This should never get called, it's just for the designer
         private ApplicationListItem()
@@ -98,9 +100,8 @@ namespace InstallPad
             downloader.ProgressChanged += new DownloadProgressHandler(downloader_ProgressChanged);
             downloader.DownloadComplete += new EventHandler(downloader_DownloadComplete);
 
-            this.Checked = this.ApplicationItem.Options.Checked;
-
-            // this.labelName.MouseClick += new MouseEventHandler(ClickHandler);
+            this.Checked = this.ApplicationItem.Options.CheckedByDefault;
+            this.labelName.MouseClick += new MouseEventHandler(labelName_MouseClick);
         }
 
         /// <summary>
@@ -132,6 +133,14 @@ namespace InstallPad
         }
         #endregion
 
+        void labelName_MouseClick(object sender, MouseEventArgs e)
+        {
+            checkboxEnabled.Checked = !checkboxEnabled.Checked;
+
+            if (Toggled != null)
+              Toggled(this, new ToggleEventArgs(this.checkboxEnabled.Checked));
+        }
+        
         private void SetState(InstallState state)
         {
             this.state = state;
@@ -328,4 +337,25 @@ namespace InstallPad
             return (bytes < 1000) ? 0 : bytes / 1000;
         }
     }
+
+    /// <summary>
+    /// Provides event arguments for the Toggled event on an ApplicationListItem
+    /// </summary>
+    public class ToggleEventArgs : EventArgs
+    {
+        private bool active;
+
+        public ToggleEventArgs(bool active)
+        {
+            this.active = active;
+        }
+
+        public bool Active
+        {
+            get { return active; }
+            set { active = value; }
+        }
+    }
+
+    public delegate void ToggleEventHandler(Object sender, ToggleEventArgs e);
 }
