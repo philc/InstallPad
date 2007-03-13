@@ -7,10 +7,13 @@
   <Application>
     <Name>Azureus</Name>
     <FileUrl>http://easynews.dl.sourceforge.net/sourceforge/azureus/Azureus_2.5.0.0_Win32.setup.exe</FileUrl>
+	<HomePageUrl>http://azureus.sourceforge.net/</HomePageUrl>
   </Application>
+	
   <Application>
-    <Name>FireFox</Name>
-    <FileUrl>http://download.mozilla.org/?product=firefox-1.5.0.7&amp;os=win&amp;lang=en-US</FileUrl>
+	  <Name>FireFox</Name>
+	  <FileUrl>http://download.mozilla.org/?product=firefox-2.0.0.2&os=osx&lang=en-US</FileUrl>
+	  <HomePageUrl>http://www.mozilla.com/en-US/firefox/</HomePageUrl>
     <Options>
       <DownloadLatestVersion />
     </Options>
@@ -19,6 +22,7 @@
   <Application>
     <Name>Gaim</Name>
     <FileUrl>http://superb-west.dl.sourceforge.net/sourceforge/gaim/gaim-1.5.0.exe</FileUrl>
+	<HomePageUrl>http://gaim.sourceforge.net/</HomePageUrl>
     <Options>
       <DownloadLatestVersion/>
     </Options>
@@ -27,36 +31,55 @@
   <Application>
     <Name>Inkscape</Name>
     <FileUrl>http://umn.dl.sourceforge.net/sourceforge/inkscape/Inkscape-0.44-1.win32.exe</FileUrl>
+	<HomePageUrl>http://www.inkscape.org/</HomePageUrl>
   </Application>
 
   <Application>
     <Name>Open Office</Name>
     <FileUrl>http://mirrors.ibiblio.org/pub/mirrors/openoffice/stable/2.0.4/OOo_2.0.4_Win32Intel_install_wJRE.exe</FileUrl>
+	<HomePageUrl>http://www.openoffice.org/</HomePageUrl>
   </Application>
   
   <Application>
     <Name>Synergy</Name>
     <FileUrl>http://superb-west.dl.sourceforge.net/sourceforge/synergy2/SynergyInstaller-1.3.1.exe</FileUrl>
+	<HomePageUrl>http://synergy2.sourceforge.net/</HomePageUrl>
 	<Options>
 		<DownloadLatestVersion/>
 	</Options>
   </Application>
+
+   <Application>
+    <Name>Thunderbird</Name>
+    <FileUrl>http://download.mozilla.org/?product=thunderbird-1.5.0.10</FileUrl>
+	<HomePageUrl>http://www.mozilla.com/en-US/thunderbird/</HomePageUrl>
+  </Application>
+  
   <Application>
     <Name>Tortoise SVN</Name>
     <FileUrl>
       http://superb-east.dl.sourceforge.net/sourceforge/tortoisesvn/TortoiseSVN-1.4.0.7501-win32-svn-1.4.0.msi
     </FileUrl>
   </Application>
+
   <Application>
     <Name>WinSCP</Name>
     <FileUrl>http://easynews.dl.sourceforge.net/sourceforge/winscp/winscp381setup.exe</FileUrl>
+	<HomePageUrl>http://winscp.net/</HomePageUrl>
   </Application>
+	
   <Application>
     <Name>XviD</Name>
     <FileUrl>http://www.koepi.org/XviD-1.1.0-30122005.exe</FileUrl>
+	<HomePageUrl>http://www.xvid.org/</HomePageUrl>
     <Comment>A video codec</Comment>
     <Options>
       <InstallerArguments>/verysilent</InstallerArguments>
     </Options>
   </Application>
+	
+	  
+
+		
+ 
 </ApplicationList>

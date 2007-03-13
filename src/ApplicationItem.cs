@@ -1,5 +1,5 @@
 //
-// Author: Phil Crosby
+// Authors: Phil Crosby, Jim McKeeth
 //
 
 // Copyright (C) 2006 Phil Crosby
@@ -114,7 +114,25 @@ namespace InstallPad
                     ParseDownloadUrl();
             }
         }
-        string version=null;
+
+        string homePageUrl;
+
+        public string HomePageUrl
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(homePageUrl))
+                    return string.Empty;
+                else 
+                    return homePageUrl.Trim();
+            }
+            set
+            {
+                homePageUrl = value;
+            }
+        }
+
+        string version = null;
 
         public string Version
         {
@@ -345,6 +363,15 @@ namespace InstallPad
                             if (reader.IsEmptyElement == false)
                             {
                                 item.Comment = reader.ReadString();
+                                reader.ReadEndElement();
+                            }
+                        }
+                        // Get the HomePage URL and link Caption.
+                        else if (reader.Name == Resources.HomePageUrl)
+                        {
+                            if (reader.IsEmptyElement == false)
+                            {
+                                item.HomePageUrl = reader.ReadString();
                                 reader.ReadEndElement();
                             }
                         }

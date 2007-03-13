@@ -1,5 +1,5 @@
 //
-// Author: Phil Crosby
+// Authors: Phil Crosby, Jim McKeeth
 //
 
 // Copyright (C) 2006 Phil Crosby
@@ -61,6 +61,7 @@ namespace InstallPad
                 application = value;
                 this.labelName.Text = this.application.Name;
                 this.labelVersion.Text = this.application.DetectedVersion;
+
                 if (this.labelVersion.Text.Length > 0 && this.labelVersion.Text != "-")
                 {
                     this.installLink.Text = "UnInstall";
@@ -286,6 +287,11 @@ namespace InstallPad
                 this.labelProgress.Text = DownloadProgressString.ProgressString(e.CurrentFileSize, e.TotalFileSize);
                 MoveControlToTheLeftOf(labelProgress, this.progressBar.Left);
             }
+        }
+
+        private void OpenApplicationHomepage(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start(this.application.HomePageUrl);
         }
     }
 

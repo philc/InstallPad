@@ -260,6 +260,15 @@ namespace InstallPad.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Home Page . . ..
+        /// </summary>
+        internal static string DefaultHomePageCaption {
+            get {
+                return ResourceManager.GetString("DefaultHomePageCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to DisplayName.
         /// </summary>
         internal static string DisplayName {
@@ -337,6 +346,24 @@ namespace InstallPad.Properties {
         internal static string FileUrl {
             get {
                 return ResourceManager.GetString("FileUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Caption.
+        /// </summary>
+        internal static string HomePageCaption {
+            get {
+                return ResourceManager.GetString("HomePageCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HomePageUrl.
+        /// </summary>
+        internal static string HomePageUrl {
+            get {
+                return ResourceManager.GetString("HomePageUrl", resourceCulture);
             }
         }
         

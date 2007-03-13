@@ -696,4 +696,13 @@ The terms "reproduce," "reproduction" and "distribution" have the same meaning h
   <data name="CheckedByDefault" xml:space="preserve">
     <value>CheckedByDefault</value>
   </data>
+  <data name="DefaultHomePageCaption" xml:space="preserve">
+    <value>Home Page . . .</value>
+  </data>
+  <data name="HomePageCaption" xml:space="preserve">
+    <value>Caption</value>
+  </data>
+  <data name="HomePageUrl" xml:space="preserve">
+    <value>HomePageUrl</value>
+  </data>
 </root>
