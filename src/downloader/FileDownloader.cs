@@ -82,78 +82,87 @@ namespace CodeProject.Downloader
             DownloadData data = null;
             this.canceled = false;
 
-            try
+            if (!url.StartsWith("file://", StringComparison.CurrentCultureIgnoreCase))
             {
-                // get download details                
-                data = DownloadData.Create(url, destFolder, this.proxy);
-                // Find out the name of the file that the web server gave us.
-                string destFileName = Path.GetFileName(data.Response.ResponseUri.ToString());
 
-
-                // The place we're downloading to (not from) must not be a URI,
-                // because Path and File don't handle them...
-                destFolder = destFolder.Replace("file:///", "").Replace("file://", "");
-                this.downloadingTo = Path.Combine(destFolder, destFileName);
-
-                // Create the file on disk here, so even if we don't receive any data of the file
-                // it's still on disk. This allows us to download 0-byte files.
-                if (!File.Exists(downloadingTo))
+                try
                 {
-                    FileStream fs = File.Create(downloadingTo);
-                    fs.Close();
-                }
+                    // get download details                
+                    data = DownloadData.Create(url, destFolder, this.proxy);
+                    // Find out the name of the file that the web server gave us.
+                    string destFileName = Path.GetFileName(data.Response.ResponseUri.ToString());
 
-                // create the download buffer
-                byte[] buffer = new byte[downloadBlockSize];
 
-                int readCount;
+                    // The place we're downloading to (not from) must not be a URI,
+                    // because Path and File don't handle them...
+                    destFolder = destFolder.Replace("file:///", "").Replace("file://", "");
+                    this.downloadingTo = Path.Combine(destFolder, destFileName);
 
-                // update how many bytes have already been read
-                long totalDownloaded = data.StartPoint;
-
-                bool gotCanceled = false;
-
-                while ((int)(readCount = data.DownloadStream.Read(buffer, 0, downloadBlockSize)) > 0)
-                {
-                    // break on cancel
-                    if (canceled)
+                    // Create the file on disk here, so even if we don't receive any data of the file
+                    // it's still on disk. This allows us to download 0-byte files.
+                    if (!File.Exists(downloadingTo))
                     {
-                        gotCanceled = true;
-                        data.Close();
-                        break;
+                        FileStream fs = File.Create(downloadingTo);
+                        fs.Close();
                     }
 
-                    // update total bytes read
-                    totalDownloaded += readCount;
+                    // create the download buffer
+                    byte[] buffer = new byte[downloadBlockSize];
 
-                    // save block to end of file
-                    SaveToFile(buffer, readCount, this.downloadingTo);
+                    int readCount;
 
-                    // send progress info
-                    if (data.IsProgressKnown)
-                        RaiseProgressChanged(totalDownloaded, data.FileSize);
+                    // update how many bytes have already been read
+                    long totalDownloaded = data.StartPoint;
 
-                    // break on cancel
-                    if (canceled)
+                    bool gotCanceled = false;
+
+                    while ((int)(readCount = data.DownloadStream.Read(buffer, 0, downloadBlockSize)) > 0)
                     {
-                        gotCanceled = true;
-                        data.Close();
-                        break;
-                    }
-                }
+                        // break on cancel
+                        if (canceled)
+                        {
+                            gotCanceled = true;
+                            data.Close();
+                            break;
+                        }
 
-                if (!gotCanceled)
-                    OnDownloadComplete();
+                        // update total bytes read
+                        totalDownloaded += readCount;
+
+                        // save block to end of file
+                        SaveToFile(buffer, readCount, this.downloadingTo);
+
+                        // send progress info
+                        if (data.IsProgressKnown)
+                            RaiseProgressChanged(totalDownloaded, data.FileSize);
+
+                        // break on cancel
+                        if (canceled)
+                        {
+                            gotCanceled = true;
+                            data.Close();
+                            break;
+                        }
+                    }
+
+                    if (!gotCanceled)
+                        OnDownloadComplete();
+                }
+                catch (UriFormatException e)
+                {
+                    throw new ArgumentException(
+                        String.Format("Could not parse the URL \"{0}\" - it's either malformed or is an unknown protocol.", url), e);
+                }
+                finally
+                {
+                    if (data != null)
+                        data.Close();
+                }
             }
-            catch (UriFormatException e)
+            else
             {
-                throw new ArgumentException(
-                    String.Format("Could not parse the URL \"{0}\" - it's either malformed or is an unknown protocol.", url), e);
-            }
-            finally
-            {
-                if (data != null)
-                    data.Close();
+                downloadingTo = url.Substring(7);
+                OnDownloadComplete();
             }
         }
 
