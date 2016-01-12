@@ -1,0 +1,66 @@
+<ApplicationList>
+  <InstallationOptions>
+    <SilentInstall />
+    <SimultaneousDownloads>3</SimultaneousDownloads>
+  </InstallationOptions>
+  <Application>
+  <Name>Toy Crush</Name>
+  <FileUrl>file://C:/Users/Maurits/Dropbox/weekofaw/Toy Crush Setup.exe</FileUrl>
+  <Comment>Not too bad of a game</Comment>
+  </Application>
+  <Application>
+    <Name>Adobe Reader</Name>
+    <FileUrl>http://ardownload.adobe.com/pub/adobe/reader/win/7x/7.0.8/enu/AdbeRdr708_en_US.exe</FileUrl>
+    <Comment>adobe reader mac</Comment>
+  </Application>
+  <Application>
+    <Name>Azureus</Name>
+    <FileUrl>http://easynews.dl.sourceforge.net/sourceforge/azureus/Azureus_2.5.0.0_Win32.setup.exe</FileUrl>
+  </Application>
+  <Application>
+    <Name>FireFox</Name>
+    <FileUrl>http://download.mozilla.org/?product=firefox-1.5.0.7&amp;os=win&amp;lang=en-US</FileUrl>
+    <Options>
+      <DownloadLatestVersion />
+    </Options>
+  </Application>
+  <Application>
+    <Name>Gaim</Name>
+    <FileUrl>http://superb-west.dl.sourceforge.net/sourceforge/gaim/gaim-1.5.0.exe</FileUrl>
+    <Options>
+      <DownloadLatestVersion />
+    </Options>
+  </Application>
+  <Application>
+    <Name>Google Desktop</Name>
+    <FileUrl>http://desktop.google.com/en/GoogleDesktopSetup.exe</FileUrl>
+  </Application>
+  <Application>
+    <Name>ICQ</Name>
+    <FileUrl>http://ftp.icq.com/pub/ICQ_Win95_98_NT4/ICQ_5/icq5_1_setup.exe</FileUrl>
+    <Options>
+      <Checked>false</Checked>
+    </Options>
+  </Application>
+  <Application>
+    <Name>iTunes 7</Name>
+    <FileUrl>http://appldnld.apple.com.edgesuite.net/content.info.apple.com/iTunes7/Win/061-2768.20060926.tnwN1/iTunesSetup.exe</FileUrl>
+  </Application>
+  <Application>
+    <Name>QuickTime 7</Name>
+    <FileUrl>http://appldnld.apple.com.edgesuite.net/qtinstall.info.apple.com/mcgonagail/us/win/QuickTimeInstaller.exe</FileUrl>
+  </Application>
+  <Application>
+    <Name>Picasa</Name>
+    <FileUrl>
+      http://dl.google.com/picasa/picasaweb-current-setup.exe
+    </FileUrl>
+    <Options>
+      <Checked>false</Checked>
+    </Options>
+  </Application>
+  <Application>
+    <Name>SpyBot</Name>
+    <FileUrl>http://users.belgacom.net/bn710461/spybotsd14.exe</FileUrl>
+  </Application>
+</ApplicationList>
