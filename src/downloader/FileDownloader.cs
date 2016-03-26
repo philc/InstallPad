@@ -84,12 +84,9 @@ namespace CodeProject.Downloader
 
             if (url.StartsWith("file://", StringComparison.CurrentCultureIgnoreCase))
             {
-                downloadingTo = url.Substring(7);
+                downloadingTo = Path.GetFullPath(url.Substring(7));
+                
                 OnDownloadComplete();
-            }
-            else if (url.StartsWith("firer://", StringComparison.CurrentCultureIgnoreCase))
-            {
-                downloadingTo=Path.Combine(Directory.GetCurrentDirectory(), url.Substring(8));
             }
             else
             {

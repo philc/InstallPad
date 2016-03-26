@@ -4,9 +4,13 @@
     <SimultaneousDownloads>3</SimultaneousDownloads>
   </InstallationOptions>
   <Application>
-  <Name>Toy Crush</Name>
-  <FileUrl>file://C:/Users/Maurits/Dropbox/weekofaw/Toy Crush Setup.exe</FileUrl>
-  <Comment>Not too bad of a game</Comment>
+	<Name>Toy Crush</Name>
+	<FileUrl>file://C:/Users/Maurits/Dropbox/weekofaw/Toy Crush Setup.exe</FileUrl>
+	<Comment>Not too bad of a game</Comment>
+  </Application>
+  <Application>
+	<Name>Gives error</Name>
+	<FileUrl>file://../Quest</FileUrl>
   </Application>
   <Application>
     <Name>Adobe Reader</Name>
