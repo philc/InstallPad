@@ -82,7 +82,16 @@ namespace CodeProject.Downloader
             DownloadData data = null;
             this.canceled = false;
 
-            if (!url.StartsWith("file://", StringComparison.CurrentCultureIgnoreCase))
+            if (url.StartsWith("file://", StringComparison.CurrentCultureIgnoreCase))
+            {
+                downloadingTo = url.Substring(7);
+                OnDownloadComplete();
+            }
+            else if (url.StartsWith("firer://", StringComparison.CurrentCultureIgnoreCase))
+            {
+                downloadingTo=Path.Combine(Directory.GetCurrentDirectory(), url.Substring(8));
+            }
+            else
             {
 
                 try
@@ -158,11 +167,6 @@ namespace CodeProject.Downloader
                     if (data != null)
                         data.Close();
                 }
-            }
-            else
-            {
-                downloadingTo = url.Substring(7);
-                OnDownloadComplete();
             }
         }
 
