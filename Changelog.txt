@@ -1,3 +1,5 @@
+-(Maurits van Riezen) Made file not copy when downloading from local, forced to change directory layout for new version of visual studio (sorry about that)
+
 - Added a HomePageUrl string to application items
 - Prototyping UI for searching the online db (philc)
 - Application item check status can now be toggled by clicking the title of the application in the list. Also refactored 'Checked' to be 'CheckedByDefault'.  (Craig Reynolds)

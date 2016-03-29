@@ -158,62 +158,69 @@ namespace InstallPad
         /// <returns>Whether the version was successfully retrieved from the registry</returns>
         public bool DetectVersion()
         {
-            RegistryKey UninstallKey = Registry.LocalMachine;
-            UninstallKey = UninstallKey.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall", true);
-
-            // If this app doesn't have a name, we can't find it in the registry..
-            if (name == null || name == "")
-                return false;
-
-            try
+            
+            unsafe
             {
-                // Iterate subkeys... each subkey is an installed package
-                foreach (string subkeyname in UninstallKey.GetSubKeyNames())
+                RegistryKey UninstallKey = Registry.LocalMachine;
+                UninstallKey = UninstallKey.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall", true);
+
+                // If this app doesn't have a name, we can't find it in the registry..
+                if (name == null || name == "")
+                    return false;
+
+                try
                 {
-                    RegistryKey pkg = Registry.LocalMachine;
-                    pkg = UninstallKey.OpenSubKey(subkeyname, true);
-
-                    try
+                    // Iterate subkeys... each subkey is an installed package
+                    foreach (string subkeyname in UninstallKey.GetSubKeyNames())
                     {
-                        object pkgValue = pkg.GetValue(Resources.DisplayName);
-                        if (pkgValue == null)
-                            continue;
-                        string displayName=pkgValue.ToString();
+                        RegistryKey pkg = Registry.LocalMachine;
+                        pkg = UninstallKey.OpenSubKey(subkeyname, true);
 
-                        if (displayName.Contains(name) || name.Contains(displayName))
+                        try
                         {
-                            try
-                            {
-                                object versionValue = pkg.GetValue(Resources.DisplayVersion);
-                                if (versionValue!=null)
-                                    detectedVersion = versionValue.ToString();
+                            object pkgValue = pkg.GetValue(Resources.DisplayName);
+                            if (pkgValue == null)
+                                continue;
+                            string displayName = pkgValue.ToString();
 
-                                object uninstallValue = pkg.GetValue("UninstallString").ToString();
-                                if (uninstallValue != null)
-                                    uninstallString = uninstallValue.ToString();
-
-                                return true;
-                            }
-                            catch
+                            if (displayName.Contains(name) || name.Contains(displayName))
                             {
-                                detectedVersion = Resources.AppVersionNotFound;
+                                try
+                                {
+                                    object versionValue = pkg.GetValue(Resources.DisplayVersion);
+                                    if (versionValue != null)
+                                        detectedVersion = versionValue.ToString();
+
+                                    object uninstallValue = pkg.GetValue("UninstallString").ToString();
+                                    if (uninstallValue != null)
+                                        uninstallString = uninstallValue.ToString();
+
+                                    return true;
+                                }
+                                catch
+                                {
+                                    detectedVersion = Resources.AppVersionNotFound;
+                                }
                             }
                         }
-                    }
-                    catch
-                    {
-                    }
-                    finally
-                    {
-                        pkg.Close();
+                        catch
+                        {
+                        }
+                        finally
+                        {
+                            pkg.Close();
+                        }
                     }
                 }
-            }
-            finally
-            {
-                UninstallKey.Close();
-            }
-            return false;
+                finally
+                {
+                    UninstallKey.Close();
+                }
+                return false;
+                }
+                
+            //return false;
+            
         }
 
         ApplicationItemOptions options = new ApplicationItemOptions();

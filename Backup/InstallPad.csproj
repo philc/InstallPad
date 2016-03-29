@@ -1,0 +1,240 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{068B9775-74A1-49D7-97F6-D3E0B7C6A1C8}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>InstallPad</RootNamespace>
+    <AssemblyName>InstallPad</AssemblyName>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
+    <TargetZone>LocalIntranet</TargetZone>
+    <GenerateManifests>false</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="src\about\FeedBackDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\about\FeedBackDialog.Designer.cs">
+      <DependentUpon>FeedBackDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="src\ApplicationItemOptions.cs" />
+    <Compile Include="src\InstallationOptions.cs" />
+    <Compile Include="src\Persistable.cs" />
+    <Compile Include="Settings.cs" />
+    <Compile Include="src\about\AboutDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\about\AboutDialog.Designer.cs">
+      <DependentUpon>AboutDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="src\about\CreditsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\about\CreditsDialog.Designer.cs">
+      <DependentUpon>CreditsDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="src\about\LicenseDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\about\LicenseDialog.Designer.cs">
+      <DependentUpon>LicenseDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="src\ApplicationDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\ApplicationDialog.Designer.cs">
+      <DependentUpon>ApplicationDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="src\ApplicationItem.cs" />
+    <Compile Include="src\ApplicationListItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="src\ApplicationListItem.Designer.cs">
+      <DependentUpon>ApplicationListItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="src\ApplicationList.cs" />
+    <Compile Include="src\ApplicationListItem.Installation.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="src\AppListErrorDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\AppListErrorDialog.Designer.cs">
+      <DependentUpon>AppListErrorDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="src\ControlList.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="src\ControlList.Designer.cs">
+      <DependentUpon>ControlList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="src\AppListErrorBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="src\AppListErrorBox.Designer.cs">
+      <DependentUpon>AppListErrorBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="src\downloader\FileDownloader.cs" />
+    <Compile Include="src\ErrorBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="src\ErrorBox.Designer.cs">
+      <DependentUpon>ErrorBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="src\InstallPad.ContextMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\InstallPad.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\InstallPad.Designer.cs">
+      <DependentUpon>InstallPad.cs</DependentUpon>
+    </Compile>
+    <Compile Include="src\InstallPadApp.cs" />
+    <Compile Include="src\Interop.cs" />
+    <Compile Include="src\Preferences.cs">
+    </Compile>
+    <Compile Include="src\PreferencesDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\PreferencesDialog.Designer.cs">
+      <DependentUpon>PreferencesDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="src\Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="src\ApplicationDialog.resx">
+      <DependentUpon>ApplicationDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\ApplicationListItem.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ApplicationListItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\AppListErrorDialog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>AppListErrorDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\ControlList.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ControlList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\AppListErrorBox.resx">
+      <DependentUpon>AppListErrorBox.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\ErrorBox.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ErrorBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\InstallPad.resx">
+      <DependentUpon>InstallPad.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="src\ProxyOptions.cs" />
+    <Compile Include="src\RemoteVersionChecker.cs" />
+    <Compile Include="src\ui\ImageButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="src\Zip.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="InstallPad.exe.config" />
+    <None Include="data\program logo.jpg" />
+    <None Include="data\program logo border.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="lib\ICSharpCode.SharpZipLib.dll" />
+    <EmbeddedResource Include="src\about\AboutDialog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>AboutDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\about\CreditsDialog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>CreditsDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\about\LicenseDialog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>LicenseDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\PreferencesDialog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>PreferencesDialog.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="license.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\images\about-logo.png" />
+    <EmbeddedResource Include="src\about\FeedBackDialog.resx">
+      <DependentUpon>FeedBackDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\images\close.png" />
+    <None Include="data\images\closePressed.png" />
+    <None Include="data\images\closeOver.png" />
+    <Content Include="icon.ico" />
+    <None Include="Resources\close.bmp" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
